@@ -1,0 +1,9 @@
+# entorno virtual
+venv/
+
+# variables sensibles
+.env
+
+# python
+__pycache__/
+*.pyc
