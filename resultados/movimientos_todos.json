@@ -1,0 +1,839 @@
+[
+  {
+    "fecha": "30/12/2025",
+    "descripcion": "ACREDITAMIENTO CANJE GALICIA",
+    "detalle": "33029498BOL36129801",
+    "debito": 0.0,
+    "credito": 1845300.0,
+    "saldo": 20686882.94,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "30/12/2025",
+    "descripcion": "IMP. CRE. LEY 25413",
+    "detalle": "",
+    "debito": 11071.8,
+    "credito": 0.0,
+    "saldo": 20675810.34,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "02/01/2026",
+    "descripcion": "TRF INMED PROVEED",
+    "detalle": "Priscilia Maria Dubi 27316943654",
+    "debito": 78000.0,
+    "credito": 0.0,
+    "saldo": 20597811.14,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "02/01/2026",
+    "descripcion": "PAGO CON TRANSFERENCIA ORANGEDATA S",
+    "detalle": "30712390316 31200019010001100016",
+    "debito": 25380.0,
+    "credito": 0.0,
+    "saldo": 20572431.14,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "02/01/2026",
+    "descripcion": "IMP. DEB. LEY 25413 GRAL.",
+    "detalle": "",
+    "debito": 620.28,
+    "credito": 0.0,
+    "saldo": 20571810.86,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "05/01/2026",
+    "descripcion": "COMISION EXTRACCION EN EFECTIVO",
+    "detalle": "",
+    "debito": 600.0,
+    "credito": 0.0,
+    "saldo": 20571810.86,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "05/01/2026",
+    "descripcion": "IVA",
+    "detalle": "",
+    "debito": 126.0,
+    "credito": 0.0,
+    "saldo": 20571810.86,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "05/01/2026",
+    "descripcion": "TRF INMED PROVEED",
+    "detalle": "Juan Timoteo Llovera 20287534672",
+    "debito": 21417.0,
+    "credito": 0.0,
+    "saldo": 20549693.86,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "05/01/2026",
+    "descripcion": "IMP. DEB. LEY 25413 GRAL.",
+    "detalle": "",
+    "debito": 132.86,
+    "credito": 0.0,
+    "saldo": 20549661.0,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "06/01/2026",
+    "descripcion": "TRF INMED PROVEED Cristian Javier Mora",
+    "detalle": "20230683477 VARIOS INDUSTRIAL AND COMME",
+    "debito": 606310.0,
+    "credito": 0.0,
+    "saldo": 19943224.0,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "06/01/2026",
+    "descripcion": "TRF INMED PROVEED Matias Damian Addari",
+    "detalle": "23310065889 VARIOS MERCADO LIBRE SRL",
+    "debito": 706310.0,
+    "credito": 0.0,
+    "saldo": 18236913.0,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "06/01/2026",
+    "descripcion": "TRF INMED PROVEED Ignacio Sergio Diaz",
+    "detalle": "20177573028 VARIOS INDUSTRIAL AND COMME",
+    "debito": 906310.0,
+    "credito": 0.0,
+    "saldo": 18330602.0,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "06/01/2026",
+    "descripcion": "TRF INMED PROVEED Ernesto Alfredo Gime",
+    "detalle": "27300865483 VARIOS INDUSTRIAL AND COMME",
+    "debito": 906310.0,
+    "credito": 0.0,
+    "saldo": 17424291.0,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "06/01/2026",
+    "descripcion": "TRF INMED PROVEED Iv n Nahuel Bernarde",
+    "detalle": "23361778979 VARIOS BANCO DE GALICIA Y B",
+    "debito": 906310.0,
+    "credito": 0.0,
+    "saldo": 16517980.0,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "06/01/2026",
+    "descripcion": "TRF INMED PROVEED Jorge Antonio Navarr",
+    "detalle": "20940442193 VARIOS INDUSTRIAL AND COMME",
+    "debito": 906310.0,
+    "credito": 0.0,
+    "saldo": 15611669.0,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "06/01/2026",
+    "descripcion": "TRF INMED PROVEED Pablo Adrian Almaraz",
+    "detalle": "20359398035 VARIOS INDUSTRIAL AND COMME",
+    "debito": 933266.0,
+    "credito": 0.0,
+    "saldo": 14678403.0,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "06/01/2026",
+    "descripcion": "TRF INMED PROVEED Francisco Ezequiel,a",
+    "detalle": "20044001692 VARIOS BANCO DE LA PROVINCI",
+    "debito": 400000.0,
+    "credito": 0.0,
+    "saldo": 14278403.0,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "06/01/2026",
+    "descripcion": "TRF INMED PROVEED Roberto Miguel Gaita",
+    "detalle": "20142892066 VARIOS INDUSTRIAL AND COMME",
+    "debito": 722452.0,
+    "credito": 0.0,
+    "saldo": 13555951.0,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "06/01/2026",
+    "descripcion": "TRF INMED PROVEED Leonardo Emmanuel De",
+    "detalle": "20383610479 VARIOS INDUSTRIAL AND COMME",
+    "debito": 873337.0,
+    "credito": 0.0,
+    "saldo": 12682614.0,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "06/01/2026",
+    "descripcion": "TRF INMED PROVEED Guillermo Aquiles Ba",
+    "detalle": "20315082375 VARIOS BANCO DE GALICIA Y B",
+    "debito": 873337.0,
+    "credito": 0.0,
+    "saldo": 11809277.0,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "06/01/2026",
+    "descripcion": "TRF INMED PROVEED Acevedo Jonatan Mati",
+    "detalle": "20338561734 VARIOS BANCO MACRO S.A.",
+    "debito": 873337.0,
+    "credito": 0.0,
+    "saldo": 10935940.0,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "06/01/2026",
+    "descripcion": "TRF INMED PROVEED Fernando Joel Marzul",
+    "detalle": "20426243750 VARIOS BRUBANK S.A.U.",
+    "debito": 873337.0,
+    "credito": 0.0,
+    "saldo": 10062603.0,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "06/01/2026",
+    "descripcion": "TRF INMED PROVEED Tamara Agustina Ozun",
+    "detalle": "27390608263 VARIOS BANCO DE GALICIA Y B",
+    "debito": 933266.0,
+    "credito": 0.0,
+    "saldo": 9129337.0,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "06/01/2026",
+    "descripcion": "IMP. DEB. LEY 25413 GRAL.",
+    "detalle": "",
+    "debito": 68521.19,
+    "credito": 0.0,
+    "saldo": 9060815.81,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "08/01/2026",
+    "descripcion": "PAGO DE SERVICIOS IMP.AFIP",
+    "detalle": "307189711401 589244000761485679 0001",
+    "debito": 4127233.71,
+    "credito": 0.0,
+    "saldo": 4933582.1,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "08/01/2026",
+    "descripcion": "TRANSFERENCIAS CASH PROVEEDORES CONS PALACIO DE",
+    "detalle": "30559342064 BANCO SANTANDER RIO",
+    "debito": 0.0,
+    "credito": 1.0,
+    "saldo": 4933583.1,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "08/01/2026",
+    "descripcion": "IMP. DEB. LEY 25413 GRAL.",
+    "detalle": "",
+    "debito": 24763.4,
+    "credito": 0.0,
+    "saldo": 4908819.7,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "08/01/2026",
+    "descripcion": "IMP. CRE. LEY 25413",
+    "detalle": "",
+    "debito": 0.01,
+    "credito": 0.01,
+    "saldo": 4908819.69,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "09/01/2026",
+    "descripcion": "TRF INMED PROVEED Francisco Ezequiel,a",
+    "detalle": "20044001692 VARIOS BANCO DE LA PROVINCI",
+    "debito": 400000.0,
+    "credito": 0.0,
+    "saldo": 4508419.69,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "09/01/2026",
+    "descripcion": "IMP. DEB. LEY 25413 GRAL.",
+    "detalle": "",
+    "debito": 2400.0,
+    "credito": 0.0,
+    "saldo": 4506419.69,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "12/01/2026",
+    "descripcion": "TRF INMED PROVEED Emilio Roberto Sara",
+    "detalle": "20120841050 VARIOS MERCADO LIBRE SRL",
+    "debito": 450000.0,
+    "credito": 0.0,
+    "saldo": 4056419.69,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "12/01/2026",
+    "descripcion": "SERVICIO ACREDITAMIENTO DE HABERES ACRED.HABERES",
+    "detalle": "",
+    "debito": 300000.0,
+    "credito": 0.0,
+    "saldo": 3756419.69,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "12/01/2026",
+    "descripcion": "IMP. DEB. LEY 25413 GRAL.",
+    "detalle": "",
+    "debito": 4500.0,
+    "credito": 0.0,
+    "saldo": 3751919.69,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "12/01/2026",
+    "descripcion": "ACREDITAMIENTO CANJE GALICIA",
+    "detalle": "33029499BOL37346611",
+    "debito": 111072.4,
+    "credito": 1845400.0,
+    "saldo": 5596319.69,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "12/01/2026",
+    "descripcion": "IMP. CRE. LEY 25413",
+    "detalle": "",
+    "debito": 111072.4,
+    "credito": 0.0,
+    "saldo": 5586247.29,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "14/01/2026",
+    "descripcion": "TRANSFERENCIAS CASH PROVEEDORES CONS PALACIO DE",
+    "detalle": "30559342064 BANCO SANTANDER RIO",
+    "debito": 0.0,
+    "credito": 4000000.0,
+    "saldo": 9586247.29,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "14/01/2026",
+    "descripcion": "TRF INMED PROVEED",
+    "detalle": "Benitez Daniel Anton 20118244428 VARIOS BANCO SANTANDER RIO",
+    "debito": 400000.0,
+    "credito": 0.0,
+    "saldo": 9186247.29,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "14/01/2026",
+    "descripcion": "IMP. DEB. LEY 25413 GRAL.",
+    "detalle": "",
+    "debito": 2400.0,
+    "credito": 0.0,
+    "saldo": 9183847.29,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "14/01/2026",
+    "descripcion": "IMP. CRE. LEY 25413",
+    "detalle": "",
+    "debito": 24000.0,
+    "credito": 0.0,
+    "saldo": 9159847.29,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "TRF INMED PROVEED",
+    "detalle": "Pedro Pablo Comas 20294488228 VARIOS MERCADO LIBRE SRL",
+    "debito": 150000.0,
+    "credito": 0.0,
+    "saldo": 9009847.29,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "TRF INMED PROVEED",
+    "detalle": "Matias Damian Addari 23310065889 VARIOS MERCADO LIBRE SRL",
+    "debito": 164524.0,
+    "credito": 0.0,
+    "saldo": 8845323.29,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "TRF INMED PROVEED",
+    "detalle": "CRISTIAN JAVIER MORA 20230683477 VARIOS INDUSTRIAL AND COMME",
+    "debito": 360488.0,
+    "credito": 0.0,
+    "saldo": 8484835.29,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "COM. GESTION TRANSF.FDOS ENTRE BCOS",
+    "detalle": "",
+    "debito": 1000.0,
+    "credito": 0.0,
+    "saldo": 8483835.29,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "IVA",
+    "detalle": "",
+    "debito": 210.0,
+    "credito": 0.0,
+    "saldo": 8483625.29,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "TRF INMED PROVEED",
+    "detalle": "ERNESTO ALFREDO GIME 27300865483 VARIOS INDUSTRIAL AND COMME",
+    "debito": 382600.0,
+    "credito": 0.0,
+    "saldo": 8101025.29,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "COM. GESTION TRANSF.FDOS ENTRE BCOS",
+    "detalle": "",
+    "debito": 1000.0,
+    "credito": 0.0,
+    "saldo": 8100025.29,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "IVA",
+    "detalle": "",
+    "debito": 210.0,
+    "credito": 0.0,
+    "saldo": 8009815.29,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "TRF INMED PROVEED",
+    "detalle": "IGNACIO SERGIO DIAZ 20177573028 VARIOS INDUSTRIAL AND COMME",
+    "debito": 394600.0,
+    "credito": 0.0,
+    "saldo": 7705215.29,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "COM. GESTION TRANSF.FDOS ENTRE BCOS",
+    "debito": 1000.0,
+    "credito": 0.0,
+    "saldo": 7704215.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "IVA",
+    "debito": 210.0,
+    "credito": 0.0,
+    "saldo": 7704005.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "TRF INMED PROVEED Pablo Adrian Almaraz 20359398035 VARIOS INDUSTRIAL AND COMME",
+    "debito": 448800.0,
+    "credito": 0.0,
+    "saldo": 7249205.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "COM. GESTION TRANSF.FDOS ENTRE BCOS",
+    "debito": 1000.0,
+    "credito": 0.0,
+    "saldo": 7248205.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "IVA",
+    "debito": 210.0,
+    "credito": 0.0,
+    "saldo": 7248195.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "TRF INMED PROVEED IV N NAHUEL BERNARDE 23361778979 VARIOS BANCO DE GALICIA Y B",
+    "debito": 455480.0,
+    "credito": 0.0,
+    "saldo": 6729515.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "TRF INMED PROVEED Leonardo Emmanuel De 20383610479 VARIOS INDUSTRIAL AND COMME",
+    "debito": 361188.0,
+    "credito": 0.0,
+    "saldo": 6431327.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "COM. GESTION TRANSF.FDOS ENTRE BCOS",
+    "debito": 1000.0,
+    "credito": 0.0,
+    "saldo": 6431327.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "IVA",
+    "debito": 210.0,
+    "credito": 0.0,
+    "saldo": 6431127.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "TRF INMED PROVEED Jorge Antonio Navarr 20940442193 VARIOS INDUSTRIAL AND COMME",
+    "debito": 394600.0,
+    "credito": 0.0,
+    "saldo": 6035517.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "COM. GESTION TRANSF.FDOS ENTRE BCOS",
+    "debito": 1000.0,
+    "credito": 0.0,
+    "saldo": 6035517.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "IVA",
+    "debito": 210.0,
+    "credito": 0.0,
+    "saldo": 6035307.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "TRF INMED PROVEED Fernando Joel Marzul 20426243750 VARIOS BRUBANK S.A.U.",
+    "debito": 400156.0,
+    "credito": 0.0,
+    "saldo": 5634151.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "COM. GESTION TRANSF.FDOS ENTRE BCOS",
+    "debito": 1000.0,
+    "credito": 0.0,
+    "saldo": 5633151.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "IVA",
+    "debito": 210.0,
+    "credito": 0.0,
+    "saldo": 5632941.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "TRF INMED PROVEED Acevedo Jonatan Mati 20338561734 VARIOS BANCO MACRO S.A.",
+    "debito": 418696.0,
+    "credito": 0.0,
+    "saldo": 5214245.29,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "COM. GESTION TRANSF.FDOS ENTRE BCOS",
+    "detalle": "",
+    "debito": 1000.0,
+    "credito": 5213245.29,
+    "saldo": 5213245.29,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "IVA",
+    "detalle": "",
+    "debito": 210.0,
+    "credito": 5213035.29,
+    "saldo": 5213035.29,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "TRF INMED PROVEED Guillermo Aquiles Ba 20315082375 VARIOS BANCO DE GALICIA Y B",
+    "detalle": "",
+    "debito": 429650.0,
+    "credito": 4783385.29,
+    "saldo": 4783385.29,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "TRF INMED PROVEED Tamara Agustina Ozun 27390608263 VARIOS BANCO DE GALICIA Y B",
+    "detalle": "",
+    "debito": 498800.0,
+    "credito": 4284585.29,
+    "saldo": 4284585.29,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "IMP. DEB. LEY 25413 GRAL.",
+    "detalle": "",
+    "debito": 29251.57,
+    "credito": 4255333.72,
+    "saldo": 4255333.72,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "19/01/2026",
+    "descripcion": "TRANSF. AFIP 3534955311 VEP 1573764184",
+    "detalle": "",
+    "debito": 1200046.73,
+    "credito": 3055286.99,
+    "saldo": 3055286.99,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "19/01/2026",
+    "descripcion": "COMPRA DEBITO PAYU*AR*Nuthost 4173090001261829 0964",
+    "detalle": "",
+    "debito": 54000.0,
+    "credito": 3001286.99,
+    "saldo": 3001286.99,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "19/01/2026",
+    "descripcion": "PAGO DE SERVICIOS IMP.AFIP 307189711401 589244000761485679 0001",
+    "detalle": "",
+    "debito": 934294.12,
+    "credito": 2066992.87,
+    "saldo": 2066992.87,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "19/01/2026",
+    "descripcion": "IMP. DEB. LEY 25413 GRAL.",
+    "detalle": "",
+    "debito": 13130.05,
+    "credito": 2053862.82,
+    "saldo": 2053862.82,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "20/01/2026",
+    "descripcion": "TRANSFERENCIAS CASH PROVEEDORES CONS PALACIO DE 30559342064 BANCO SANTANDER RIO",
+    "detalle": "",
+    "debito": 0.0,
+    "credito": 8326633.0,
+    "saldo": 10380595.82,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "20/01/2026",
+    "descripcion": "IMP. CRE. LEY 25413",
+    "detalle": "",
+    "debito": 49959.8,
+    "credito": 10330536.02,
+    "saldo": 10330536.02,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "20/01/2026",
+    "descripcion": "ACREDITAMIENTO CANJE GALICIA 33315477BOL38496437",
+    "detalle": "",
+    "debito": 0.0,
+    "credito": 626000.0,
+    "saldo": 10609536.02,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "20/01/2026",
+    "descripcion": "ACREDITAMIENTO CANJE GALICIA 33315736BOL38496909",
+    "detalle": "",
+    "debito": 0.0,
+    "credito": 1248000.0,
+    "saldo": 12024536.02,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "20/01/2026",
+    "descripcion": "ACREDITAMIENTO CANJE GALICIA 33029513BOL38497034",
+    "detalle": "",
+    "debito": 0.0,
+    "credito": 1664000.0,
+    "saldo": 13688536.02,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "20/01/2026",
+    "descripcion": "ACREDITAMIENTO CANJE GALICIA 33029514BOL38497034",
+    "detalle": "",
+    "debito": 0.0,
+    "credito": 2500000.0,
+    "saldo": 16368536.02,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "20/01/2026",
+    "descripcion": "IMP. CRE. LEY 25413",
+    "detalle": "",
+    "debito": 36228.0,
+    "credito": 16332308.02,
+    "saldo": 16332308.02,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "22/01/2026",
+    "descripcion": "TRF INMED PROVEED Matias Damian Addari 23310065889 VARIOS MERCADO LIBRE SRL",
+    "detalle": "",
+    "debito": 200000.0,
+    "credito": 16132308.02,
+    "saldo": 16132308.02,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "22/01/2026",
+    "descripcion": "TRF INMED PROVEED Fernando Martin Damb 24308340259 VARIOS MERCADO LIBRE SRL",
+    "debito": 500000.0,
+    "credito": 0.0,
+    "saldo": 15632108.02,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "22/01/2026",
+    "descripcion": "IMP. DEB. LEY 25413 GRAL.",
+    "debito": 4200.0,
+    "credito": 0.0,
+    "saldo": 15628108.02,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "26/01/2026",
+    "descripcion": "TRANSFERENCIA DE TERCEROS TOTAL SYR SA 33512133679 19100704550070017041 1910700170414 3156000418994 FACTURA 00D5",
+    "debito": 0.0,
+    "credito": 11156857.0,
+    "saldo": 26784965.02,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "26/01/2026",
+    "descripcion": "IMP. CRE. LEY 25413",
+    "debito": 66941.14,
+    "credito": 0.0,
+    "saldo": 26718023.88,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "28/01/2026",
+    "descripcion": "TRF INMED PROVEED Matias Damian Addari 23310065889 VARIOS MERCADO LIBRE SRL",
+    "debito": 100000.0,
+    "credito": 0.0,
+    "saldo": 26618023.88,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "28/01/2026",
+    "descripcion": "IMP. DEB. LEY 25413 GRAL.",
+    "debito": 600.0,
+    "credito": 0.0,
+    "saldo": 26617423.88,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "30/01/2026",
+    "descripcion": "TRF INMED PROVEED La Equitativa Del Pl 30515419760 VARIOS BANCO BBVA ARGENTINA",
+    "debito": 114333.0,
+    "credito": 0.0,
+    "saldo": 26503090.88,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "30/01/2026",
+    "descripcion": "IMP. DEB. LEY 25413 GRAL.",
+    "debito": 686.0,
+    "credito": 0.0,
+    "saldo": 26502404.88,
+    "detalle": "",
+    "confidence": 1.0
+  },
+  {
+    "fecha": "01/12/2025",
+    "descripcion": "TOTAL MENSUAL RETENCION IMPUESTO LEY 25.413",
+    "detalle": "CREDITO COMPUTABLE COMO PAGO A CUENTA",
+    "debito": 0.0,
+    "credito": 41411.37,
+    "saldo": 20597811.14,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "01/01/2026",
+    "descripcion": "TOTAL MENSUAL RETENCION IMPUESTO LEY 25.413",
+    "detalle": "SOBRE DEBITOS",
+    "debito": 151205.35,
+    "credito": 0.0,
+    "saldo": 20597811.14,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "01/01/2026",
+    "descripcion": "TOTAL MENSUAL RETENCION IMPUESTO LEY 25.413",
+    "detalle": "SOBRE CREDITOS",
+    "debito": 0.0,
+    "credito": 188201.35,
+    "saldo": 20686882.94,
+    "confidence": 1.0
+  },
+  {
+    "fecha": "01/01/2026",
+    "descripcion": "TOTAL MENSUAL RETENCION IMPUESTO LEY 25.413",
+    "detalle": "CREDITO COMPUTABLE COMO PAGO A CUENTA",
+    "debito": 0.0,
+    "credito": 112004.2,
+    "saldo": 20686882.94,
+    "confidence": 1.0
+  }
+]

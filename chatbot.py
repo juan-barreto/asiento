@@ -5,6 +5,7 @@ from groq import Groq
 from dotenv import load_dotenv
 from pdf_processor import extraccion_texto_por_pagina
 from validator import validar_movimientos
+import time
 
 # Config
 
@@ -51,38 +52,30 @@ def parse_page_with_ai(page_text):
 
     """
     prompt = f"""
-Extraé todos los movimientos bancarios y convertí al FORMATO UNIVERSAL.
+Extraé movimientos bancarios y devolvé SOLO JSON válido.
 
-REGLAS CRÍTICAS:
-1. fecha: SIEMPRE formato "DD/MM/YYYY" (ej: "03/11/2025")
-   - Si ves "30/12/25" → convertí a "30/12/2025"
-   - Si ves "03-11" → asumí año 2025 → "03/11/2025"
+REGLAS:
+- fecha => DD/MM/YYYY
+- debito => positivo si resta dinero
+- credito => positivo si suma dinero
+- nunca debito y credito juntos
+- números con punto decimal
+- ignorar encabezados y textos legales
 
-2. debito: Si el movimiento RESTA dinero, poné el valor POSITIVO (sin signo negativo)
-   - Si ves "-78.000,00" en columna Débito → debito: 78000.0
-   - Si ves "-100000.00" en columna Importe → debito: 100000.0
-
-3. credito: Si el movimiento SUMA dinero, poné el valor POSITIVO
-   - Si ves "500000.00" en columna Crédito → credito: 500000.0
-   - Si ves "500000.00" en columna Importe (sin signo) → credito: 500000.0
-
-4. NO PUEDE haber debito Y credito en el mismo movimiento (uno debe ser 0.0)
-
-5. Números siempre con punto decimal (ej: 78000.0, NO 78.000,00)
-
-6. Ignorá texto que NO sea movimiento bancario:
-   - Títulos, encabezados, notas legales, CBU, etc.
-
-FORMATO JSON (respondé SOLO con esto, sin texto extra):
+FORMATO:
 [
   {{
     "fecha": "DD/MM/YYYY",
-    "descripcion": "texto del movimiento",
-    "detalle": "info adicional si hay",
-    "debito": 0.0,
-    "credito": 0.0,
-    "saldo": 0.0
+    "descripcion": "",
+    "detalle": "",
+    "debito": 0.00,
+    "credito": 0.00,
+    "saldo": 0.00
   }}
+]
+
+Texto:
+{page_text}
 ]
 
 EJEMPLOS DE CONVERSIÓN:
@@ -142,6 +135,8 @@ def parse_all_pages(pages_data):
 
             # 2. Mandar a IA 
             movimientos = parse_page_with_ai(clean_text)
+
+            time.sleep(2)
 
             # 3. Acumular (sin validar todavia)
             all_results.extend(movimientos)

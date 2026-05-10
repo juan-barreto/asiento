@@ -1,5 +1,6 @@
 from datetime import datetime
 import re
+import json
 
 def validar_movimientos(movimientos):
     """
@@ -53,7 +54,8 @@ def normalizar_movimiento(m):
 
     # Normalizamos fecha:
 
-    m["fecha"] = abs(float(m.get("debito", 0)))
+    m["fecha"] = normalizar_fecha(m.get("fecha", ""))
+    m["debito"] = abs(float(m.get("debito", 0)))
     m["credito"] = abs(float(m.get("credito", 0)))
     m["saldo"] = abs(float(m.get("saldo", 0)))
 
@@ -77,7 +79,7 @@ def normalizar_fecha(fecha_str):
         (r"(\d{2})/(\d{2})/(\d{2})", "{0}/{1}/20{2}"), # 30/12/25
         (r"(\d{2})-(\d{2})-(\d{4})", "{0}/{1}/{2}"),   # 03-11-2026
         (r"(\d{2})-(\d{2})-(\d{2})", "{0}/{1}/20{2}"),
-        (r"^(\d{2})-(\d{2})$", lambda m: f"{m[1]}/{m[2]}/2025"),
+        (r"^(\d{2})-(\d{2})$", "{0}/{1}/20{2}"),
         ]
     
     for patron, formato in patrones:
@@ -93,6 +95,8 @@ def calcular_confidence(m):
     Esta funcion nos da un indice de exito en la validacion de datos
     
     """
+    score = 1.0
+
     if not m.get("descripcion"):
         score -= 0.2
 
@@ -112,7 +116,7 @@ def calcular_confidence(m):
 
 if __name__ == "__main__":
 
-    prueba = [
+  prueba = [
   {
     "fecha": "01/12/2025",
     "descripcion": "SALDO ANTERIOR",
@@ -892,6 +896,6 @@ if __name__ == "__main__":
 ]
 
 
-resultado = validar_movimientos(prueba)
+  resultado = validar_movimientos(prueba)
+  print(json.dumps(resultado, indent=2, ensure_ascii=False))  
 
-print(resultado)

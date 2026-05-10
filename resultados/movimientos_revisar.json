@@ -1,0 +1,128 @@
+[
+  {
+    "fecha": "08/01/2026",
+    "descripcion": "IMP. CRE. LEY 25413",
+    "detalle": "",
+    "debito": 0.01,
+    "credito": 0.01,
+    "saldo": 4908819.69,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "12/01/2026",
+    "descripcion": "ACREDITAMIENTO CANJE GALICIA",
+    "detalle": "33029499BOL37346611",
+    "debito": 111072.4,
+    "credito": 1845400.0,
+    "saldo": 5596319.69,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "COM. GESTION TRANSF.FDOS ENTRE BCOS",
+    "detalle": "",
+    "debito": 1000.0,
+    "credito": 5213245.29,
+    "saldo": 5213245.29,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "IVA",
+    "detalle": "",
+    "debito": 210.0,
+    "credito": 5213035.29,
+    "saldo": 5213035.29,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "TRF INMED PROVEED Guillermo Aquiles Ba 20315082375 VARIOS BANCO DE GALICIA Y B",
+    "detalle": "",
+    "debito": 429650.0,
+    "credito": 4783385.29,
+    "saldo": 4783385.29,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "TRF INMED PROVEED Tamara Agustina Ozun 27390608263 VARIOS BANCO DE GALICIA Y B",
+    "detalle": "",
+    "debito": 498800.0,
+    "credito": 4284585.29,
+    "saldo": 4284585.29,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "15/01/2026",
+    "descripcion": "IMP. DEB. LEY 25413 GRAL.",
+    "detalle": "",
+    "debito": 29251.57,
+    "credito": 4255333.72,
+    "saldo": 4255333.72,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "19/01/2026",
+    "descripcion": "TRANSF. AFIP 3534955311 VEP 1573764184",
+    "detalle": "",
+    "debito": 1200046.73,
+    "credito": 3055286.99,
+    "saldo": 3055286.99,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "19/01/2026",
+    "descripcion": "COMPRA DEBITO PAYU*AR*Nuthost 4173090001261829 0964",
+    "detalle": "",
+    "debito": 54000.0,
+    "credito": 3001286.99,
+    "saldo": 3001286.99,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "19/01/2026",
+    "descripcion": "PAGO DE SERVICIOS IMP.AFIP 307189711401 589244000761485679 0001",
+    "detalle": "",
+    "debito": 934294.12,
+    "credito": 2066992.87,
+    "saldo": 2066992.87,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "19/01/2026",
+    "descripcion": "IMP. DEB. LEY 25413 GRAL.",
+    "detalle": "",
+    "debito": 13130.05,
+    "credito": 2053862.82,
+    "saldo": 2053862.82,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "20/01/2026",
+    "descripcion": "IMP. CRE. LEY 25413",
+    "detalle": "",
+    "debito": 49959.8,
+    "credito": 10330536.02,
+    "saldo": 10330536.02,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "20/01/2026",
+    "descripcion": "IMP. CRE. LEY 25413",
+    "detalle": "",
+    "debito": 36228.0,
+    "credito": 16332308.02,
+    "saldo": 16332308.02,
+    "confidence": 0.4
+  },
+  {
+    "fecha": "22/01/2026",
+    "descripcion": "TRF INMED PROVEED Matias Damian Addari 23310065889 VARIOS MERCADO LIBRE SRL",
+    "detalle": "",
+    "debito": 200000.0,
+    "credito": 16132308.02,
+    "saldo": 16132308.02,
+    "confidence": 0.4
+  }
+]
