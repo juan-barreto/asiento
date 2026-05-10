@@ -3,8 +3,8 @@ import re
 import json
 from groq import Groq
 from dotenv import load_dotenv
-from pdf_processor import extraccion_texto_por_pagina
-from validator import validar_movimientos
+from app.services.pdf_processor import extraccion_texto_por_pagina
+from app.services.validator import validar_movimientos
 import time
 
 # Config

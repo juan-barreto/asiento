@@ -1,7 +1,7 @@
 import json
-from pdf_processor import extraccion_texto_por_pagina
-from chatbot import parse_all_pages
-from validator import validar_movimientos
+from app.services.pdf_processor import extraccion_texto_por_pagina
+from app.services.chatbot import parse_all_pages
+from app.services.validator import validar_movimientos
 
 def procesar_extracto(pdf_path):
     """
