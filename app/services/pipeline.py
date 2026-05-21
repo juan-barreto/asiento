@@ -3,39 +3,46 @@ from app.services.pdf_processor import extraccion_texto_por_pagina
 from app.services.chatbot import parse_all_pages
 from app.services.validator import validar_movimientos
 
-def procesar_extracto(pdf_path):
+
+def procesar_extracto(pdf_path, callback=None):
     """
     Pipeline completo: PDF → IA → Validación → JSON limpio
     """
-    print("\nINICIANDO PROCESAMIENTO\n")
+    def log(mensaje):
+        if callback:
+            callback(mensaje)
+        else:
+            print(mensaje)
+
+    log("\nINICIANDO PROCESAMIENTO\n")
     
     # PASO 1: Extraer texto del PDF
-    print("Extrayendo texto del PDF...")
+    log("Extrayendo texto del PDF...")
     pages_data = extraccion_texto_por_pagina(pdf_path)
-    print(f"   ✓ {len(pages_data)} páginas extraídas\n")
+    log(f"   ✓ {len(pages_data)} páginas extraídas\n")
     
     # PASO 2: Procesar con IA
-    print("🤖 Enviando a IA...")
-    movimientos_crudos = parse_all_pages(pages_data)
-    print(f"\n   ✓ Total movimientos crudos: {len(movimientos_crudos)}\n")
+    log("🤖 Enviando a IA...")
+    movimientos_crudos = parse_all_pages(pages_data, callback=log)
+    log(f"\n   ✓ Total movimientos crudos: {len(movimientos_crudos)}\n")
     
     # PASO 3: Validar y limpiar
-    print("✅ Validando movimientos...")
+    log("✅ Validando movimientos...")
     movimientos_limpios = validar_movimientos(movimientos_crudos)
-    print(f"   ✓ Movimientos válidos: {len(movimientos_limpios)}\n")
+    log(f"   ✓ Movimientos válidos: {len(movimientos_limpios)}\n")
     
     # PASO 4: Separar por confidence
     seguros = [m for m in movimientos_limpios if m.get("confidence", 0) >= 0.7]
     revisar = [m for m in movimientos_limpios if m.get("confidence", 0) < 0.7]
     
     # Mostrar resumen
-    print("\n" + "="*50)
-    print("RESUMEN FINAL")
-    print("="*50)
-    print(f"Movimientos confiables (≥70%): {len(seguros)}")
-    print(f"Requieren revisión (<70%):   {len(revisar)}")
-    print(f"Descartados:                   {len(movimientos_crudos) - len(movimientos_limpios)}")
-    print("="*50 + "\n")
+    log("\n" + "="*50)
+    log("RESUMEN FINAL")
+    log("="*50)
+    log(f"Movimientos confiables (≥70%): {len(seguros)}")
+    log(f"Requieren revisión (<70%):   {len(revisar)}")
+    log(f"Descartados:                   {len(movimientos_crudos) - len(movimientos_limpios)}")
+    log("="*50 + "\n")
     
     return {
         "todos": movimientos_limpios,
@@ -51,10 +58,16 @@ def procesar_extracto(pdf_path):
     }
 
 
-def guardar_resultados(resultado, output_dir="."):
+def guardar_resultados(resultado, output_dir=".",callback=None):
     """
     Guarda los resultados en archivos JSON.
     """
+    def log(mensaje):
+        if callback:
+            callback(mensaje)
+        else:
+            print(mensaje)
+
     import os
     
     # Crear directorio si no existe
@@ -76,11 +89,11 @@ def guardar_resultados(resultado, output_dir="."):
     with open(f"{output_dir}/stats.json", "w", encoding="utf-8") as f:
         json.dump(resultado["stats"], f, indent=2, ensure_ascii=False)
     
-    print("Archivos guardados:")
-    print(f"  - {output_dir}/movimientos_todos.json")
-    print(f"  - {output_dir}/movimientos_seguros.json")
-    print(f"  - {output_dir}/movimientos_revisar.json")
-    print(f"  - {output_dir}/stats.json")
+    log("Archivos guardados:")
+    log(f"  - {output_dir}/movimientos_todos.json")
+    log(f"  - {output_dir}/movimientos_seguros.json")
+    log(f"  - {output_dir}/movimientos_revisar.json")
+    log(f"  - {output_dir}/stats.json")
 
 
 # ==============================
@@ -88,7 +101,7 @@ def guardar_resultados(resultado, output_dir="."):
 # ==============================
 if __name__ == "__main__":
     # Ruta al PDF
-    pdf_path = r"C:\Users\Juan\Desktop\ASIENTO\Extracto_Cuentas_Galicia_2026_01_30.pdf"
+    pdf_path = r"C:\Users\Juan\Desktop\ASIENTO\app\services\Extracto_Cuentas_Galicia_2026_01_30.pdf"
     
     # Procesar
     resultado = procesar_extracto(pdf_path)
