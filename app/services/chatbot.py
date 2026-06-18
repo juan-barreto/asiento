@@ -3,8 +3,7 @@ import re
 import json
 from groq import Groq
 from dotenv import load_dotenv
-from pdf_processor import extraccion_texto_por_pagina
-from pre_processor import extraer_bloques_movimientos
+from app.services.pre_processor import extraer_bloques_movimientos
 import time
 
 # Config

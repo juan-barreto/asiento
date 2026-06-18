@@ -30,7 +30,7 @@ def extraccion_texto_por_pagina(pdf_path):
 
 #Prueba
 if __name__ == "__main__":
-    pdf_path = r"C:\Users\Juan\Desktop\ASIENTO\app\services\Extracto_Cuentas_Galicia_2026_01_30.pdf"
+    pdf_path = r"C:\Users\Juan\Desktop\ASIENTO\app\services\5026558356_20251201_extractos.pdf"
     data = extraccion_texto_por_pagina(pdf_path)
     print(data)
     

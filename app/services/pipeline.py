@@ -1,6 +1,6 @@
 import json
 from app.services.pdf_processor import extraccion_texto_por_pagina
-from app.services.chatbot import parse_all_pages
+from app.services.chatbot import parse_all_blocks
 from app.services.validator import validar_movimientos
 
 
@@ -23,7 +23,7 @@ def procesar_extracto(pdf_path, callback=None):
     
     # PASO 2: Procesar con IA
     log("🤖 Enviando a IA...")
-    movimientos_crudos = parse_all_pages(pages_data, callback=log)
+    movimientos_crudos = parse_all_blocks(pages_data, callback=log)
     log(f"\n   ✓ Total movimientos crudos: {len(movimientos_crudos)}\n")
     
     # PASO 3: Validar y limpiar
