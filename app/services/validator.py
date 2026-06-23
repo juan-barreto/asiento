@@ -1,9 +1,10 @@
 from datetime import datetime
 import re
 import json
-from movimiento import MovimientoRaw, Movimiento
-from pdf_processor import extraccion_texto_por_pagina
-from pre_processor import extraer_bloques_movimientos
+from app.services.movimiento import MovimientoRaw, Movimiento
+from app.services.pdf_processor import extraccion_texto_por_pagina
+from app.services.parsers.provincia_parser import extraer_bloques_movimientos
+
 
 def validar_movimientos(movimientos):
     """
@@ -122,7 +123,7 @@ def calcular_confidence(m):
     return max(0.0, min(1.0, score))
 
 if __name__ == "__main__":
-  pdf_path =        r"C:\Users\Juan\Desktop\ASIENTO\app\services\Extracto_Cuentas_Galicia_2026_01_30.pdf"
+  pdf_path =        r"C:\Users\Juan\Desktop\ASIENTO\app\services\5026558356_20251201_extractos.pdf"
   texto = extraccion_texto_por_pagina(pdf_path)
    
   movimientos = []
