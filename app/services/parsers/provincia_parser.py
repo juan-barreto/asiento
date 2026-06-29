@@ -98,7 +98,7 @@ def es_credito(texto):
     
 
 
-def extraer_bloques_movimientos(texto):
+def extraer_bloques_provincia(texto):
     """
     Esta funcion convierte el texto crudo del pdf en bloques estructurados, mejor para mejor lectura
 

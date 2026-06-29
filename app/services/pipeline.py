@@ -1,12 +1,13 @@
 import json
 from app.services.pdf_processor import extraccion_texto_por_pagina
-from app.services.chatbot import parse_all_blocks
+from app.services.parsers.galicia_parser import extraer_bloques_galicia
+from app.services.parsers.provincia_parser import extraer_bloques_provincia
+from app.services.parsers.detector import Galicia, Provincia
 from app.services.validator import validar_movimientos
-
 
 def procesar_extracto(pdf_path, callback=None):
     """
-    Pipeline completo: PDF → IA → Validación → JSON limpio
+    Pipeline completo: PDF -> Validación → JSON limpio
     """
     def log(mensaje):
         if callback:
@@ -20,12 +21,37 @@ def procesar_extracto(pdf_path, callback=None):
     log("Extrayendo texto del PDF...")
     pages_data = extraccion_texto_por_pagina(pdf_path)
     log(f"   ✓ {len(pages_data)} páginas extraídas\n")
+
+    BANCOS = [
+          Galicia,
+          Provincia
+    ]
+    movimientos = []
+    for banco in BANCOS:
+        
+
+        if banco.detectar(pages_data):
+
+            movimientos = []
+
+            for pagina in pages_data:
+                movimientos.extend(
+                    banco.parser(pagina["text"])
+                )
+
+            break
     
-    # PASO 2: Procesar con IA
-    log("🤖 Enviando a IA...")
-    movimientos_crudos = parse_all_blocks(pages_data, callback=log)
-    log(f"\n   ✓ Total movimientos crudos: {len(movimientos_crudos)}\n")
-    
+    resultado = validar_movimientos(movimientos)
+
+    log(
+            json.dumps(
+                [m.model_dump() for m in resultado],
+                indent=2,
+                ensure_ascii=False
+                )
+                )
+        
+    """     
     # PASO 3: Validar y limpiar
     log("✅ Validando movimientos...")
     movimientos_limpios = validar_movimientos(movimientos_crudos)
@@ -59,9 +85,7 @@ def procesar_extracto(pdf_path, callback=None):
 
 
 def guardar_resultados(resultado, output_dir=".",callback=None):
-    """
-    Guarda los resultados en archivos JSON.
-    """
+   
     def log(mensaje):
         if callback:
             callback(mensaje)
@@ -95,7 +119,7 @@ def guardar_resultados(resultado, output_dir=".",callback=None):
     log(f"  - {output_dir}/movimientos_revisar.json")
     log(f"  - {output_dir}/stats.json")
 
-
+"""
 # ==============================
 # MAIN
 # ==============================
@@ -106,18 +130,4 @@ if __name__ == "__main__":
     # Procesar
     resultado = procesar_extracto(pdf_path)
     
-    # Guardar
-    guardar_resultados(resultado, output_dir="resultados")
     
-    # Mostrar ejemplos
-    if resultado["seguros"]:
-        print("\nEJEMPLO SEGURO:")
-        print(json.dumps(resultado["seguros"][0], indent=2, ensure_ascii=False))
-    
-    if resultado["revisar"]:
-        print("\nEJEMPLO REVISAR:")
-        print(json.dumps(resultado["revisar"][0], indent=2, ensure_ascii=False))
-    
-    # Mostrar stats
-    print("\nESTADÍSTICAS:")
-    print(f"  Tasa de éxito: {resultado['stats']['tasa_exito']:.1%}")

@@ -15,7 +15,7 @@ app = QApplication(sys.argv)
 class Window(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("App con PySide6")
+        self.setWindowTitle("ASIENTO")
         self.resize(400,300)
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
@@ -23,7 +23,7 @@ class Window(QMainWindow):
         self.texto.setReadOnly(True)
         self.input = QLineEdit()
         self.input.returnPressed.connect(self.cambiar_texto)
-        self.button = QPushButton("Touch me")
+        self.button = QPushButton("Clear")
         self.input.setPlaceholderText("Write something...")
         self.mensajes = ""
         self.button_pdf = QPushButton("Seleccionar PDF")
@@ -31,6 +31,7 @@ class Window(QMainWindow):
         self.button_process.setEnabled(False)
         self.label_state = QLabel("State: no selected")
 
+        self.button.clicked.connect(self.limpiar_texto)
         self.button_pdf.clicked.connect(self.seleccionar_pdf)
         self.button.clicked.connect(self.cambiar_texto)
         self.button_process.clicked.connect(self.procesar)
@@ -65,7 +66,7 @@ class Window(QMainWindow):
     def agregar_mensaje(self,textos):
         self.texto.append(textos)
     def limpiar_texto(self):
-        self.input.clear()
+        self.texto.clear()
     def cambiar_texto(self):
         texto_input = self.obtener_input().strip()
         if texto_input == "":

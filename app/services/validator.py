@@ -3,7 +3,7 @@ import re
 import json
 from app.services.movimiento import MovimientoRaw, Movimiento
 from app.services.pdf_processor import extraccion_texto_por_pagina
-from app.services.parsers.provincia_parser import extraer_bloques_movimientos
+from app.services.parsers.provincia_parser import extraer_bloques_provincia
 
 
 def validar_movimientos(movimientos):
@@ -131,7 +131,7 @@ if __name__ == "__main__":
   for t in texto:
 
     movimientos.extend(
-        extraer_bloques_movimientos(
+        extraer_bloques_provincia(
             t["text"]
         )
     )

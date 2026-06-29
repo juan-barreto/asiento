@@ -1,6 +1,6 @@
 import re
-from pdf_processor import extraccion_texto_por_pagina
-from movimiento import MovimientoRaw, Movimiento
+from app.services.pdf_processor import extraccion_texto_por_pagina
+from app.services.movimiento import MovimientoRaw, Movimiento
 
 def es_fecha(linea):
     """
@@ -72,7 +72,7 @@ def es_credito(texto):
     
 
 
-def extraer_bloques_movimientos(texto):
+def extraer_bloques_galicia(texto):
     """
     Esta funcion convierte el texto crudo del pdf en bloques estructurados, mejor para mejor lectura
 
@@ -120,5 +120,5 @@ if __name__ == "__main__":
     texto = extraccion_texto_por_pagina(pdf_path)
    
     for t in texto:
-        limpio = extraer_bloques_movimientos(t["text"])
+        limpio = extraer_bloques_galicia(t["text"])
         print(limpio)

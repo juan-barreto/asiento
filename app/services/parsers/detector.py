@@ -1,4 +1,6 @@
 from app.services.pdf_processor import extraccion_texto_por_pagina
+from app.services.parsers.galicia_parser import extraer_bloques_galicia
+from app.services.parsers.provincia_parser import extraer_bloques_provincia
 
 class BaseBank:
 
@@ -20,12 +22,16 @@ class BaseBank:
             return False
         
 class Galicia(BaseBank):
-        nombre = "Galicia"
+      nombre = "Galicia"
 
-        keywords = ["RESUMEN DE CUENTA CORRIENTE EN PESOS","MOVIMIENTOS"]   
+      keywords = ["RESUMEN DE CUENTA CORRIENTE EN PESOS","MOVIMIENTOS"]   
+
+      parser = extraer_bloques_galicia
 
 class Provincia(BaseBank):
-      
+       
+      parser = extraer_bloques_provincia
+
       nombre = "Provincia"
 
       keywords = ["FECHA VALOR"]
