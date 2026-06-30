@@ -3,6 +3,7 @@ from app.services.pdf_processor import extraccion_texto_por_pagina
 from app.services.parsers.galicia_parser import extraer_bloques_galicia
 from app.services.parsers.provincia_parser import extraer_bloques_provincia
 from app.services.parsers.detector import Galicia, Provincia
+from app.services.movimiento import ResultadoPipeline, StatsPipeline
 from app.services.validator import validar_movimientos
 
 def procesar_extracto(pdf_path, callback=None):
@@ -27,11 +28,13 @@ def procesar_extracto(pdf_path, callback=None):
           Provincia
     ]
     movimientos = []
+    banco_detectado = None
+
     for banco in BANCOS:
         
 
         if banco.detectar(pages_data):
-
+            banco_detectado = banco
             movimientos = []
 
             for pagina in pages_data:
@@ -40,6 +43,9 @@ def procesar_extracto(pdf_path, callback=None):
                 )
 
             break
+
+    if banco_detectado is None:
+        raise ValueError("No se detectó un banco compatible.")
     
     resultado = validar_movimientos(movimientos)
 
@@ -50,12 +56,27 @@ def procesar_extracto(pdf_path, callback=None):
                 ensure_ascii=False
                 )
                 )
+    seguros = [m for m in resultado if m.confidence >= 0.7]
+    revisar = [m for m in resultado if m.confidence < 0.7]
+
+    return ResultadoPipeline(
+        banco = banco_detectado.nombre,
+        movimientos = resultado,
+        seguros = seguros,
+        revisar = revisar,
+        stats = StatsPipeline(
+            total_movimientos = len(resultado),
+            total_seguros = len(resultado),
+            total_revisar = len(revisar)
+        )
+
+    )
+ 
+                    
+  
         
     """     
-    # PASO 3: Validar y limpiar
-    log("✅ Validando movimientos...")
-    movimientos_limpios = validar_movimientos(movimientos_crudos)
-    log(f"   ✓ Movimientos válidos: {len(movimientos_limpios)}\n")
+ 
     
     # PASO 4: Separar por confidence
     seguros = [m for m in movimientos_limpios if m.get("confidence", 0) >= 0.7]
@@ -129,5 +150,6 @@ if __name__ == "__main__":
     
     # Procesar
     resultado = procesar_extracto(pdf_path)
+    print(resultado.stats)
     
     

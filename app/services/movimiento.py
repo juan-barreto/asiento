@@ -27,3 +27,18 @@ class Movimiento(BaseModel):
         # v = valor del campo actual (ej: 100.0)
         # values = otros campos ya validados (ej: {"debito": 100.0, "saldo": 500.0})
         # field = info del campo actual (ej: "debito" o "credito")
+class StatsPipeline(BaseModel):
+
+    total_movimientos : int
+    total_seguros : int
+    total_revisar: int
+    
+class ResultadoPipeline(BaseModel):
+
+    banco : str
+    movimientos: list[Movimiento]
+    seguros : list[Movimiento]
+    revisar : list[Movimiento]
+    stats: StatsPipeline
+
+
