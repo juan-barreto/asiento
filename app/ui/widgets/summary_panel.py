@@ -9,6 +9,8 @@ class SummaryPanel(QWidget):
 
         super().__init__()
 
+        self.setObjectName("summaryPanel")
+        
         self._create_widgets()
         self._create_layout()
 

@@ -5,17 +5,26 @@ class LogPanel(QWidget):
     def __init__(self):
         super().__init__()
 
+        self.setObjectName("logPanel")
+
         self._create_widgets()
         self._create_layout()
 
     def _create_widgets(self):
 
         self._log = QTextEdit()
+
+        self._log.setObjectName("logText")
+
         self._log.setReadOnly(True)
 
     def _create_layout(self):
 
         layout = QVBoxLayout()
+
+        layout.setContentsMargins(12,12,12,12)
+
+        layout.addWidget(self._log)
 
         layout.addWidget(self._log)
 

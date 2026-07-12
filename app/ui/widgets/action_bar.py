@@ -23,6 +23,12 @@ class ActionBar(QWidget):
         self._btn_process = QPushButton("Procesar")
         self._btn_export = QPushButton("Exportar Excel")
 
+        # QSS
+        # ----------------------------------------------------
+        self._btn_select_pdf.setObjectName("selectButton")
+        self._btn_process.setObjectName("processButton")
+        self._btn_export.setObjectName("exportButton")
+        # ----------------------------------------------------
 
         self.set_process_enabled(False)
         self.set_export_enabled(False)

@@ -1,11 +1,13 @@
 from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout
-
+from PySide6.QtCore import Qt
 
 class FileCard(QWidget):
 
     def __init__(self):
 
         super().__init__()
+
+        self.setAttribute(Qt.WA_StyledBackground, True)
 
         self._create_widgets()
         self._create_layout()
@@ -17,9 +19,21 @@ class FileCard(QWidget):
         self._lbl_bank = QLabel("Banco: -")
         self._lbl_status = QLabel("Estado: Esperando archivo")
 
+        # QSS
+        #-----------------------------------------------
+        self.setObjectName("fileCard")
+
+        self._lbl_file.setObjectName("fileName")
+        self._lbl_bank.setObjectName("bankLabel")
+        self._lbl_status.setObjectName("statusLabel")
+        #-----------------------------------------------
+
     def _create_layout(self):
 
         layout = QVBoxLayout()
+
+        layout.setContentsMargins(16,16,16,16)
+        layout.setSpacing(8)
 
         layout.addWidget(self._lbl_file)
         layout.addWidget(self._lbl_bank)
