@@ -1,22 +1,32 @@
 from openpyxl import Workbook
-from app.services.pipeline import procesar_extracto
+import os
 
 
-wb = Workbook()
-ws = wb.active
+def conversion_excel(resultado, callback=None):
 
-# Encabezados
-ws.append(["Fecha", "Descripcion","Detalle", "Crédito", "Debito", "Saldo", "Porcentaje de exito(1.00 = 100%)"])
+    def log(mensaje):
+        if callback:
+            callback(mensaje)
+        else:
+            print(mensaje)
 
+    wb = Workbook()
 
+    ws = wb.active
+    ws.title = "Movimientos"
 
-if __name__ == "__main__":
-    # Ruta al PDF
-    pdf_path = r"C:\Users\Juan\Desktop\ASIENTO\app\services\Extracto_Cuentas_Galicia_2026_01_30.pdf"
-    
-    # Procesar
-    resultado = procesar_extracto(pdf_path)
-    
+    # Encabezados
+    ws.append([
+        "Fecha",
+        "Descripción",
+        "Detalle",
+        "Crédito",
+        "Débito",
+        "Saldo",
+        "Confidence"
+    ])
+
+    # Movimientos
     for movimiento in resultado.movimientos:
         ws.append([
             movimiento.fecha,
@@ -26,14 +36,21 @@ if __name__ == "__main__":
             movimiento.debito,
             movimiento.saldo,
             movimiento.confidence
-
         ])
-    
-    # Ajuste automatico por ancho
 
+    # Ajuste automático
     for columna in ws.columns:
         length = max(len(str(cell.value)) for cell in columna)
         ws.column_dimensions[columna[0].column_letter].width = length + 2
 
+    ruta = "extracto_pyside.xlsx"
 
-    wb.save("extracto_prueba4.xlsx")
+    wb.save(ruta)
+
+    log(f"Excel guardado en: {ruta}")
+
+    try:
+        os.startfile(ruta)
+        log("Excel abierto correctamente.")
+    except OSError as e:
+        log(f"No se pudo abrir automáticamente el archivo: {e}")

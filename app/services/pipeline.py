@@ -48,7 +48,7 @@ def procesar_extracto(pdf_path, callback=None):
         raise ValueError("No se detectó un banco compatible.")
     
     resultado = validar_movimientos(movimientos)
-
+    
     log(
             json.dumps(
                 [m.model_dump() for m in resultado],
@@ -59,18 +59,19 @@ def procesar_extracto(pdf_path, callback=None):
     seguros = [m for m in resultado if m.confidence >= 0.7]
     revisar = [m for m in resultado if m.confidence < 0.7]
 
-    return ResultadoPipeline(
-        banco = banco_detectado.nombre,
-        movimientos = resultado,
-        seguros = seguros,
-        revisar = revisar,
-        stats = StatsPipeline(
-            total_movimientos = len(resultado),
-            total_seguros = len(resultado),
-            total_revisar = len(revisar)
-        )
-
+    resultado_pipeline = ResultadoPipeline(
+    banco=banco_detectado.nombre,
+    movimientos=resultado,
+    seguros=seguros,
+    revisar=revisar,
+    stats=StatsPipeline(
+        total_movimientos=len(resultado),
+        total_seguros=len(seguros),
+        total_revisar=len(revisar)
     )
+)
+
+    return resultado_pipeline
  
                     
   
@@ -150,6 +151,6 @@ if __name__ == "__main__":
     
     # Procesar
     resultado = procesar_extracto(pdf_path)
-    print(resultado.stats)
+    print()
     
     

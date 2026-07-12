@@ -8,7 +8,7 @@ class ExtractWorker(QObject):
 
     log = Signal(str)
 
-    finished = Signal(dict)
+    finished = Signal(object)
 
     error = Signal(str)
 

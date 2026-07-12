@@ -8,5 +8,7 @@ venv/
 __pycache__/
 *.pyc
 
-#extracto
-extracto_prueba4.xlsx
+
+# Ignorar todos los archivos Excel
+*.xlsx
+*.xls
