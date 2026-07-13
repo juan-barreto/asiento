@@ -1,6 +1,6 @@
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QWidget , QPushButton, QHBoxLayout
-
+from PySide6.QtCore import Qt
 
 class ActionBar(QWidget):
 
@@ -12,7 +12,12 @@ class ActionBar(QWidget):
     def __init__(self):
 
         super().__init__()
-
+        
+        # QSS
+        # ----------------------------------------------------
+        self.setObjectName("actionBar")
+        self.setAttribute(Qt.WA_StyledBackground, True)
+        # ----------------------------------------------------
         self._create_widgets()
         self._create_layout()
         self._connect_signals()
@@ -40,7 +45,12 @@ class ActionBar(QWidget):
         layout.addWidget(self._btn_select_pdf)
         layout.addWidget(self._btn_process)
         layout.addWidget(self._btn_export)
-
+        
+        # QSS
+        # ----------------------------------------------------
+        layout.setContentsMargins(16, 16, 16, 16)
+        layout.setSpacing(12)
+        # ----------------------------------------------------
         layout.addStretch()
 
         self.setLayout(layout)

@@ -26,6 +26,12 @@ class ConverterView(QWidget):
 
         layout = QVBoxLayout()
 
+        # QSS
+        #------------------------------------------
+        layout.setContentsMargins(20, 20, 20, 20)
+        layout.setSpacing(16)
+        #------------------------------------------
+        
         layout.addWidget(self._file_card)
         layout.addWidget(self._action_bar)
         layout.addWidget(self._summary_panel)

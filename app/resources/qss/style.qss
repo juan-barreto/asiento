@@ -264,3 +264,17 @@ QScrollBar::sub-page:vertical {
 
     background: transparent;
 }
+
+
+/* =========================================================
+   ACTION BAR
+   ========================================================= */
+
+QWidget#actionBar {
+
+    background-color: #2A2A2A;
+
+    border: 1px solid #404040;
+
+    border-radius: 10px;
+}

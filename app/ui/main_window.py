@@ -9,6 +9,7 @@ from app.ui.widgets.sidebar import Sidebar
 from app.ui.views.converter_view import ConverterView
 from app.ui.views.history_view import HistoryView
 from app.ui.views.settings_view import SettingsView
+from app.ui.views.review_view import ReviewView
 
 
 class MainWindow(QMainWindow):
@@ -37,11 +38,14 @@ class MainWindow(QMainWindow):
 
         self._stacked_widget = QStackedWidget()
 
+
         self._converter_view = ConverterView()
+        self._review_view = ReviewView()
         self._history_view = HistoryView()
         self._settings_view = SettingsView()
 
         self._stacked_widget.addWidget(self._converter_view)
+        self._stacked_widget.addWidget(self._review_view)
         self._stacked_widget.addWidget(self._history_view)
         self._stacked_widget.addWidget(self._settings_view)
 
@@ -55,3 +59,20 @@ class MainWindow(QMainWindow):
         layout.addWidget(self._stacked_widget)
 
         self._central_widget.setLayout(layout)
+
+
+    def show_converter_view(self):
+
+        self._stacked_widget.setCurrentWidget(self._converter_view)
+
+    def show_review_view(self):
+
+        self._stacked_widget.setCurrentWidget(self._review_view)
+
+    def show_history_view(self):
+
+        self._stacked_widget.setCurrentWidget(self._history_view)
+
+    def show_settings_view(self):
+
+        self._stacked_widget.setCurrentWidget(self._settings_view)

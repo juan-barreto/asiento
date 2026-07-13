@@ -79,8 +79,20 @@ class MainController:
         self._window._converter_view.append_log(
             resultado.model_dump_json(indent=2)
         )     
-
+        self._window._converter_view.append_log(str(resultado.stats))
+        
         self._window._converter_view.set_export_enabled(True)
+
+        if resultado.revisar:
+
+
+            self._window._review_view.load_movements(resultado.revisar)
+
+            self._window._review_view.set_review_count(
+            len(resultado.revisar)
+            )
+
+            self._window.show_review_view()
 
     def _show_error(self, error: str):
 
