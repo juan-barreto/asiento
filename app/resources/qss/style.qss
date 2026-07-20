@@ -278,3 +278,59 @@ QWidget#actionBar {
 
     border-radius: 10px;
 }
+/* =========================================================
+   REVIEW TABLE
+   ========================================================= */
+
+QTableWidget {
+
+    background-color: #2A2A2A;
+
+    border: 1px solid #404040;
+
+    gridline-color: #404040;
+
+    color: white;
+
+    selection-background-color: #2563EB;
+
+    selection-color: white;
+
+    alternate-background-color: #323232;
+
+    font-size: 13px;
+}
+
+QHeaderView::section {
+
+    background-color: #252525;
+
+    color: white;
+
+    border: none;
+
+    border-bottom: 1px solid #404040;
+
+    padding: 8px;
+
+    font-weight: bold;
+}
+
+QTableCornerButton::section {
+
+    background-color: #252525;
+
+    border: none;
+}
+
+QTableWidget::item {
+
+    padding: 6px;
+}
+
+QTableWidget::item:selected {
+
+    background-color: #2563EB;
+
+    color: white;
+}

@@ -30,6 +30,9 @@ class MainController:
         self._window._converter_view._action_bar.process.connect(self._process_pdf)
 
         self._window._converter_view._action_bar.export.connect(self._export_excel)
+         
+        self._window._review_view.back.connect(self._back_to_converter)
+        self._window._review_view.save.connect(self._save_review)
 
     
     def _select_pdf(self):
@@ -127,5 +130,34 @@ class MainController:
 
         self._thread.start()
 
+    def _back_to_converter(self):
 
+        self._window.show_converter_view()
+
+    def _save_review(self):
+
+        movimientos_editados = self._window._review_view.get_movements()
+        
+        cantidad = len(self._resultado.revisar)
+
+        self._resultado.revisar = []
+
+        self._resultado.stats.total_seguros += cantidad
+        self._resultado.stats.total_revisar = 0
+
+        self._window._converter_view.update_stats(self._resultado.stats)
+
+        self._window._converter_view.append_log(
+        f"Se corrigieron manualmente {cantidad} movimientos."
+        )
+
+        self._window._converter_view.append_log(
+            "Movimientos revisados, guardados."
+        )
+
+        self._window._converter_view.set_status(
+        "Listo para exportar"
+        )
+        
+        self._window.show_converter_view()
 
