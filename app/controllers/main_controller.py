@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QFileDialog
 from app.exporters.xl_exporter import conversion_excel
 from app.ui.main_window import MainWindow
 from app.workers.extract_worker import ExtractWorker
+from app.services.database import Database
 
 
 class MainController:
@@ -13,14 +14,16 @@ class MainController:
     def __init__(self, window: MainWindow):
 
         self._window = window
+        self._database = Database()
 
         self._selected_pdf = None
         self._resultado = None
-
+        
         self._thread = None
         self._worker = None
 
         self._connect_signals()
+        self._load_history()
 
     
     def _connect_signals(self):
@@ -47,11 +50,12 @@ class MainController:
         if not file_path:
             return
         
+        
         self._selected_pdf = file_path
 
-        file_name = Path(file_path).name
+        self._file_name = Path(file_path).name
 
-        self._window._converter_view.set_file_name(file_name)
+        self._window._converter_view.set_file_name(self._file_name)
         self._window._converter_view.set_status("Archivo seleccionado")
         self._window._converter_view.set_process_enabled(True)
 
@@ -72,7 +76,8 @@ class MainController:
     def _processing_finished(self, resultado):
 
         self._resultado = resultado
-
+        self._database.save_result(resultado, self._file_name)
+        self._load_history()
         self._window._converter_view.set_status("Completado")
         self._window._converter_view.set_bank(resultado.banco)
 
@@ -161,3 +166,8 @@ class MainController:
         
         self._window.show_converter_view()
 
+    def _load_history(self):
+
+        resultados = self._database.get_results()
+
+        self._window._history_view.load_results(resultados)

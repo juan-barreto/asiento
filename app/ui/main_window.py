@@ -10,6 +10,7 @@ from app.ui.views.converter_view import ConverterView
 from app.ui.views.history_view import HistoryView
 from app.ui.views.settings_view import SettingsView
 from app.ui.views.review_view import ReviewView
+from PySide6.QtGui import QIcon
 
 
 class MainWindow(QMainWindow):
@@ -23,8 +24,9 @@ class MainWindow(QMainWindow):
         self._connect_signals()
 
     def _setup_window(self):
-        self.setWindowTitle("ASIENTO")
+        self.setWindowTitle("ASIENTO Studio® ")
         self.resize(1200, 700)
+        self.setWindowIcon(QIcon("app/resources/icons/asiento.png"))
 
     def _connect_signals(self):
 
@@ -33,6 +35,7 @@ class MainWindow(QMainWindow):
     def _create_widgets(self):
 
         self._central_widget = QWidget()
+        self._central_widget.setObjectName("mainContent")
 
         self._sidebar = Sidebar()
 

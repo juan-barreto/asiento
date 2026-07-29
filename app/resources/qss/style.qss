@@ -279,7 +279,7 @@ QWidget#actionBar {
     border-radius: 10px;
 }
 /* =========================================================
-   REVIEW TABLE
+   TABLES
    ========================================================= */
 
 QTableWidget {
@@ -299,6 +299,7 @@ QTableWidget {
     alternate-background-color: #323232;
 
     font-size: 13px;
+
 }
 
 QHeaderView::section {
@@ -314,6 +315,7 @@ QHeaderView::section {
     padding: 8px;
 
     font-weight: bold;
+
 }
 
 QTableCornerButton::section {
@@ -321,11 +323,13 @@ QTableCornerButton::section {
     background-color: #252525;
 
     border: none;
+
 }
 
 QTableWidget::item {
 
     padding: 6px;
+
 }
 
 QTableWidget::item:selected {
@@ -333,4 +337,123 @@ QTableWidget::item:selected {
     background-color: #2563EB;
 
     color: white;
+
 }
+
+/* =========================================================
+   HISTORY TABLE
+   ========================================================= */
+
+QTableWidget#historyTable {
+
+    border-radius: 10px;
+
+}
+
+/* =========================================================
+   REVIEW TABLE
+   ========================================================= */
+
+QTableWidget#reviewTable {
+
+    border-radius: 10px;
+
+}
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+QWidget#sidebar {
+
+    background-image: url(C:/Users/Juan/Desktop/ASIENTO/app/resources/icons/background.png);
+
+    background-repeat: no-repeat;
+    background-position: center;
+
+    border-right: 1px solid #303030;
+}
+
+
+/* =========================================================
+   SIDEBAR BUTTONS
+   ========================================================= */
+
+QPushButton#sidebarButton {
+
+    background: transparent;
+
+    border: none;
+
+    border-left: 3px solid transparent;
+
+    border-radius: 8px;
+
+    color: #D8D8D8;
+
+    text-align: left;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+/* =========================================================
+   SIDEBAR BRAND
+   ========================================================= */
+
+QLabel#sidebarTitle {
+
+    font-size: 30px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 2px;
+
+    margin: 0px;
+    padding: 0px;
+}
+
+QLabel#sidebarSubtitle {
+
+    font-size: 12px;
+    font-weight: 500;
+    color: #8F8F8F;
+
+    margin: 0px;
+    margin-top: -4px;
+    padding: 0px;
+}
+
+QFrame#sidebarSeparator {
+
+    background-color: #343434;
+
+    max-height: 1px;
+
+    min-height: 1px;
+
+    border: none;
+
+}
+
+QLabel#sidebarVersion {
+
+    color: #6E6E6E;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    padding-bottom: 6px;
+
+}
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+

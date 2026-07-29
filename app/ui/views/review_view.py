@@ -35,6 +35,7 @@ class ReviewView(QWidget):
         )
 
         self._table = QTableWidget()
+        self._table.setObjectName("reviewTable")
 
         self._table.setColumnCount(7)
         

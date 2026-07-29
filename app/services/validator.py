@@ -138,6 +138,7 @@ if __name__ == "__main__":
         
   resultado = validar_movimientos(movimientos)
 
+  print(resultado)
   print(
         json.dumps(
         [m.model_dump() for m in resultado],
