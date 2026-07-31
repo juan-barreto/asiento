@@ -7,15 +7,20 @@ from PySide6.QtWidgets import (
     QTableWidgetItem
 )
 
+from PySide6.QtCore import Signal
+
 
 class HistoryView(QWidget):
 
+    open_pdf_requested = Signal(int)
+
     def __init__(self):
         super().__init__()
-
+        
         self._create_widgets()
         self._configure_table()
         self._create_layout()
+        self._connect_signals()
 
     def _create_widgets(self):
 
@@ -109,6 +114,12 @@ class HistoryView(QWidget):
 
         self.setLayout(layout)
 
+    def _connect_signals(self):
+
+        self._table.cellDoubleClicked.connect(
+        self._on_double_click
+    )
+
     def load_results(self, resultados):
 
         self._table.setSortingEnabled(False)
@@ -144,3 +155,16 @@ class HistoryView(QWidget):
                 )
 
         self._table.setSortingEnabled(True)
+
+    def _on_double_click(self, row, column):
+
+        item = self._table.item(row, 0)
+
+        if item is None:
+            return
+
+        conversion_id = int(item.text())
+
+        self.open_pdf_requested.emit(
+            conversion_id
+        )

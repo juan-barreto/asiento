@@ -7,6 +7,7 @@ from app.exporters.xl_exporter import conversion_excel
 from app.ui.main_window import MainWindow
 from app.workers.extract_worker import ExtractWorker
 from app.services.database import Database
+from app.ui.dialogs.pdf_viewer_dialog import PdfViewerDialog
 
 
 class MainController:
