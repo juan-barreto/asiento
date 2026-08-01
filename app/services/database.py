@@ -1,6 +1,7 @@
 import sqlite3
 import datetime
-
+from pathlib import Path
+import os
 
 class Database:
 
@@ -8,9 +9,21 @@ class Database:
 
         self._create_tables()
 
+    def _database_path(self) -> Path:
+
+        appdata = Path(
+            os.getenv("LOCALAPPDATA")
+        )
+
+        carpeta = appdata / "Asiento"
+
+        carpeta.mkdir(exist_ok = True
+        )
+        return carpeta / "historial.db"
+
     def _connect(self):
 
-        return sqlite3.connect("historial.db")
+        return sqlite3.connect(self._database_path)
 
     def _create_tables(self):
 
@@ -31,6 +44,8 @@ class Database:
 
                     nombre_archivo TEXT NOT NULL,
 
+                    ruta_archivo TEXT NOT NULL,
+
                     banco TEXT NOT NULL,
 
                     total_movimientos INTEGER NOT NULL,
@@ -44,7 +59,7 @@ class Database:
                 )
             """)
 
-    def save_result(self, resultado, nombre_archivo):
+    def save_result(self, resultado, nombre_archivo, ruta_archivo):
 
         if not resultado.movimientos:
             raise ValueError(
@@ -64,6 +79,7 @@ class Database:
                     fecha_extracto_inicial,
                     fecha_extracto_final,
                     nombre_archivo,
+                    ruta_archivo,
                     banco,
                     total_movimientos,
                     total_seguros,
@@ -72,7 +88,7 @@ class Database:
 
                 )
 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 
             """,
             (
@@ -80,6 +96,7 @@ class Database:
                 resultado.movimientos[0].fecha,
                 resultado.movimientos[-1].fecha,
                 nombre_archivo,
+                ruta_archivo,
                 resultado.banco,
                 resultado.stats.total_movimientos,
                 resultado.stats.total_seguros,
@@ -102,6 +119,7 @@ class Database:
                 fecha_extracto_inicial,
                 fecha_extracto_final,
                 nombre_archivo,
+                ruta_archivo,
                 banco,
                 total_movimientos,
                 total_seguros,
@@ -123,17 +141,44 @@ class Database:
                 "fecha": fila[1],
                 "fecha_inicial": fila[2],
                 "fecha_final": fila[3],
-                "archivo": fila[4],
-                "banco": fila[5],
-                "movimientos": fila[6],
-                "seguros": fila[7],
-                "revisar": fila[8]
+                "nombre_archivo": fila[4],
+                "ruta_archivo": fila[5],
+                "banco": fila[6],
+                "movimientos": fila[7],
+                "seguros": fila[8],
+                "revisar": fila[9]
 
             }
 
             resultados.append(resultado)
 
         return resultados
+
+    def get_pdf_path(self, conversion_id):
+    
+            with self._connect() as connection:
+    
+                cursor = connection.cursor()
+    
+                cursor.execute("""
+                SELECT
+    
+                    ruta_archivo
+    
+                FROM conversiones
+    
+                WHERE id = ?
+                        """,
+                (conversion_id,)
+                        )
+
+                fila = cursor.fetchone()
+    
+    
+            if fila is None:
+                return None
+
+            return fila[0]
 
 if __name__ == "__main__":
 
@@ -148,7 +193,8 @@ if __name__ == "__main__":
 
     database.save_result(
         resultado,
-        Path(pdf_path).name
+        Path(pdf_path).name,
+        pdf_path
     )
 
     resultados = database.get_results()

@@ -2,7 +2,7 @@ from openpyxl import Workbook
 import os
 
 
-def conversion_excel(resultado, callback=None):
+def conversion_excel(resultado, ruta, callback=None):
 
     def log(mensaje):
         if callback:
@@ -43,7 +43,6 @@ def conversion_excel(resultado, callback=None):
         length = max(len(str(cell.value)) for cell in columna)
         ws.column_dimensions[columna[0].column_letter].width = length + 2
 
-    ruta = "extracto_pyside.xlsx"
 
     wb.save(ruta)
 

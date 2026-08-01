@@ -17,7 +17,7 @@ class MainController:
         self._window = window
         self._database = Database()
 
-        self._selected_pdf = None
+        self._selected_pdf_path = None
         self._resultado = None
         
         self._thread = None
@@ -34,6 +34,10 @@ class MainController:
         self._window._converter_view._action_bar.process.connect(self._process_pdf)
 
         self._window._converter_view._action_bar.export.connect(self._export_excel)
+
+        self._window._history_view.open_pdf_requested.connect(
+            self._open_pdf_from_history
+        )
          
         self._window._review_view.back.connect(self._back_to_converter)
         self._window._review_view.save.connect(self._save_review)
@@ -52,7 +56,7 @@ class MainController:
             return
         
         
-        self._selected_pdf = file_path
+        self._selected_pdf_path = file_path
 
         self._file_name = Path(file_path).name
 
@@ -71,18 +75,32 @@ class MainController:
 
         if self._resultado is None:
             return
-        conversion_excel(self._resultado,
+
+        ruta, _ = QFileDialog.getSaveFileName(
+            self._window,
+            "Guardar Excel",
+            f"{self._file_name}.xlsx",
+            "Excel (*.xlsx)"
+        )
+
+        if not ruta:
+            return
+        conversion_excel(self._resultado,ruta,
             callback=self._window._converter_view.append_log)
 
     def _processing_finished(self, resultado):
 
         self._resultado = resultado
-        self._database.save_result(resultado, self._file_name)
+        self._database.save_result(resultado, self._file_name, self._selected_pdf_path)
         self._load_history()
         self._window._converter_view.set_status("Completado")
         self._window._converter_view.set_bank(resultado.banco)
 
         self._window._converter_view.update_stats(resultado.stats)
+
+        self._window._converter_view.load_pdf(
+            self._selected_pdf_path
+        )
 
         self._window._converter_view.append_log("Proceso finalizado")
         self._window._converter_view.append_log(
@@ -116,7 +134,7 @@ class MainController:
 
         self._thread = QThread()
 
-        self._worker = ExtractWorker(self._selected_pdf)
+        self._worker = ExtractWorker(self._selected_pdf_path)
 
         self._worker.moveToThread(self._thread)
 
@@ -139,6 +157,7 @@ class MainController:
     def _back_to_converter(self):
 
         self._window.show_converter_view()
+
 
     def _save_review(self):
 
@@ -172,3 +191,13 @@ class MainController:
         resultados = self._database.get_results()
 
         self._window._history_view.load_results(resultados)
+
+    def _open_pdf_from_history(self, conversion_id):
+
+            pdf_path = self._database.get_pdf_path(conversion_id)
+
+            dialog = PdfViewerDialog(self._window)
+
+            dialog.load_pdf(pdf_path)
+
+            dialog.exec()

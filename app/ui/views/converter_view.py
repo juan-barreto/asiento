@@ -1,5 +1,13 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout
+from PySide6.QtWidgets import (
+    QWidget,
+    QVBoxLayout,
+    QHBoxLayout,
+    QSplitter
+)
 
+from PySide6.QtCore import Qt
+
+from app.ui.widgets.pdf_viewer_widget import PdfViewerWidget
 from app.ui.widgets.file_card import FileCard
 from app.ui.widgets.action_bar import ActionBar
 from app.ui.widgets.summary_panel import SummaryPanel
@@ -21,21 +29,63 @@ class ConverterView(QWidget):
         self._action_bar = ActionBar()
         self._summary_panel = SummaryPanel()
         self._log_panel = LogPanel()
+        self._pdf_viewer = PdfViewerWidget()
+        self._right_panel = QWidget()
 
     def _create_layout(self):
 
         layout = QVBoxLayout()
 
-        # QSS
-        #------------------------------------------
         layout.setContentsMargins(20, 20, 20, 20)
         layout.setSpacing(16)
-        #------------------------------------------
-        
+
         layout.addWidget(self._file_card)
-        layout.addWidget(self._action_bar)
-        layout.addWidget(self._summary_panel)
-        layout.addWidget(self._log_panel)
+
+        splitter = QSplitter(Qt.Horizontal)
+
+        right_layout = QVBoxLayout()
+
+        right_layout.setContentsMargins(0, 0, 0, 0)
+
+        right_layout.setSpacing(16)
+
+        right_layout.addWidget(self._summary_panel)
+
+        right_layout.addWidget(
+            self._log_panel,
+            stretch=1
+        )
+
+        self._right_panel.setLayout(
+            right_layout
+        )
+
+        splitter.addWidget(
+            self._pdf_viewer
+        )
+
+        splitter.addWidget(
+            self._right_panel
+        )
+
+        splitter.setStretchFactor(
+            0,
+            3
+        )
+
+        splitter.setStretchFactor(
+            1,
+            2
+        )
+
+        layout.addWidget(
+            splitter,
+            stretch=1
+        )
+
+        layout.addWidget(
+            self._action_bar
+        )
 
         self.setLayout(layout)
 
@@ -64,6 +114,9 @@ class ConverterView(QWidget):
 
     def clear_log(self):
         self._log_panel.clear()
+
+    def load_pdf(self, pdf_path):
+        self._pdf_viewer.load_pdf(pdf_path)
 
     
     

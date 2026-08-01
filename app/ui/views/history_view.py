@@ -117,7 +117,7 @@ class HistoryView(QWidget):
     def _connect_signals(self):
 
         self._table.cellDoubleClicked.connect(
-        self._on_double_click
+            self._on_double_click
     )
 
     def load_results(self, resultados):
@@ -136,7 +136,7 @@ class HistoryView(QWidget):
                 resultado["fecha"],
                 resultado["fecha_inicial"],
                 resultado["fecha_final"],
-                resultado["archivo"],
+                resultado["nombre_archivo"],
                 resultado["banco"],
                 resultado["movimientos"],
                 resultado["seguros"],
@@ -156,7 +156,7 @@ class HistoryView(QWidget):
 
         self._table.setSortingEnabled(True)
 
-    def _on_double_click(self, row, column):
+    def _on_double_click(self, row,_):
 
         item = self._table.item(row, 0)
 

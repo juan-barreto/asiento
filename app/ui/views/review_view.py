@@ -152,6 +152,20 @@ class ReviewView(QWidget):
 
         for row in range(self._table.rowCount()):
 
+            
+
+            credito = float(
+                self._table.item(row, 3).text().replace(",", "")
+                )
+
+            debito = float(
+                self._table.item(row, 4).text().replace(",", "")
+            )
+
+            saldo = float(
+                self._table.item(row, 5).text().replace(",", "")
+            )
+
             movimiento = Movimiento(
 
                 fecha=self._table.item(row, 0).text(),
@@ -160,11 +174,11 @@ class ReviewView(QWidget):
 
                 detalle=self._table.item(row, 2).text(),
 
-                credito=float(self._table.item(row, 3).text()),
+                credito= credito,
 
-                debito=float(self._table.item(row, 4).text()),
+                debito= debito,
 
-                saldo=float(self._table.item(row, 5).text()),
+                saldo= saldo,
 
                 confidence=float(self._table.item(row, 6).text())
 
