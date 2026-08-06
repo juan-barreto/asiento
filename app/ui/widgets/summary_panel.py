@@ -23,7 +23,8 @@ class SummaryPanel(QWidget):
     def _create_layout(self):
 
         layout = QHBoxLayout()
-
+        layout.setContentsMargins(0,0,0,0)
+        layout.setSpacing(16)
         layout.addWidget(self._movements_card)
         layout.addWidget(self._insurance_card)
         layout.addWidget(self._review_card)

@@ -17,9 +17,10 @@ class MainController:
         self._window = window
         self._database = Database()
 
+
         self._selected_pdf_path = None
         self._resultado = None
-        
+        self._conversion_id = None
         self._thread = None
         self._worker = None
 
@@ -91,7 +92,11 @@ class MainController:
     def _processing_finished(self, resultado):
 
         self._resultado = resultado
-        self._database.save_result(resultado, self._file_name, self._selected_pdf_path)
+        self._conversion_id = self._database.save_result(
+            resultado,
+            self._file_name,
+            self._selected_pdf_path
+            )
         self._load_history()
         self._window._converter_view.set_status("Completado")
         self._window._converter_view.set_bank(resultado.banco)
@@ -166,10 +171,14 @@ class MainController:
         cantidad = len(self._resultado.revisar)
 
         self._resultado.revisar = []
+        self._resultado.seguros.extend(movimientos_editados)
 
-        self._resultado.stats.total_seguros += cantidad
-        self._resultado.stats.total_revisar = 0
-
+        self._resultado.stats.total_seguros = len(self._resultado.seguros)
+        self._resultado.stats.total_revisar = len(self._resultado.revisar)
+        self._database.update_result(
+            self._conversion_id,
+            self._resultado
+            )
         self._window._converter_view.update_stats(self._resultado.stats)
 
         self._window._converter_view.append_log(

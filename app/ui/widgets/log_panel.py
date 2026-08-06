@@ -26,8 +26,6 @@ class LogPanel(QWidget):
 
         layout.addWidget(self._log)
 
-        layout.addWidget(self._log)
-
         self.setLayout(layout)
 
     

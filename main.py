@@ -1,5 +1,7 @@
 import sys
 from PySide6.QtWidgets import QApplication 
+from PySide6.QtGui import QIcon
+from app.utils.resource_path import resource_path
 
 from pathlib import Path
 
@@ -9,8 +11,15 @@ from app.controllers.main_controller import MainController
 # QApplication es el nucleo de mi app en Qt, maneja el loop de eventos (clicks, teclado ,etc
 def main():
    app = QApplication(sys.argv)
+   app.setWindowIcon(
+    QIcon(
+        str(
+            resource_path("app/resources/icons/asiento.ico")
+        )
+    )
+      )
 
-   qss_path = Path("app/resources/qss/style.qss")
+   qss_path = resource_path("app/resources/qss/style.qss")
 
    with open(qss_path, "r", encoding="utf-8") as f:
       app.setStyleSheet(f.read())

@@ -5,6 +5,9 @@ from PySide6.QtWidgets import (
     QStackedWidget
 )
 
+from PySide6.QtGui import QIcon
+from app.utils.resource_path import resource_path
+
 from app.ui.widgets.sidebar import Sidebar
 from app.ui.views.converter_view import ConverterView
 from app.ui.views.history_view import HistoryView
@@ -17,6 +20,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        
 
         self._setup_window()
         self._create_widgets()
@@ -26,7 +30,13 @@ class MainWindow(QMainWindow):
     def _setup_window(self):
         self.setWindowTitle("ASIENTO Studio® ")
         self.resize(1200, 700)
-        self.setWindowIcon(QIcon("app/resources/icons/asiento.png"))
+        self.setWindowIcon(
+                    QIcon(
+                        str(
+                            resource_path("app/resources/icons/asiento.ico")
+                        )
+                    )
+                )
 
     def _connect_signals(self):
 
@@ -79,3 +89,10 @@ class MainWindow(QMainWindow):
     def show_settings_view(self):
 
         self._stacked_widget.setCurrentWidget(self._settings_view)
+
+if __name__ == "__main__":
+
+    icon_path = resource_path("app/resources/icons/asiento.ico")
+
+    print(icon_path)
+    print(icon_path.exists())

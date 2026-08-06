@@ -1,0 +1,459 @@
+/*
+=========================================================
+ASIENTO DESIGN SYSTEM
+=========================================================
+
+BACKGROUND APP      #1E1E1E
+BACKGROUND CARD     #2A2A2A
+
+PRIMARY             #2563EB
+SUCCESS             #22C55E
+WARNING             #F59E0B
+ERROR               #EF4444
+
+TEXT                #FFFFFF
+TEXT SECONDARY      #CFCFCF
+
+BORDER              #404040
+
+RADIUS              8px
+PADDING             12px
+=========================================================
+*/
+
+
+
+
+/* =========================================================
+   APPLICATION
+   ========================================================= */
+
+QMainWindow {
+
+    background-color: #1E1E1E;
+}
+QWidget {
+
+    background-color: #1E1E1E;
+    color: #FFFFFF;
+}
+
+/* =========================================================
+   BUTTONS (BASE)
+   ========================================================= */
+
+QPushButton {
+
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    padding: 8px 16px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    min-height: 34px;
+}
+
+/*QPushButton:hover {
+
+    background-color: #1D4ED8;
+}
+
+QPushButton:pressed {
+
+    background-color: #1E40AF;
+}
+
+QPushButton:disabled {
+
+    background-color: #505050;
+    color: #B0B0B0;
+}
+/*
+
+/* =========================================================
+   SELECT BUTTON
+   ========================================================= */
+
+QPushButton#selectButton {
+
+    background-color: #404040;
+}
+
+QPushButton#selectButton:hover {
+
+    background-color: #505050;
+}
+
+QPushButton#selectButton:pressed {
+
+    background-color: #606060;
+}
+
+/* =========================================================
+   PROCESS BUTTON
+   ========================================================= */
+
+QPushButton#processButton {
+
+    background-color: #2563EB;
+}
+
+QPushButton#processButton:hover {
+
+    background-color: #1D4ED8;
+}
+
+QPushButton#processButton:pressed {
+
+    background-color: #1E40AF;
+}
+
+/* =========================================================
+   EXPORT BUTTON
+   ========================================================= */
+
+QPushButton#exportButton {
+
+    background-color: #22C55E;
+}
+
+QPushButton#exportButton:hover {
+
+    background-color: #16A34A;
+}
+
+QPushButton#exportButton:pressed {
+
+    background-color: #15803D;
+}
+
+/* =========================================================
+   FILE CARD
+   ========================================================= */
+
+QWidget#fileCard {
+
+    background-color: #2A2A2A;
+
+    border: 1px solid #404040;
+    border-radius: 10px;
+
+    padding: 12px;
+}
+QLabel {
+
+    background: transparent;
+}
+
+QLabel#fileName {
+
+    font-size: 18px;
+    font-weight: bold;
+
+    color: white;
+}
+
+QLabel#bankLabel {
+
+    font-size: 13px;
+
+    color: #CFCFCF;
+}
+
+QLabel#statusLabel {
+
+    font-size: 13px;
+
+    color: #22C55E;
+}
+
+/* =========================================================
+   METRIC CARD
+   ========================================================= */
+
+QWidget#metricCard {
+
+    background-color: #2A2A2A;
+
+    border: 1px solid #404040;
+    border-radius: 10px;
+}
+
+QLabel#metricTitle {
+
+    background: transparent;
+
+    color: #CFCFCF;
+
+    font-size: 13px;
+}
+
+QLabel#metricValue {
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 28px;
+
+    font-weight: bold;
+}
+
+/* =========================================================
+   LOG PANEL
+   ========================================================= */
+
+QWidget#logPanel {
+
+    background-color: #2A2A2A;
+
+    border: 1px solid #404040;
+
+    border-radius: 10px;
+}
+
+QTextEdit#logText {
+
+    background-color: transparent;
+
+    border: none;
+
+    color: #CFCFCF;
+
+    font-family: Consolas;
+    font-size: 13px;
+
+    selection-background-color: #2563EB;
+}
+
+QScrollBar:vertical {
+
+    background: transparent;
+
+    width: 10px;
+
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical {
+
+    background: #505050;
+
+    border-radius: 5px;
+
+    min-height: 25px;
+}
+
+QScrollBar::handle:vertical:hover {
+
+    background: #707070;
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+
+    height: 0px;
+}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical {
+
+    background: transparent;
+}
+
+
+/* =========================================================
+   ACTION BAR
+   ========================================================= */
+
+QWidget#actionBar {
+
+    background-color: #2A2A2A;
+
+    border: 1px solid #404040;
+
+    border-radius: 10px;
+}
+/* =========================================================
+   TABLES
+   ========================================================= */
+
+QTableWidget {
+
+    background-color: #2A2A2A;
+
+    border: 1px solid #404040;
+
+    gridline-color: #404040;
+
+    color: white;
+
+    selection-background-color: #2563EB;
+
+    selection-color: white;
+
+    alternate-background-color: #323232;
+
+    font-size: 13px;
+
+}
+
+QHeaderView::section {
+
+    background-color: #252525;
+
+    color: white;
+
+    border: none;
+
+    border-bottom: 1px solid #404040;
+
+    padding: 8px;
+
+    font-weight: bold;
+
+}
+
+QTableCornerButton::section {
+
+    background-color: #252525;
+
+    border: none;
+
+}
+
+QTableWidget::item {
+
+    padding: 6px;
+
+}
+
+QTableWidget::item:selected {
+
+    background-color: #2563EB;
+
+    color: white;
+
+}
+
+/* =========================================================
+   HISTORY TABLE
+   ========================================================= */
+
+QTableWidget#historyTable {
+
+    border-radius: 10px;
+
+}
+
+/* =========================================================
+   REVIEW TABLE
+   ========================================================= */
+
+QTableWidget#reviewTable {
+
+    border-radius: 10px;
+
+}
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+QWidget#sidebar {
+
+    background-image: url(C:/Users/Juan/Desktop/ASIENTO/app/resources/icons/background.png);
+
+    background-repeat: no-repeat;
+    background-position: center;
+
+    border-right: 1px solid #303030;
+}
+
+
+/* =========================================================
+   SIDEBAR BUTTONS
+   ========================================================= */
+
+QPushButton#sidebarButton {
+
+    background: transparent;
+
+    border: none;
+
+    border-left: 3px solid transparent;
+
+    border-radius: 8px;
+
+    color: #D8D8D8;
+
+    text-align: left;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+/* =========================================================
+   SIDEBAR BRAND
+   ========================================================= */
+
+QLabel#sidebarTitle {
+
+    font-size: 30px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 2px;
+
+    margin: 0px;
+    padding: 0px;
+}
+
+QLabel#sidebarSubtitle {
+
+    font-size: 12px;
+    font-weight: 500;
+    color: #8F8F8F;
+
+    margin: 0px;
+    margin-top: -4px;
+    padding: 0px;
+}
+
+QFrame#sidebarSeparator {
+
+    background-color: #343434;
+
+    max-height: 1px;
+
+    min-height: 1px;
+
+    border: none;
+
+}
+
+QLabel#sidebarVersion {
+
+    color: #6E6E6E;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    padding-bottom: 6px;
+
+}
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+

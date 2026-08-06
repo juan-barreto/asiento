@@ -23,7 +23,7 @@ class Database:
 
     def _connect(self):
 
-        return sqlite3.connect(self._database_path)
+        return sqlite3.connect(self._database_path())
 
     def _create_tables(self):
 
@@ -104,7 +104,7 @@ class Database:
                 resultado.model_dump_json()
             )
             )
-
+            return cursor.lastrowid
     def get_results(self):
 
         with self._connect() as connection:
@@ -179,6 +179,32 @@ class Database:
                 return None
 
             return fila[0]
+
+    def update_result(self, conversion_id: int, resultado):
+
+        with self._connect() as connection:
+
+            cursor = connection.cursor()
+
+            cursor.execute(
+                """
+                UPDATE conversiones
+                SET
+                    total_seguros = ?,
+                    total_revisar = ?,
+                    resultado_json = ?
+                WHERE id = ?
+                """,
+                (
+                    resultado.stats.total_seguros,
+                    resultado.stats.total_revisar,
+                    resultado.model_dump_json(),
+                    conversion_id
+                )
+            )
+       
+
+            print("UPDATE EJECUTADO")
 
 if __name__ == "__main__":
 

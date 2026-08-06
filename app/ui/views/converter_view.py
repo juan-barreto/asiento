@@ -41,7 +41,7 @@ class ConverterView(QWidget):
 
         layout.addWidget(self._file_card)
 
-        splitter = QSplitter(Qt.Horizontal)
+        self._splitter = QSplitter(Qt.Horizontal)
 
         right_layout = QVBoxLayout()
 
@@ -60,26 +60,28 @@ class ConverterView(QWidget):
             right_layout
         )
 
-        splitter.addWidget(
+        self._splitter.addWidget(
             self._pdf_viewer
         )
 
-        splitter.addWidget(
+        self._splitter.addWidget(
             self._right_panel
         )
+        self._splitter.setChildrenCollapsible(False)
+        self._splitter.setOpaqueResize(False)
 
-        splitter.setStretchFactor(
+        self._splitter.setStretchFactor(
             0,
             3
         )
 
-        splitter.setStretchFactor(
+        self._splitter.setStretchFactor(
             1,
             2
         )
 
         layout.addWidget(
-            splitter,
+            self._splitter,
             stretch=1
         )
 
