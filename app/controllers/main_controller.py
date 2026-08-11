@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from PySide6.QtCore import QThread
-from PySide6.QtWidgets import QFileDialog
+from PySide6.QtWidgets import QFileDialog, QMessageBox
 
 from app.exporters.xl_exporter import conversion_excel
 from app.ui.main_window import MainWindow
@@ -38,6 +38,10 @@ class MainController:
 
         self._window._history_view.open_pdf_requested.connect(
             self._open_pdf_from_history
+        )
+
+        self._window._history_view.delete_requested.connect(
+        self._delete_from_history
         )
          
         self._window._review_view.back.connect(self._back_to_converter)
@@ -92,6 +96,7 @@ class MainController:
     def _processing_finished(self, resultado):
 
         self._resultado = resultado
+
         self._conversion_id = self._database.save_result(
             resultado,
             self._file_name,
@@ -100,7 +105,6 @@ class MainController:
         self._load_history()
         self._window._converter_view.set_status("Completado")
         self._window._converter_view.set_bank(resultado.banco)
-
         self._window._converter_view.update_stats(resultado.stats)
 
         self._window._converter_view.load_pdf(
@@ -118,7 +122,7 @@ class MainController:
         if resultado.revisar:
 
 
-            self._window._review_view.load_movements(resultado.revisar)
+            self._window._review_view.load_movements(resultado.movimientos,resultado.revisar)
 
             self._window._review_view.set_review_count(
             len(resultado.revisar)
@@ -164,21 +168,25 @@ class MainController:
         self._window.show_converter_view()
 
 
-    def _save_review(self):
+    def _save_review(self, movimientos_editados):
 
         movimientos_editados = self._window._review_view.get_movements()
         
         cantidad = len(self._resultado.revisar)
 
+        
+        self._resultado.movimientos = movimientos_editados
+        self._resultado.seguros = movimientos_editados
         self._resultado.revisar = []
-        self._resultado.seguros.extend(movimientos_editados)
 
         self._resultado.stats.total_seguros = len(self._resultado.seguros)
         self._resultado.stats.total_revisar = len(self._resultado.revisar)
+
         self._database.update_result(
             self._conversion_id,
             self._resultado
             )
+        
         self._window._converter_view.update_stats(self._resultado.stats)
 
         self._window._converter_view.append_log(
@@ -194,6 +202,7 @@ class MainController:
         )
         
         self._window.show_converter_view()
+        self._load_history()
 
     def _load_history(self):
 
@@ -210,3 +219,38 @@ class MainController:
             dialog.load_pdf(pdf_path)
 
             dialog.exec()
+
+    def _delete_from_history(self, conversion_id):
+
+        message_box = QMessageBox(self._window)
+
+        message_box.setWindowTitle("Eliminar conversión")
+        message_box.setText(
+            "¿Estás seguro de que querés eliminar esta conversión?"
+        )
+
+        yes_button = message_box.addButton(
+            "Sí",
+            QMessageBox.YesRole
+        )
+
+        no_button = message_box.addButton(
+            "No",
+            QMessageBox.NoRole
+        )
+
+        message_box.setDefaultButton(no_button)
+
+        message_box.exec()
+
+        if message_box.clickedButton() != yes_button:
+            return
+
+        filas = self._database.delete_result(
+            conversion_id
+        )
+
+        if filas == 0:
+            return
+
+        self._load_history()

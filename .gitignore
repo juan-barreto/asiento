@@ -1,24 +1,32 @@
-# entorno virtual
-venv/
-
-# variables sensibles
-.env
-
-# python
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
 
-# Base de datos
-*.db
+# Entornos virtuales
+.venv/
+venv/
+env/
 
-# Ignorar todos los archivos Excel
-*.xlsx
-*.xls
-
-# VS Code
+# IDE
 .vscode/
+.idea/
 
+# PyInstaller
+build/
+dist/
+*.spec
+!ASIENTO.spec
 
-# Sistema
+# Ejecutables
+*.exe
+
+# Base de datos local
+*.db
+*.sqlite
+*.sqlite3
+
+# Archivos temporales
+*.log
 .DS_Store
 Thumbs.db

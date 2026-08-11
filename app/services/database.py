@@ -185,6 +185,7 @@ class Database:
         with self._connect() as connection:
 
             cursor = connection.cursor()
+            print("ID:", conversion_id)
 
             cursor.execute(
                 """
@@ -202,9 +203,25 @@ class Database:
                     conversion_id
                 )
             )
-       
 
+            print("Filas modificadas:", cursor.rowcount)
             print("UPDATE EJECUTADO")
+
+    def delete_result(self, conversion_id: int):
+
+        with self._connect() as connection:
+
+            cursor = connection.cursor()
+
+            cursor.execute("""
+                DELETE FROM conversiones
+                WHERE id = ?
+
+            """, (conversion_id,))
+
+            connection.commit()
+
+            return cursor.rowcount
 
 if __name__ == "__main__":
 

@@ -1,4 +1,6 @@
-from pydantic import BaseModel, field_validator
+from uuid import UUID, uuid4
+
+from pydantic import BaseModel, Field, field_validator
 
 
 class MovimientoRaw(BaseModel):
@@ -7,6 +9,9 @@ class MovimientoRaw(BaseModel):
 
 
 class Movimiento(BaseModel):
+
+    id: UUID = Field(default_factory=uuid4)
+
     fecha: str
     descripcion: str
     detalle: str

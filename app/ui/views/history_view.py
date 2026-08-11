@@ -4,19 +4,21 @@ from PySide6.QtWidgets import (
     QTableWidget,
     QHeaderView,
     QAbstractItemView,
-    QTableWidgetItem
+    QTableWidgetItem,
+    QMenu
 )
 
-from PySide6.QtCore import Signal
+from PySide6.QtCore import Signal, Qt
 
 
 class HistoryView(QWidget):
 
     open_pdf_requested = Signal(int)
+    delete_requested = Signal(int)
 
     def __init__(self):
         super().__init__()
-        
+
         self._create_widgets()
         self._configure_table()
         self._create_layout()
@@ -106,6 +108,11 @@ class HistoryView(QWidget):
 
         self._table.setSortingEnabled(True)
 
+        # Permite utilizar un menú contextual con click derecho
+        self._table.setContextMenuPolicy(
+            Qt.CustomContextMenu
+        )
+
     def _create_layout(self):
 
         layout = QVBoxLayout()
@@ -118,7 +125,11 @@ class HistoryView(QWidget):
 
         self._table.cellDoubleClicked.connect(
             self._on_double_click
-    )
+        )
+
+        self._table.customContextMenuRequested.connect(
+            self._show_context_menu
+        )
 
     def load_results(self, resultados):
 
@@ -156,7 +167,7 @@ class HistoryView(QWidget):
 
         self._table.setSortingEnabled(True)
 
-    def _on_double_click(self, row,_):
+    def _on_double_click(self, row, _):
 
         item = self._table.item(row, 0)
 
@@ -168,3 +179,45 @@ class HistoryView(QWidget):
         self.open_pdf_requested.emit(
             conversion_id
         )
+
+    def _show_context_menu(self, position):
+
+        item = self._table.itemAt(position)
+
+        if item is None:
+            return
+
+        row = item.row()
+
+        id_item = self._table.item(row, 0)
+
+        if id_item is None:
+            return
+
+        conversion_id = int(id_item.text())
+
+        menu = QMenu(self)
+
+        open_action = menu.addAction(
+            "Abrir PDF"
+        )
+
+        delete_action = menu.addAction(
+            "Eliminar"
+        )
+
+        action = menu.exec(
+            self._table.viewport().mapToGlobal(position)
+        )
+
+        if action == open_action:
+
+            self.open_pdf_requested.emit(
+                conversion_id
+            )
+
+        elif action == delete_action:
+
+            self.delete_requested.emit(
+                conversion_id
+            )

@@ -51,7 +51,7 @@ def procesar_extracto(pdf_path, callback=None):
     
     log(
             json.dumps(
-                [m.model_dump() for m in resultado],
+                [m.model_dump(mode="json") for m in resultado],
                 indent=2,
                 ensure_ascii=False
                 )
