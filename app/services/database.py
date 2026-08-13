@@ -229,6 +229,27 @@ class Database:
             fila = cursor.fetchone()
         return fila[0] if fila else None
 
+    def get_conversion(self, conversion_id):
+        with self._connect() as connection:
+            cursor = connection.cursor()
+
+            cursor.execute("""
+                SELECT
+                    id,
+                    nombre_archivo,
+                    ruta_archivo,
+                    banco,
+                    total_movimientos,
+                    total_seguros,
+                    total_revisar
+                FROM conversiones
+                WHERE id = ?
+            """, (conversion_id,))
+
+            fila = cursor.fetchone()
+
+        return fila
+
 
 if __name__ == "__main__":
 

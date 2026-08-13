@@ -24,6 +24,7 @@ class MainController:
         self._thread = None
         self._worker = None
         self._pdf_viewer = None
+        self._review_origin = None
 
         self._connect_signals()
         self._load_history()
@@ -48,10 +49,31 @@ class MainController:
                 self._modify_from_history
                 )
          
-        self._window._review_view.back.connect(self._back_to_converter)
+        self._window._review_view.back.connect(self._back_from_review)
         self._window._review_view.save.connect(self._save_review)
         self._window._review_view.open_pdf_requested.connect(self._open_pdf_from_review)
+        self._window._converter_view._action_bar.review.connect(
+            self._open_review
+        )
 
+
+    def _open_review(self):
+
+        if self._resultado is None:
+            return
+
+        self._review_origin = "converter"
+
+        self._window._review_view.load_movements(
+            self._resultado.movimientos,
+            self._resultado.revisar
+        )
+
+        self._window._review_view.set_review_count(
+            len(self._resultado.revisar)
+        )
+
+        self._window.show_review_view()
     
     def _select_pdf(self):
 
@@ -100,13 +122,19 @@ class MainController:
 
     def _processing_finished(self, resultado):
 
-        self._resultado = resultado
-
-        self._conversion_id = self._database.save_result(
+        conversion_id = self._database.save_result(
             resultado,
             self._file_name,
             self._selected_pdf_path
-            )
+        )
+
+        self._activate_conversion(
+            conversion_id,
+            resultado,
+            self._selected_pdf_path,
+            self._file_name
+        )
+
         self._load_history()
         self._window._converter_view.set_status("Completado")
         self._window._converter_view.set_bank(resultado.banco)
@@ -123,17 +151,12 @@ class MainController:
         self._window._converter_view.append_log(str(resultado.stats))
         
         self._window._converter_view.set_export_enabled(True)
-
+        self._window._converter_view.set_review_enabled(True)
         if resultado.revisar:
 
+            self._review_origin = "converter"
+            self._open_review()
 
-            self._window._review_view.load_movements(resultado.movimientos,resultado.revisar)
-
-            self._window._review_view.set_review_count(
-            len(resultado.revisar)
-            )
-
-            self._window.show_review_view()
 
     def _show_error(self, error: str):
 
@@ -168,14 +191,15 @@ class MainController:
 
         self._thread.start()
 
-    def _back_to_converter(self):
+    def _back_from_review(self):
 
-        self._window.show_converter_view()
+        if self._review_origin == "history":
+            self._window.show_history_view()
+        else:
+            self._window.show_converter_view()
 
 
     def _save_review(self, movimientos_editados):
-
-        movimientos_editados = self._window._review_view.get_movements()
         
         cantidad = len(self._resultado.revisar)
 
@@ -192,21 +216,28 @@ class MainController:
             self._resultado
             )
         
-        self._window._converter_view.update_stats(self._resultado.stats)
-
-        self._window._converter_view.append_log(
-        f"Se corrigieron manualmente {cantidad} movimientos."
-        )
-
-        self._window._converter_view.append_log(
-            "Movimientos revisados, guardados."
-        )
-
-        self._window._converter_view.set_status(
-        "Listo para exportar"
-        )
         
-        self._window.show_converter_view()
+        
+        if self._review_origin == "history":
+            self._sync_converter_with_active_conversion()
+            self._window.show_history_view()
+        else:
+            self._window._converter_view.update_stats(self._resultado.stats)
+            
+            self._window._converter_view.append_log(
+                    f"Se corrigieron manualmente {cantidad} movimientos."
+                    )
+            
+            self._window._converter_view.append_log(
+                        "Movimientos revisados, guardados."
+                    )
+            
+            self._window._converter_view.set_status(
+                    "Listo para exportar"
+                    )
+            self._window.show_converter_view()
+
+
         self._load_history()
 
     def _load_history(self):
@@ -229,11 +260,19 @@ class MainController:
         resultado_json = self._database.get_result_json(conversion_id)
         if not resultado_json:
             return
+
+        pdf_path = self._database.get_pdf_path(conversion_id)
+
         from app.services.movimiento import ResultadoPipeline
         resultado = ResultadoPipeline.model_validate_json(resultado_json)
 
-        self._conversion_id = conversion_id
-        self._resultado = resultado
+        self._activate_conversion(
+            conversion_id,
+            resultado,
+            pdf_path,
+            Path(pdf_path).name
+        )
+        self._review_origin = "history"
         self._window._review_view.load_movements(resultado.movimientos, resultado.revisar)
         self._window._review_view.set_review_count(len(resultado.revisar))
         self._window.show_review_view()
@@ -279,3 +318,43 @@ class MainController:
     def _open_pdf_from_review(self):
 
         self._open_pdf_from_history(self._conversion_id)
+
+
+    def _sync_converter_with_active_conversion(self):
+
+        self._window._converter_view.set_file_name(
+            self._file_name
+        )
+
+        self._window._converter_view.set_bank(
+            self._resultado.banco
+        )
+
+        self._window._converter_view.set_status(
+            "Listo para exportar"
+        )
+
+        self._window._converter_view.update_stats(
+            self._resultado.stats
+        )
+
+        self._window._converter_view.load_pdf(
+            self._selected_pdf_path
+        )
+
+        self._window._converter_view.set_export_enabled(True)
+        self._window._converter_view.set_review_enabled(True)
+
+    def _activate_conversion(
+            self,
+            conversion_id,
+            resultado,
+            pdf_path,
+            file_name
+        ):
+            self._conversion_id = conversion_id
+            self._resultado = resultado
+            self._selected_pdf_path = pdf_path
+            self._file_name = file_name
+            
+            

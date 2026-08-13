@@ -107,6 +107,9 @@ class ConverterView(QWidget):
     
     def set_export_enabled(self, enabled: bool):
         self._action_bar.set_export_enabled(enabled)
+
+    def set_review_enabled(self, enabled):
+        self._action_bar.set_review_enabled(enabled)
     
     def update_stats(self, stats):
         self._summary_panel.update_stats(stats)

@@ -113,12 +113,35 @@ QPushButton#processButton:pressed {
 }
 
 /* =========================================================
+   REVIEW BUTTON
+   ========================================================= */
+
+QPushButton#reviewButton {
+    background-color: #3F4A5A;
+    color: white;
+}
+
+QPushButton#reviewButton:hover {
+    background-color: #4B586A;
+}
+
+QPushButton#reviewButton:pressed {
+    background-color: #36404F;
+}
+
+QPushButton#reviewButton:disabled {
+    background-color: #353535;
+    color: #777777;
+}
+
+/* =========================================================
    EXPORT BUTTON
    ========================================================= */
 
 QPushButton#exportButton {
 
     background-color: #22C55E;
+    color: white;
 }
 
 QPushButton#exportButton:hover {
@@ -129,6 +152,12 @@ QPushButton#exportButton:hover {
 QPushButton#exportButton:pressed {
 
     background-color: #15803D;
+}
+
+QPushButton#exportButton:disabled {
+
+    background-color: #353535;
+    color: #777777;
 }
 
 /* =========================================================
