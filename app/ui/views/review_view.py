@@ -21,6 +21,7 @@ class ReviewView(QWidget):
 
     back = Signal()
     save = Signal(list)
+    open_pdf_requested = Signal()
 
     def __init__(self):
         super().__init__()
@@ -77,6 +78,7 @@ class ReviewView(QWidget):
         self._btn_back = QPushButton("Volver")
         self._btn_save = QPushButton("Guardar")
         self._btn_reset = QPushButton("Restaurar todos")
+        self._btn_pdf = QPushButton("Abrir PDF")
 
     def _create_layout(self):
 
@@ -88,6 +90,7 @@ class ReviewView(QWidget):
 
         button_layout = QHBoxLayout()
 
+        button_layout.addWidget(self._btn_pdf)
         button_layout.addWidget(self._btn_reset)
         button_layout.addStretch()
         button_layout.addWidget(self._btn_back)
@@ -102,6 +105,7 @@ class ReviewView(QWidget):
         self._btn_back.clicked.connect(self.back.emit)
         self._btn_save.clicked.connect(self._on_save)
         self._btn_reset.clicked.connect(self._restore_all)
+        self._btn_pdf.clicked.connect(self.open_pdf_requested.emit)
 
         self._table.customContextMenuRequested.connect(
             self._show_context_menu

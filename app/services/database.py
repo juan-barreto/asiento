@@ -222,6 +222,13 @@ class Database:
             connection.commit()
 
             return cursor.rowcount
+    def get_result_json(self, conversion_id: int) -> str | None:
+        with self._connect() as connection:
+            cursor = connection.cursor()
+            cursor.execute("SELECT resultado_json FROM conversiones WHERE id = ?", (conversion_id,))
+            fila = cursor.fetchone()
+        return fila[0] if fila else None
+
 
 if __name__ == "__main__":
 

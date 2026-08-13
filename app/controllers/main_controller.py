@@ -23,6 +23,7 @@ class MainController:
         self._conversion_id = None
         self._thread = None
         self._worker = None
+        self._pdf_viewer = None
 
         self._connect_signals()
         self._load_history()
@@ -43,9 +44,13 @@ class MainController:
         self._window._history_view.delete_requested.connect(
         self._delete_from_history
         )
+        self._window._history_view.modify_requested.connect(
+                self._modify_from_history
+                )
          
         self._window._review_view.back.connect(self._back_to_converter)
         self._window._review_view.save.connect(self._save_review)
+        self._window._review_view.open_pdf_requested.connect(self._open_pdf_from_review)
 
     
     def _select_pdf(self):
@@ -212,13 +217,29 @@ class MainController:
 
     def _open_pdf_from_history(self, conversion_id):
 
-            pdf_path = self._database.get_pdf_path(conversion_id)
+        pdf_path = self._database.get_pdf_path(conversion_id)
 
-            dialog = PdfViewerDialog(self._window)
+        self._pdf_viewer = PdfViewerDialog(self._window)
+        self._pdf_viewer.load_pdf(pdf_path)
+        self._pdf_viewer.show()
 
-            dialog.load_pdf(pdf_path)
+    
 
-            dialog.exec()
+    def _modify_from_history(self, conversion_id):
+        resultado_json = self._database.get_result_json(conversion_id)
+        if not resultado_json:
+            return
+        from app.services.movimiento import ResultadoPipeline
+        resultado = ResultadoPipeline.model_validate_json(resultado_json)
+
+        self._conversion_id = conversion_id
+        self._resultado = resultado
+        self._window._review_view.load_movements(resultado.movimientos, resultado.revisar)
+        self._window._review_view.set_review_count(len(resultado.revisar))
+        self._window.show_review_view()
+
+
+
 
     def _delete_from_history(self, conversion_id):
 
@@ -254,3 +275,7 @@ class MainController:
             return
 
         self._load_history()
+
+    def _open_pdf_from_review(self):
+
+        self._open_pdf_from_history(self._conversion_id)
