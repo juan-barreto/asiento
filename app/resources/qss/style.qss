@@ -486,3 +486,285 @@ QLabel#sidebarVersion {
    ========================================================= */
 
 
+/* =========================================================
+   EXPORT VIEW
+   ========================================================= */
+
+QWidget#exportView {
+    background-color: #1E1E1E;
+}
+
+/* ---------------------------------------------------------
+   HEADER
+   --------------------------------------------------------- */
+
+QLabel#exportTitle {
+    background: transparent;
+
+    color: #FFFFFF;
+
+    font-size: 26px;
+    font-weight: 700;
+}
+
+QLabel#exportSubtitle {
+    background: transparent;
+
+    color: #AFAFAF;
+
+    font-size: 13px;
+}
+
+/* ---------------------------------------------------------
+   EXPORT CARD
+   --------------------------------------------------------- */
+
+QWidget#exportCard {
+    background-color: #2A2A2A;
+
+    border: 1px solid #404040;
+
+    border-radius: 12px;
+}
+
+/* ---------------------------------------------------------
+   FIELD LABELS
+   --------------------------------------------------------- */
+
+QLabel#exportFieldLabel {
+    background: transparent;
+
+    color: #CFCFCF;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* ---------------------------------------------------------
+   COMBO BOX
+   --------------------------------------------------------- */
+
+QComboBox#exportCombo {
+    background-color: #242424;
+
+    color: #FFFFFF;
+
+    border: 1px solid #454545;
+
+    border-radius: 7px;
+
+    padding: 8px 12px;
+
+    min-height: 34px;
+}
+
+QComboBox#exportCombo:hover {
+    border: 1px solid #5A5A5A;
+}
+
+QComboBox#exportCombo:focus {
+    border: 1px solid #2563EB;
+}
+
+QComboBox#exportCombo QAbstractItemView {
+    background-color: #2A2A2A;
+
+    color: #FFFFFF;
+
+    border: 1px solid #404040;
+
+    selection-background-color: #2563EB;
+
+    selection-color: #FFFFFF;
+}
+
+/* ---------------------------------------------------------
+   FILE NAME
+   --------------------------------------------------------- */
+
+QLineEdit#exportFileName {
+    background-color: #242424;
+
+    color: #FFFFFF;
+
+    border: 1px solid #454545;
+
+    border-radius: 7px;
+
+    padding: 8px 12px;
+
+    min-height: 34px;
+}
+
+QLineEdit#exportFileName:hover {
+    border: 1px solid #5A5A5A;
+}
+
+QLineEdit#exportFileName:focus {
+    border: 1px solid #2563EB;
+}
+
+/* ---------------------------------------------------------
+   EDIT TEMPLATE
+   --------------------------------------------------------- */
+
+QPushButton#editTemplateButton {
+    background-color: #404040;
+
+    color: #FFFFFF;
+
+    border-radius: 7px;
+
+    padding: 8px 14px;
+
+    min-height: 32px;
+}
+
+QPushButton#editTemplateButton:hover {
+    background-color: #4A4A4A;
+}
+
+QPushButton#editTemplateButton:pressed {
+    background-color: #353535;
+}
+
+/* ---------------------------------------------------------
+   EXPORT
+   --------------------------------------------------------- */
+
+QPushButton#exportButton {
+    background-color: #22C55E;
+
+    color: #FFFFFF;
+}
+
+QPushButton#exportButton:hover {
+    background-color: #16A34A;
+}
+
+QPushButton#exportButton:pressed {
+    background-color: #15803D;
+}
+
+/* ---------------------------------------------------------
+   CANCEL
+   --------------------------------------------------------- */
+
+QPushButton#cancelExportButton {
+    background-color: #404040;
+
+    color: #D8D8D8;
+}
+
+QPushButton#cancelExportButton:hover {
+    background-color: #4A4A4A;
+}
+
+QPushButton#cancelExportButton:pressed {
+    background-color: #353535;
+}
+
+/* =========================================================
+   TEMPLATE EDITOR
+   ========================================================= */
+
+#templateEditorView {
+    background: #f7f8fa;
+}
+
+#templateEditorTitle {
+    font-size: 25px;
+    font-weight: 600;
+    color: #20242a;
+}
+
+#templateEditorSubtitle {
+    font-size: 13px;
+    color: #7a8088;
+}
+
+#templateEditorCard {
+    background: white;
+    border: 1px solid #e3e6ea;
+    border-radius: 10px;
+}
+
+#templateFieldLabel {
+    font-size: 12px;
+    font-weight: 600;
+    color: #555b63;
+}
+
+#templateNameInput {
+    min-height: 38px;
+    padding: 0 10px;
+    border: 1px solid #d9dde2;
+    border-radius: 6px;
+    background: white;
+    color: #20242a;
+}
+
+#templateNameInput:focus {
+    border: 1px solid #8c96a3;
+}
+
+#templateColumnsList {
+    min-height: 220px;
+    border: 1px solid #dfe3e8;
+    border-radius: 7px;
+    background: #fafbfc;
+    padding: 4px;
+}
+
+#templateColumnsList::item {
+    min-height: 36px;
+    padding: 0 10px;
+    border-radius: 5px;
+    color: #30353b;
+}
+
+#templateColumnsList::item:selected {
+    background: #e9edf2;
+    color: #20242a;
+}
+
+#addTemplateColumnButton {
+    min-height: 34px;
+    padding: 0 12px;
+    border: 1px dashed #c8cdd3;
+    border-radius: 6px;
+    background: transparent;
+    color: #626972;
+}
+
+#addTemplateColumnButton:hover {
+    background: #f3f5f7;
+    border-color: #aeb5bd;
+}
+
+#cancelTemplateButton {
+    min-height: 38px;
+    padding: 0 18px;
+    border: 1px solid #d5d9de;
+    border-radius: 6px;
+    background: white;
+    color: #555b63;
+}
+
+#cancelTemplateButton:hover {
+    background: #f3f4f6;
+}
+
+#saveTemplateButton {
+    min-height: 38px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 6px;
+    background: #30363d;
+    color: white;
+    font-weight: 600;
+}
+
+#saveTemplateButton:hover {
+    background: #24292f;
+}

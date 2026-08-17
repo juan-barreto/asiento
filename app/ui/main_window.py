@@ -13,7 +13,9 @@ from app.ui.views.converter_view import ConverterView
 from app.ui.views.history_view import HistoryView
 from app.ui.views.settings_view import SettingsView
 from app.ui.views.review_view import ReviewView
+from app.ui.views.export_view import ExportView
 from PySide6.QtGui import QIcon
+from app.ui.views.templates_view import TemplateEditorView
 
 
 class MainWindow(QMainWindow):
@@ -56,10 +58,14 @@ class MainWindow(QMainWindow):
         self._review_view = ReviewView()
         self._history_view = HistoryView()
         self._settings_view = SettingsView()
+        self._export_view = ExportView()
+        self._template_editor_view = TemplateEditorView()
 
         self._stacked_widget.addWidget(self._converter_view)
         self._stacked_widget.addWidget(self._review_view)
         self._stacked_widget.addWidget(self._history_view)
+        self._stacked_widget.addWidget(self._export_view)
+        self._stacked_widget.addWidget(self._template_editor_view)
         self._stacked_widget.addWidget(self._settings_view)
 
     def _create_layout(self):
@@ -90,6 +96,15 @@ class MainWindow(QMainWindow):
 
         self._stacked_widget.setCurrentWidget(self._settings_view)
 
+    def show_export_view(self):
+    
+            self._stacked_widget.setCurrentWidget(self._export_view)
+
+    def show_template_editor_view(self):
+
+        self._stacked_widget.setCurrentWidget(self._template_editor_view)
+
+        
 if __name__ == "__main__":
 
     icon_path = resource_path("app/resources/icons/asiento.ico")
