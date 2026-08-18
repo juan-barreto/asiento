@@ -665,106 +665,124 @@ QPushButton#cancelExportButton:pressed {
 }
 
 /* =========================================================
-   TEMPLATE EDITOR
+   TEMPLATE EDITOR (Dark Theme)
    ========================================================= */
 
-#templateEditorView {
-    background: #f7f8fa;
+QWidget#templateEditorView {
+    background-color: #1E1E1E;
+    color: #FFFFFF;
 }
 
-#templateEditorTitle {
-    font-size: 25px;
-    font-weight: 600;
-    color: #20242a;
+/* ---------------------------------------------------------
+   HEADER
+   --------------------------------------------------------- */
+QLabel#templateEditorTitle {
+    font-size: 26px;
+    font-weight: 700;
+    color: #FFFFFF;
 }
 
-#templateEditorSubtitle {
+QLabel#templateEditorSubtitle {
     font-size: 13px;
-    color: #7a8088;
+    color: #CFCFCF;
 }
 
-#templateEditorCard {
-    background: white;
-    border: 1px solid #e3e6ea;
+/* ---------------------------------------------------------
+   CARD
+   --------------------------------------------------------- */
+QWidget#templateEditorCard {
+    background-color: #2A2A2A;
+    border: 1px solid #404040;
     border-radius: 10px;
 }
 
-#templateFieldLabel {
-    font-size: 12px;
+/* ---------------------------------------------------------
+   FIELD LABELS
+   --------------------------------------------------------- */
+QLabel#templateFieldLabel {
+    font-size: 13px;
     font-weight: 600;
-    color: #555b63;
+    color: #CFCFCF;
 }
 
-#templateNameInput {
-    min-height: 38px;
-    padding: 0 10px;
-    border: 1px solid #d9dde2;
-    border-radius: 6px;
-    background: white;
-    color: #20242a;
-}
-
-#templateNameInput:focus {
-    border: 1px solid #8c96a3;
-}
-
-#templateColumnsList {
-    min-height: 220px;
-    border: 1px solid #dfe3e8;
+/* ---------------------------------------------------------
+   INPUTS
+   --------------------------------------------------------- */
+QLineEdit#templateNameInput {
+    background-color: #242424;
+    color: #FFFFFF;
+    border: 1px solid #454545;
     border-radius: 7px;
-    background: #fafbfc;
+    padding: 8px 12px;
+}
+
+QLineEdit#templateNameInput:hover {
+    border: 1px solid #5A5A5A;
+}
+
+QLineEdit#templateNameInput:focus {
+    border: 1px solid #2563EB;
+}
+
+/* ---------------------------------------------------------
+   COLUMN LIST
+   --------------------------------------------------------- */
+QListWidget#templateColumnsList {
+    background-color: #2A2A2A;
+    border: 1px solid #404040;
+    border-radius: 7px;
     padding: 4px;
 }
 
-#templateColumnsList::item {
+QListWidget#templateColumnsList::item {
     min-height: 36px;
     padding: 0 10px;
-    border-radius: 5px;
-    color: #30353b;
+    color: #FFFFFF;
 }
 
-#templateColumnsList::item:selected {
-    background: #e9edf2;
-    color: #20242a;
+QListWidget#templateColumnsList::item:selected {
+    background-color: #2563EB;
+    color: #FFFFFF;
 }
 
-#addTemplateColumnButton {
-    min-height: 34px;
-    padding: 0 12px;
-    border: 1px dashed #c8cdd3;
+/* ---------------------------------------------------------
+   ADD COLUMN BUTTON
+   --------------------------------------------------------- */
+QPushButton#addTemplateColumnButton {
+    background-color: #404040;
+    color: #CFCFCF;
+    border: 1px dashed #505050;
     border-radius: 6px;
-    background: transparent;
-    color: #626972;
+    padding: 8px 12px;
 }
 
-#addTemplateColumnButton:hover {
-    background: #f3f5f7;
-    border-color: #aeb5bd;
+QPushButton#addTemplateColumnButton:hover {
+    background-color: #505050;
+    border-color: #606060;
 }
 
-#cancelTemplateButton {
-    min-height: 38px;
-    padding: 0 18px;
-    border: 1px solid #d5d9de;
+/* ---------------------------------------------------------
+   ACTION BUTTONS
+   --------------------------------------------------------- */
+QPushButton#cancelTemplateButton {
+    background-color: #404040;
+    color: #D8D8D8;
     border-radius: 6px;
-    background: white;
-    color: #555b63;
+    padding: 8px 18px;
 }
 
-#cancelTemplateButton:hover {
-    background: #f3f4f6;
+QPushButton#cancelTemplateButton:hover {
+    background-color: #4A4A4A;
 }
 
-#saveTemplateButton {
-    min-height: 38px;
-    padding: 0 20px;
-    border: none;
+QPushButton#saveTemplateButton {
+    background-color: #2563EB;
+    color: #FFFFFF;
     border-radius: 6px;
-    background: #30363d;
-    color: white;
+    padding: 8px 20px;
     font-weight: 600;
 }
 
-#saveTemplateButton:hover {
-    background: #24292f;
+QPushButton#saveTemplateButton:hover {
+    background-color: #1D4ED8;
 }

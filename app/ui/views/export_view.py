@@ -27,9 +27,6 @@ class ExportView(QWidget):
 
     def _create_widgets(self):
 
-        # =====================================================
-        # HEADER
-        # =====================================================
 
         self._title = QLabel("Exportar")
         self._title.setObjectName("exportTitle")
@@ -39,9 +36,7 @@ class ExportView(QWidget):
         )
         self._subtitle.setObjectName("exportSubtitle")
 
-        # =====================================================
-        # TEMPLATE
-        # =====================================================
+     
 
         self._template_label = QLabel("Plantilla")
         self._template_label.setObjectName(
@@ -58,9 +53,7 @@ class ExportView(QWidget):
             "default"
         )
 
-        # =====================================================
-        # FORMAT
-        # =====================================================
+  
 
         self._format_label = QLabel("Formato")
         self._format_label.setObjectName(
@@ -77,9 +70,7 @@ class ExportView(QWidget):
             "xlsx"
         )
 
-        # =====================================================
-        # FILE NAME
-        # =====================================================
+      
 
         self._file_name_label = QLabel(
             "Nombre del archivo"
@@ -97,10 +88,7 @@ class ExportView(QWidget):
             "Nombre del archivo"
         )
 
-        # =====================================================
-        # TEMPLATE ACTION
-        # =====================================================
-
+    
         self._edit_button = QPushButton(
             "Editar plantilla"
         )
@@ -109,9 +97,6 @@ class ExportView(QWidget):
             "editTemplateButton"
         )
 
-        # =====================================================
-        # ACTIONS
-        # =====================================================
 
         self._cancel_button = QPushButton(
             "Cancelar"
@@ -131,10 +116,7 @@ class ExportView(QWidget):
 
     def _create_layout(self):
 
-        # =====================================================
-        # MAIN LAYOUT
-        # =====================================================
-
+     
         layout = QVBoxLayout()
 
         layout.setContentsMargins(
@@ -146,18 +128,12 @@ class ExportView(QWidget):
 
         layout.setSpacing(8)
 
-        # =====================================================
-        # HEADER
-        # =====================================================
-
+    
         layout.addWidget(self._title)
         layout.addWidget(self._subtitle)
 
         layout.addSpacing(20)
 
-        # =====================================================
-        # EXPORT CARD
-        # =====================================================
 
         card = QWidget()
         card.setObjectName("exportCard")
@@ -173,10 +149,6 @@ class ExportView(QWidget):
 
         card_layout.setSpacing(8)
 
-        # =====================================================
-        # TEMPLATE
-        # =====================================================
-
         card_layout.addWidget(
             self._template_label
         )
@@ -187,9 +159,7 @@ class ExportView(QWidget):
 
         card_layout.addSpacing(12)
 
-        # =====================================================
-        # FORMAT
-        # =====================================================
+  
 
         card_layout.addWidget(
             self._format_label
@@ -215,9 +185,6 @@ class ExportView(QWidget):
 
         card_layout.addSpacing(16)
 
-        # =====================================================
-        # EDIT TEMPLATE
-        # =====================================================
 
         edit_layout = QHBoxLayout()
 
@@ -237,9 +204,7 @@ class ExportView(QWidget):
 
         layout.addStretch()
 
-        # =====================================================
-        # BOTTOM ACTIONS
-        # =====================================================
+  
 
         button_layout = QHBoxLayout()
 
@@ -273,9 +238,6 @@ class ExportView(QWidget):
             self.edit_template_requested.emit
         )
 
-    # =========================================================
-    # PUBLIC API
-    # =========================================================
 
     def set_file_name(self, file_name):
 

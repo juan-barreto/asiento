@@ -7,7 +7,11 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QPushButton,
     QListWidget,
+    QListWidgetItem
 )
+
+from app.models.template import TemplateColumn, TemplateConfig
+from app.ui.widgets.template_widget import TemplateColumnWidget
 
 
 class TemplateEditorView(QWidget):
@@ -26,10 +30,6 @@ class TemplateEditorView(QWidget):
 
     def _create_widgets(self):
 
-        # =====================================================
-        # HEADER
-        # =====================================================
-
         self._title = QLabel("Editar plantilla")
         self._title.setObjectName("templateEditorTitle")
 
@@ -40,9 +40,9 @@ class TemplateEditorView(QWidget):
             "templateEditorSubtitle"
         )
 
-        # =====================================================
-        # TEMPLATE NAME
-        # =====================================================
+        
+        # Nombre de plantilla
+        
 
         self._name_label = QLabel(
             "Nombre de la plantilla"
@@ -60,9 +60,7 @@ class TemplateEditorView(QWidget):
             "Ej. Estudio contable"
         )
 
-        # =====================================================
-        # COLUMNS
-        # =====================================================
+        # Columnas
 
         self._columns_label = QLabel(
             "Columnas del archivo"
@@ -76,9 +74,7 @@ class TemplateEditorView(QWidget):
             "templateColumnsList"
         )
 
-        # =====================================================
-        # COLUMN ACTION
-        # =====================================================
+        # boton columnas
 
         self._add_column_button = QPushButton(
             "+ Agregar columna"
@@ -87,9 +83,8 @@ class TemplateEditorView(QWidget):
             "addTemplateColumnButton"
         )
 
-        # =====================================================
-        # ACTIONS
-        # =====================================================
+
+     
 
         self._cancel_button = QPushButton(
             "Cancelar"
@@ -118,10 +113,6 @@ class TemplateEditorView(QWidget):
 
         layout.setSpacing(8)
 
-        # =====================================================
-        # HEADER
-        # =====================================================
-
         layout.addWidget(
             self._title
         )
@@ -131,10 +122,6 @@ class TemplateEditorView(QWidget):
         )
 
         layout.addSpacing(20)
-
-        # =====================================================
-        # EDITOR CARD
-        # =====================================================
 
         card = QWidget()
         card.setObjectName(
@@ -152,9 +139,6 @@ class TemplateEditorView(QWidget):
 
         card_layout.setSpacing(8)
 
-        # -----------------------------------------------------
-        # NAME
-        # -----------------------------------------------------
 
         card_layout.addWidget(
             self._name_label
@@ -166,9 +150,7 @@ class TemplateEditorView(QWidget):
 
         card_layout.addSpacing(18)
 
-        # -----------------------------------------------------
-        # COLUMNS
-        # -----------------------------------------------------
+    
 
         card_layout.addWidget(
             self._columns_label
@@ -194,9 +176,7 @@ class TemplateEditorView(QWidget):
 
         layout.addStretch()
 
-        # =====================================================
-        # BOTTOM ACTIONS
-        # =====================================================
+    
 
         button_layout = QHBoxLayout()
 
@@ -229,3 +209,16 @@ class TemplateEditorView(QWidget):
         self._cancel_button.clicked.connect(
             self.cancel_requested.emit
         )
+
+    def load_config(self, config: TemplateConfig):
+
+        self._name_input.setText(config.name)
+        self._columns_list.clear()
+
+        for column in config.columns:
+
+            item = QListWidgetItem(self._columns_list)
+            widget = TemplateColumnWidget(column)
+
+            self._columns_list.addItem(item)
+            self._columns_list.setItemWidget(item, widget)

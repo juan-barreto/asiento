@@ -10,6 +10,7 @@ from app.ui.main_window import MainWindow
 from app.workers.extract_worker import ExtractWorker
 from app.services.database import Database
 from app.ui.dialogs.pdf_viewer_dialog import PdfViewerDialog
+from app.models.template import TemplateConfig, TemplateColumn, AVAILABLE_COLUMNS
 
 
 class MainController:
@@ -122,9 +123,7 @@ class MainController:
             self._cancel_export
         )
 
-        self._window._export_view.edit_template_requested.connect(
-            self._edit_template
-        )
+      
 
     # =========================================================
     # REVIEW
@@ -257,9 +256,7 @@ class MainController:
 
         self._window.show_converter_view()
 
-    # =========================================================
-    # EDIT TEMPLATE
-    # =========================================================
+
 
     def _edit_template(self):
 
@@ -274,9 +271,7 @@ class MainController:
             "El editor de plantillas todavía está en construcción."
         )
 
-    # =========================================================
-    # PROCESSING FINISHED
-    # =========================================================
+  
 
     def _processing_finished(self, resultado):
 
@@ -337,9 +332,7 @@ class MainController:
 
             self._open_review()
 
-    # =========================================================
-    # ERROR
-    # =========================================================
+ 
 
     def _show_error(self, error: str):
 
@@ -355,9 +348,6 @@ class MainController:
             True
         )
 
-    # =========================================================
-    # THREAD
-    # =========================================================
 
     def _create_thread(self):
 
@@ -401,9 +391,7 @@ class MainController:
 
         self._thread.start()
 
-    # =========================================================
-    # REVIEW NAVIGATION
-    # =========================================================
+
 
     def _back_from_review(self):
 
@@ -415,9 +403,7 @@ class MainController:
 
             self._window.show_converter_view()
 
-    # =========================================================
-    # SAVE REVIEW
-    # =========================================================
+
 
     def _save_review(self, movimientos_editados):
 
@@ -477,9 +463,7 @@ class MainController:
 
         self._load_history()
 
-    # =========================================================
-    # HISTORY
-    # =========================================================
+
 
     def _load_history(self):
 
@@ -489,9 +473,7 @@ class MainController:
             resultados
         )
 
-    # =========================================================
-    # OPEN PDF FROM HISTORY
-    # =========================================================
+
 
     def _open_pdf_from_history(self, conversion_id):
 
@@ -509,9 +491,7 @@ class MainController:
 
         self._pdf_viewer.show()
 
-    # =========================================================
-    # MODIFY FROM HISTORY
-    # =========================================================
+
 
     def _modify_from_history(self, conversion_id):
 
@@ -558,9 +538,6 @@ class MainController:
 
         self._window.show_review_view()
 
-    # =========================================================
-    # DELETE FROM HISTORY
-    # =========================================================
 
     def _delete_from_history(self, conversion_id):
 
@@ -605,9 +582,6 @@ class MainController:
 
         self._load_history()
 
-    # =========================================================
-    # OPEN PDF FROM REVIEW
-    # =========================================================
 
     def _open_pdf_from_review(self):
 
@@ -615,9 +589,7 @@ class MainController:
             self._conversion_id
         )
 
-    # =========================================================
-    # SYNC CONVERTER
-    # =========================================================
+
 
     def _sync_converter_with_active_conversion(self):
 
@@ -649,9 +621,7 @@ class MainController:
             True
         )
 
-    # =========================================================
-    # ACTIVE CONVERSION
-    # =========================================================
+
 
     def _activate_conversion(
         self,
@@ -667,5 +637,15 @@ class MainController:
         self._file_name = file_name
 
     def _open_template_editor(self):
+        if self._resultado is None:
+            return
 
+        # Construir config inicial desde resultado
+        columns = [
+            TemplateColumn(source=key, title=AVAILABLE_COLUMNS.get(key, key))
+            for key in self._resultado.movimientos[0].model_dump().keys()
+        ]
+        config = TemplateConfig(name="Plantilla automática", format="xlsx", columns=columns)
+
+        self._window._template_editor_view.load_config(config)
         self._window.show_template_editor_view()
