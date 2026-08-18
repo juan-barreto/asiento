@@ -694,6 +694,7 @@ QWidget#templateEditorCard {
     background-color: #2A2A2A;
     border: 1px solid #404040;
     border-radius: 10px;
+    padding: 20px;
 }
 
 /* ---------------------------------------------------------
@@ -703,6 +704,7 @@ QLabel#templateFieldLabel {
     font-size: 13px;
     font-weight: 600;
     color: #CFCFCF;
+    margin-bottom: 4px;
 }
 
 /* ---------------------------------------------------------
@@ -731,18 +733,47 @@ QListWidget#templateColumnsList {
     background-color: #2A2A2A;
     border: 1px solid #404040;
     border-radius: 7px;
-    padding: 4px;
+    padding: 6px;
+
+   
 }
 
 QListWidget#templateColumnsList::item {
-    min-height: 36px;
-    padding: 0 10px;
+    min-height: 40px;
+    padding: 0 8px;
     color: #FFFFFF;
 }
 
 QListWidget#templateColumnsList::item:selected {
-    background-color: #2563EB;
+    background-color: transparent;
+}
+
+QListWidget#templateColumnsList::item:hover {
+    background-color: #333333;
+}
+
+/* ---------------------------------------------------------
+   TEMPLATE COLUMN WIDGET
+   --------------------------------------------------------- */
+QWidget#templateColumnWidget {
+    background-color: #2A2A2A;
+    border: 1px solid #404040;
+    color : #FFFFFF;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+QPushButton#removeColumnButton {
+    background-color: #404040;
     color: #FFFFFF;
+    border-radius: 10px;
+    font-weight: bold;
+    min-width: 15px;
+    min-height: 15px;
+}
+
+QPushButton#removeColumnButton:hover {
+    background-color: #505050;
 }
 
 /* ---------------------------------------------------------
@@ -753,7 +784,8 @@ QPushButton#addTemplateColumnButton {
     color: #CFCFCF;
     border: 1px dashed #505050;
     border-radius: 6px;
-    padding: 8px 12px;
+    padding: 10px 12px;
+    margin-top: 10px;
 }
 
 QPushButton#addTemplateColumnButton:hover {

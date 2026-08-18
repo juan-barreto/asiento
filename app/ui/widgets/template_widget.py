@@ -34,6 +34,7 @@ class TemplateColumnWidget(QWidget):
 
         self._remove_button = QPushButton("✕")
         self._remove_button.setFixedWidth(30)
+        self._remove_button.setObjectName("removeColumnButton")
 
         layout.addWidget(self._drag_label)
         layout.addWidget(self._enabled_checkbox)

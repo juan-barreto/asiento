@@ -1,4 +1,4 @@
-from PySide6.QtCore import Signal
+from PySide6.QtCore import Signal, Qt
 from PySide6.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -7,7 +7,11 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QPushButton,
     QListWidget,
-    QListWidgetItem
+    QListWidgetItem,
+    QAbstractItemView,
+    QSizePolicy,
+    QAbstractScrollArea
+
 )
 
 from app.models.template import TemplateColumn, TemplateConfig
@@ -73,6 +77,16 @@ class TemplateEditorView(QWidget):
         self._columns_list.setObjectName(
             "templateColumnsList"
         )
+        self._columns_list.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self._columns_list.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+        self._columns_list.setDragDropMode(QAbstractItemView.InternalMove)
+        self._columns_list.setDefaultDropAction(Qt.MoveAction)
+        self._columns_list.setSelectionMode(QAbstractItemView.SingleSelection)
+        self._columns_list.setDragEnabled(True)
+        self._columns_list.setAcceptDrops(True)
+        self._columns_list.setStyleSheet("QListWidget::item:selected { outline: none; }")
+
+
 
         # boton columnas
 
