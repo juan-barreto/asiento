@@ -7,7 +7,8 @@ class Database:
 
     def __init__(self):
 
-        self._create_tables()
+        self._create_table_conversiones()
+        self._create_table_templates()
 
     def _database_path(self) -> Path:
 
@@ -25,7 +26,59 @@ class Database:
 
         return sqlite3.connect(self._database_path())
 
-    def _create_tables(self):
+    
+    def _create_table_templates(self):
+
+        with self._connect() as connection:
+
+            cursor = connection.cursor()
+
+            cursor.execute("""
+
+                CREATE TABLE IF NOT EXISTS templates(
+                
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+                    nombre TEXT NOT NULL,
+                    
+                    config_json TEXT NOT NULL
+                )
+                """)
+
+    def save_new_template(self, config):
+
+        if not config:
+            raise ValueError(
+                "No hay plantilla para guardar"
+            )
+        
+        with self._connect() as connection:
+
+            cursor = connection.cursor()
+
+            cursor.execute("""
+                INSERT INTO templates(
+
+                    nombre,
+                    config_json
+                )
+
+                VALUES (?, ?)
+
+
+                    """,
+                    (
+                        config.name,
+                        config.model_dump_json()
+                    ))
+
+    def get_templates(self):
+        with self._connect() as connection:
+            cursor = connection.cursor()
+            cursor.execute("SELECT id, nombre, config_json FROM templates")
+            return cursor.fetchall()
+
+    def _create_table_conversiones(self):
 
         with self._connect() as connection:
 

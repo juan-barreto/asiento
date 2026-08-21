@@ -11,6 +11,7 @@ from app.workers.extract_worker import ExtractWorker
 from app.services.database import Database
 from app.ui.dialogs.pdf_viewer_dialog import PdfViewerDialog
 from app.models.template import TemplateConfig, TemplateColumn, AVAILABLE_COLUMNS
+from app.exporters.xl_exporter import conversion_excel
 
 
 class MainController:
@@ -42,6 +43,7 @@ class MainController:
 
         self._pdf_viewer = None
         self._review_origin = None
+        self._template_config = None
 
         # =====================================================
         # INITIALIZATION
@@ -123,7 +125,24 @@ class MainController:
             self._cancel_export
         )
 
+        self._window._template_editor_view.save_requested.connect(
+            self._save_template
+            )
+        
+
       
+
+
+    def _save_template(self):
+
+        config = self._window._template_editor_view.get_config()
+
+        self._template_config = config
+
+        self._database.save_new_template(config)
+
+        print(f"Bien hecho , es esto: {self._database.get_templates()}")
+        #self._window.show_export_view()
 
     # =========================================================
     # REVIEW
@@ -238,20 +257,22 @@ class MainController:
             self._window._export_view.get_selected_template()
         )
 
-        print("Formato:", selected_format)
-        print("Plantilla:", selected_template)
-        print("Nombre:", file_name)
+        ruta, _ = QFileDialog.getSaveFileName(
+            self._window,
+            "Guardar archivo",
+            f"{file_name}.{selected_format}",
+            "Excel (*.xlsx)"
+            )
+        if not ruta:
+            return
 
-        # -----------------------------------------------------
-        # TODO:
-        # Acá conectaremos el TemplateManager
-        # y el exporter correspondiente.
-        # -----------------------------------------------------
-
-    # =========================================================
-    # CANCEL EXPORT
-    # =========================================================
-
+        conversion_excel(
+            self._resultado,
+            ruta,
+            self._template_config,
+            callback= self._window._converter_view.append_log
+        )
+        
     def _cancel_export(self):
 
         self._window.show_converter_view()

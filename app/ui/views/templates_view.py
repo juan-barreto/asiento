@@ -234,5 +234,23 @@ class TemplateEditorView(QWidget):
             item = QListWidgetItem(self._columns_list)
             widget = TemplateColumnWidget(column)
 
-            self._columns_list.addItem(item)
             self._columns_list.setItemWidget(item, widget)
+
+    def get_config(self):
+
+        columns = []
+
+        for index in range(self._columns_list.count()):
+
+            item = self._columns_list.item(index)
+            widget = self._columns_list.itemWidget(item)
+            column = widget.get_column()
+
+            columns.append(column)
+
+        return TemplateConfig(
+            name = self._name_input.text(),
+            format= "xlsx",
+            columns= columns
+        )
+
