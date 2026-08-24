@@ -1,4 +1,7 @@
-from PySide6.QtCore import Signal
+from PySide6 import QtCore
+from PySide6.QtCore import Signal, Qt
+from PySide6.QtGui import QIcon, QPixmap
+from app.utils.resource_path import resource_path
 from PySide6.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -7,15 +10,16 @@ from PySide6.QtWidgets import (
     QComboBox,
     QLineEdit,
     QPushButton,
-    QMessageBox
+    QMessageBox,
 )
+from app.ui.widgets.icon_button import IconButton
 
 
 class ExportView(QWidget):
 
     export_requested = Signal()
     cancel_requested = Signal()
-    edit_template_requested = Signal()
+    edit_template_requested = Signal(object)
     template_delete_requested = Signal(int)
 
     def __init__(self):
@@ -26,6 +30,8 @@ class ExportView(QWidget):
         self._create_widgets()
         self._create_layout()
         self._connect_signals()
+        
+        self._update_delete_button()
 
     def _create_widgets(self):
 
@@ -115,15 +121,17 @@ class ExportView(QWidget):
             "exportButton"
         )
 
-        self._delete_button = QPushButton(
-            "Eliminar"
+        self._delete_button = IconButton(
+        resource_path("app/resources/icons/tacho.png"),
+        resource_path("app/resources/icons/tacho_blanco.png")
         )
-
         self._delete_button.setObjectName(
             "deleteTemplateButton"
         )
-
-        self._delete_button.setEnabled(False)
+        self._delete_button.setFixedSize(36, 36)
+        self._delete_button.setIconSize(QtCore.QSize(22, 22))
+        self._delete_button.setToolTip("Eliminar plantilla")
+        self._delete_button.setCursor(Qt.PointingHandCursor)
 
     def _create_layout(self):
 
@@ -143,7 +151,7 @@ class ExportView(QWidget):
         layout.addWidget(self._title)
         layout.addWidget(self._subtitle)
 
-        layout.addSpacing(20)
+        layout.addSpacing(12)
 
 
         card = QWidget()
@@ -256,7 +264,7 @@ class ExportView(QWidget):
         )
 
         self._edit_button.clicked.connect(
-            self.edit_template_requested.emit
+            self._emit_edit_template
         )
 
         self._delete_button.clicked.connect(
@@ -274,6 +282,11 @@ class ExportView(QWidget):
         self._delete_button.setEnabled(
             isinstance(template_id, int)
         )
+       
+
+    def _emit_edit_template(self):
+        template_id = self.get_selected_template()
+        self.edit_template_requested.emit(template_id)
 
     def set_file_name(self, file_name):
 

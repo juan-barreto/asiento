@@ -65,8 +65,9 @@ class MainWindow(QMainWindow):
         self._stacked_widget.addWidget(self._review_view)
         self._stacked_widget.addWidget(self._history_view)
         self._stacked_widget.addWidget(self._export_view)
-        self._stacked_widget.addWidget(self._template_editor_view)
         self._stacked_widget.addWidget(self._settings_view)
+        self._stacked_widget.addWidget(self._template_editor_view)
+        
 
     def _create_layout(self):
 

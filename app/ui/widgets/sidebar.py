@@ -31,6 +31,7 @@ class Sidebar(QWidget):
 
         self._btn_converter = AnimatedSidebarButton(" Conversión")
         self._btn_history = AnimatedSidebarButton(" Historial")
+        self._btn_export = AnimatedSidebarButton(" Exportar")
         self._btn_settings = AnimatedSidebarButton(" Configuración")
 
         self._version = QLabel("v0.1.0")
@@ -57,6 +58,7 @@ class Sidebar(QWidget):
 
         layout.addWidget(self._btn_converter)
         layout.addWidget(self._btn_history)
+        layout.addWidget(self._btn_export)
         layout.addWidget(self._btn_settings)
 
         layout.addStretch()
@@ -69,4 +71,6 @@ class Sidebar(QWidget):
 
         self._btn_converter.clicked.connect(lambda: self.navigate.emit(0))
         self._btn_history.clicked.connect(lambda: self.navigate.emit(2))
-        self._btn_settings.clicked.connect(lambda: self.navigate.emit(3))
+        self._btn_export.clicked.connect(lambda: self.navigate.emit(3))
+        self._btn_settings.clicked.connect(lambda: self.navigate.emit(4))
+        

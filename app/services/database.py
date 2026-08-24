@@ -100,6 +100,16 @@ class Database:
                  }
             )
         return templates
+
+    def get_template_by_id(self, template_id: int):
+        with self._connect() as connection:
+            cursor = connection.cursor()
+            cursor.execute("SELECT config_json FROM templates WHERE id = ?", (template_id,))
+            fila = cursor.fetchone()
+        if fila is None:
+            return None
+        return TemplateConfig.model_validate_json(fila[0])
+
     
     def _create_table_conversiones(self):
 

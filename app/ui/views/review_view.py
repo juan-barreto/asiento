@@ -45,6 +45,7 @@ class ReviewView(QWidget):
         self._table = QTableWidget()
         self._table.setObjectName("reviewTable")
         self._table.setColumnCount(7)
+        
 
         self._table.setHorizontalHeaderLabels([
             "Fecha",
@@ -59,6 +60,8 @@ class ReviewView(QWidget):
         self._table.horizontalHeader().setSectionResizeMode(
             QHeaderView.Stretch
         )
+        self._table.horizontalHeader().setFixedHeight(36)
+
 
         self._table.verticalHeader().setVisible(False)
         self._table.verticalHeader().setDefaultSectionSize(34)

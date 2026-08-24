@@ -370,6 +370,32 @@ QTableWidget::item:selected {
 }
 
 /* =========================================================
+   HISTORY VIEW
+   ========================================================= */
+
+QWidget#historyView {
+    background-color: #1E1E1E;
+}
+
+QLabel#historyTitle {
+    background: transparent;
+
+    color: #FFFFFF;
+
+    font-size: 26px;
+    font-weight: 700;
+}
+
+QLabel#historySubtitle {
+    background: transparent;
+
+    color: #AFAFAF;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
    HISTORY TABLE
    ========================================================= */
 
@@ -646,6 +672,45 @@ QPushButton#exportButton:pressed {
     background-color: #15803D;
 }
 
+QComboBox#exportCombo {
+    background-color: #242424;
+    color: #FFFFFF;
+
+    border: 1px solid #454545;
+    border-radius: 7px;
+
+    padding: 6px 12px;
+    min-height: 34px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    /* flecha personalizada */
+    qproperty-iconSize: 14px;
+}
+
+QComboBox#exportCombo:hover {
+    border: 1px solid #5A5A5A;
+    background-color: #2C2C2C;
+}
+
+QComboBox#exportCombo:focus {
+    border: 1px solid #2563EB;
+    background-color: #2F2F2F;
+}
+QComboBox#exportCombo QAbstractItemView {
+    background-color: #2A2A2A;
+    color: #FFFFFF;
+
+    border: 1px solid #404040;
+    border-radius: 6px;
+
+    selection-background-color: #2563EB;
+    selection-color: #FFFFFF;
+
+    font-size: 13px;
+}
+
 /* ---------------------------------------------------------
    CANCEL
    --------------------------------------------------------- */
@@ -818,3 +883,12 @@ QPushButton#saveTemplateButton {
 QPushButton#saveTemplateButton:hover {
     background-color: #1D4ED8;
 }
+
+QPushButton#deleteTemplateButton {
+    background-color: transparent;
+    border: none;
+    padding: 1px;
+}
+
+
+

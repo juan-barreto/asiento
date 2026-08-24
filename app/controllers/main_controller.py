@@ -129,6 +129,9 @@ class MainController:
         self._window._template_editor_view.save_requested.connect(
             self._save_template
             )
+        self._window._template_editor_view.cancel_requested.connect(
+                    self._back_from_template
+                    )
 
         self._window._export_view.template_delete_requested.connect(
             self._delete_template
@@ -137,7 +140,7 @@ class MainController:
       
     def _delete_template(self, template_id: int):
 
-        filas = self._database.delete_template(template_id)
+        filas = self._database.delete_template(template_id) or 0
 
         templates = self._database.get_templates()
         self._window._export_view.load_templates(templates)
@@ -154,8 +157,13 @@ class MainController:
 
         self._template_config = config
 
-        self._database.save_new_template(config)
-        self._load_templates()
+        template_id = self._window._export_view.get_selected_template()
+
+        if template_id == "default" or template_id is None:
+            self._database.save_new_template(config)
+        else:
+            self._database.update_template(template_id, config)
+            self._load_templates()
 
         self._window.show_export_view()
 
@@ -434,7 +442,9 @@ class MainController:
 
         self._thread.start()
 
+    def _back_from_template(self):
 
+        self._window.show_export_view()
 
     def _back_from_review(self):
 
@@ -679,16 +689,25 @@ class MainController:
         self._selected_pdf_path = pdf_path
         self._file_name = file_name
 
-    def _open_template_editor(self):
-        if self._resultado is None:
-            return
+    def _open_template_editor(self, template_id):
+        
+        if template_id == "default":
 
-        # Construir config inicial desde resultado
-        columns = [
-            TemplateColumn(source=key, title=AVAILABLE_COLUMNS.get(key, key))
-            for key in self._resultado.movimientos[0].model_dump().keys()
-        ]
-        config = TemplateConfig(name="Plantilla automática", format="xlsx", columns=columns)
+            if self._resultado is None:
+                return
 
+            columns = [
+                TemplateColumn(source=key, title=AVAILABLE_COLUMNS.get(key, key))
+                for key in self._resultado.movimientos[0].model_dump().keys()
+            ]
+            config = TemplateConfig(name="Plantilla automática", format="xlsx", columns=columns)
+
+            self._window._template_editor_view.load_config(config)
+            self._window.show_template_editor_view()
+
+        else:
+            config = self._database.get_template_by_id(template_id)
+            if config is None:
+                return
         self._window._template_editor_view.load_config(config)
         self._window.show_template_editor_view()

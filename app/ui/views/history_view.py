@@ -5,7 +5,8 @@ from PySide6.QtWidgets import (
     QHeaderView,
     QAbstractItemView,
     QTableWidgetItem,
-    QMenu
+    QMenu,
+    QLabel
 )
 
 from PySide6.QtCore import Signal, Qt
@@ -20,6 +21,8 @@ class HistoryView(QWidget):
     def __init__(self):
         super().__init__()
 
+        self.setObjectName("historyView")
+
         self._create_widgets()
         self._configure_table()
         self._create_layout()
@@ -27,10 +30,19 @@ class HistoryView(QWidget):
 
     def _create_widgets(self):
 
+        self._title = QLabel("Historial")
+        self._title.setObjectName("historyTitle")
+        
+        self._subtitle = QLabel(
+            "Administra tus movimientos."
+            )
+        self._subtitle.setObjectName("historySubtitle")
+
         self._table = QTableWidget()
         self._table.setObjectName("historyTable")
 
     def _configure_table(self):
+        self._table.verticalHeader().setVisible(False)
 
         self._table.setColumnCount(9)
 
@@ -47,6 +59,7 @@ class HistoryView(QWidget):
         ])
 
         header = self._table.horizontalHeader()
+        header.setFixedHeight(36)
 
         header.setSectionResizeMode(
             0,
@@ -117,6 +130,21 @@ class HistoryView(QWidget):
     def _create_layout(self):
 
         layout = QVBoxLayout()
+
+        layout.setContentsMargins(
+                    32,
+                    28,
+                    32,
+                    28
+                )
+        
+        layout.setSpacing(8)
+        
+            
+        layout.addWidget(self._title)
+        layout.addWidget(self._subtitle)
+        
+        layout.addSpacing(12)
 
         layout.addWidget(self._table)
 
