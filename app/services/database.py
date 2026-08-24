@@ -2,6 +2,7 @@ import sqlite3
 import datetime
 from pathlib import Path
 import os
+from app.models.template import TemplateConfig
 
 class Database:
 
@@ -75,9 +76,31 @@ class Database:
     def get_templates(self):
         with self._connect() as connection:
             cursor = connection.cursor()
-            cursor.execute("SELECT id, nombre, config_json FROM templates")
-            return cursor.fetchall()
+            cursor.execute("""
+            SELECT id, nombre, config_json
+            FROM templates
+            ORDER BY nombre
+                    """)
+            filas = cursor.fetchall()
 
+        templates = []
+
+        for fila in filas:
+
+            template_id = fila[0]
+            config_json = fila[2]       
+
+            config = TemplateConfig.model_validate_json(
+                config_json
+            )
+            templates.append(
+                {
+                    "id" : template_id,
+                    "config" : config
+                 }
+            )
+        return templates
+    
     def _create_table_conversiones(self):
 
         with self._connect() as connection:
@@ -232,6 +255,51 @@ class Database:
                 return None
 
             return fila[0]
+
+    def update_template(self, template_id: int, config):
+
+        if not config:
+            raise ValueError(
+                "No hay plantilla para actualizar"
+            )
+
+        with self._connect() as connection:
+
+            cursor = connection.cursor()
+
+            cursor.execute(
+                """
+                UPDATE templates
+                SET
+                    nombre = ?,
+                    config_json = ?
+                WHERE id = ?
+
+                """,
+                (
+                    config.name,
+                    config.model_dump_json(),
+                    template_id
+                )
+            )
+
+            return cursor.rowcount
+
+    def delete_template(self, template_id: int):
+
+        with self._connect() as connection:
+
+            cursor = connection.cursor()
+
+            cursor.execute(
+                """
+                DELETE FROM templates
+                WHERE id = ?
+
+                """,
+                (template_id,)
+
+            )
 
     def update_result(self, conversion_id: int, resultado):
 

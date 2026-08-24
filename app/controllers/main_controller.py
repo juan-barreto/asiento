@@ -51,6 +51,7 @@ class MainController:
 
         self._connect_signals()
         self._load_history()
+        self._load_templates()
 
     # =========================================================
     # SIGNALS
@@ -128,10 +129,24 @@ class MainController:
         self._window._template_editor_view.save_requested.connect(
             self._save_template
             )
-        
+
+        self._window._export_view.template_delete_requested.connect(
+            self._delete_template
+        )
 
       
+    def _delete_template(self, template_id: int):
 
+        filas = self._database.delete_template(template_id)
+
+        templates = self._database.get_templates()
+        self._window._export_view.load_templates(templates)
+        
+        if filas > 0:
+            
+            print(f"Plantilla {template_id} eliminada correctamente.")
+        else:
+            print(f"No se encontró la plantilla con id {template_id}.")
 
     def _save_template(self):
 
@@ -140,9 +155,18 @@ class MainController:
         self._template_config = config
 
         self._database.save_new_template(config)
+        self._load_templates()
+
+        self._window.show_export_view()
 
         print(f"Bien hecho , es esto: {self._database.get_templates()}")
         #self._window.show_export_view()
+
+    def _load_templates(self):
+
+        templates = self._database.get_templates()
+
+        self._window._export_view.load_templates(templates)
 
     # =========================================================
     # REVIEW
@@ -222,15 +246,13 @@ class MainController:
         if self._resultado is None:
             return
 
+        self._load_templates()
         self._window._export_view.set_file_name(
             self._file_name
         )
 
         self._window.show_export_view()
 
-    # =========================================================
-    # EXPORT
-    # =========================================================
 
     def _export_conversion(self):
 

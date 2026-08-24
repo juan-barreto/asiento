@@ -7,6 +7,7 @@ from PySide6.QtWidgets import (
     QComboBox,
     QLineEdit,
     QPushButton,
+    QMessageBox
 )
 
 
@@ -15,6 +16,7 @@ class ExportView(QWidget):
     export_requested = Signal()
     cancel_requested = Signal()
     edit_template_requested = Signal()
+    template_delete_requested = Signal(int)
 
     def __init__(self):
         super().__init__()
@@ -48,10 +50,9 @@ class ExportView(QWidget):
             "exportCombo"
         )
 
-        self._template_combo.addItem(
-            "Estándar",
-            "default"
-        )
+
+
+
 
   
 
@@ -114,6 +115,16 @@ class ExportView(QWidget):
             "exportButton"
         )
 
+        self._delete_button = QPushButton(
+            "Eliminar"
+        )
+
+        self._delete_button.setObjectName(
+            "deleteTemplateButton"
+        )
+
+        self._delete_button.setEnabled(False)
+
     def _create_layout(self):
 
      
@@ -153,8 +164,18 @@ class ExportView(QWidget):
             self._template_label
         )
 
-        card_layout.addWidget(
+        template_layout = QHBoxLayout()
+
+        template_layout.addWidget(
             self._template_combo
+        )
+
+        template_layout.addWidget(
+            self._delete_button
+        )
+
+        card_layout.addLayout(
+            template_layout
         )
 
         card_layout.addSpacing(12)
@@ -238,6 +259,21 @@ class ExportView(QWidget):
             self.edit_template_requested.emit
         )
 
+        self._delete_button.clicked.connect(
+            self._delete_selected_template
+        )
+
+        self._template_combo.currentIndexChanged.connect(
+            self._update_delete_button
+        )
+
+    def _update_delete_button(self):
+
+        template_id = self._template_combo.currentData()
+
+        self._delete_button.setEnabled(
+            isinstance(template_id, int)
+        )
 
     def set_file_name(self, file_name):
 
@@ -249,6 +285,21 @@ class ExportView(QWidget):
 
         return self._file_name_input.text().strip()
 
+    def load_templates(self, templates):
+
+        self._template_combo.clear()
+        
+        self._template_combo.addItem(
+            "Estándar",
+            "default"
+        )
+
+        for template in templates:
+
+            self._template_combo.addItem(
+                template["config"].name,
+                template["id"]
+            )
     def get_selected_template(self):
 
         return self._template_combo.currentData()
@@ -256,3 +307,25 @@ class ExportView(QWidget):
     def get_selected_format(self):
 
         return self._format_combo.currentData()
+
+    def _delete_selected_template(self):
+
+        template_id = self._template_combo.currentData()
+
+        if not isinstance(template_id, int):
+            return
+
+        reply = QMessageBox.question(
+            self,
+            "Eliminar plantilla",
+            "¿Estás seguro de que querés eliminar esta plantilla?",
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No
+        )
+
+        if reply != QMessageBox.Yes:
+            return
+
+        self.template_delete_requested.emit(
+            template_id
+        )
