@@ -34,8 +34,13 @@ class Sidebar(QWidget):
         self._btn_export = AnimatedSidebarButton(" Exportar")
         self._btn_settings = AnimatedSidebarButton(" Configuración")
 
-        self._version = QLabel("v0.1.0")
+        self._btn_export.setObjectName("sidebarButton")
+
+        self._version = QLabel("v0.1.1")
         self._version.setObjectName("sidebarVersion")
+
+    def set_export_enabled(self, enabled: bool):
+        self._btn_export.setEnabled(enabled)
 
     def _create_layout(self):
 

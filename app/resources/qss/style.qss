@@ -28,15 +28,14 @@ PADDING             12px
    APPLICATION
    ========================================================= */
 
-QMainWindow {
-
+/* QMainWindow {
     background-color: #1E1E1E;
 }
 QWidget {
-
     background-color: #1E1E1E;
     color: #FFFFFF;
-}
+} */
+
 
 /* =========================================================
    BUTTONS (BASE)
@@ -49,12 +48,12 @@ QPushButton {
     border: none;
     border-radius: 8px;
 
-    padding: 8px 16px;
+    padding: 6px 12px;
 
     font-size: 14px;
     font-weight: 600;
 
-    min-height: 34px;
+    min-height: 32px;
 }
 
 /*QPushButton:hover {
@@ -170,8 +169,8 @@ QWidget#fileCard {
 
     border: 1px solid #404040;
     border-radius: 10px;
-
-    padding: 12px;
+    
+   
 }
 QLabel {
 
@@ -180,7 +179,7 @@ QLabel {
 
 QLabel#fileName {
 
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
 
     color: white;
@@ -420,14 +419,14 @@ QTableWidget#reviewTable {
    ========================================================= */
 
 QWidget#sidebar {
-
-    background-image: url(C:/Users/Juan/Desktop/ASIENTO/app/resources/icons/background.png);
-
+    background-image: url("app/resources/icons/background.png");
     background-repeat: no-repeat;
     background-position: center;
-
+    background-origin: content;
+    background-color: #1E1E1E;
     border-right: 1px solid #303030;
 }
+
 
 
 /* =========================================================
@@ -455,6 +454,12 @@ QPushButton#sidebarButton {
 
     font-weight: 700;
 
+}
+
+QPushButton#sidebarButton:disabled {
+    opacity: 0.45;
+    color: #777777;
+    cursor: default;
 }
 
 /* =========================================================
@@ -890,5 +895,44 @@ QPushButton#deleteTemplateButton {
     padding: 1px;
 }
 
+
+
+/* MAIN CON FONDO*/
+
+QWidget#mainContent {
+    background-color: rgba(30, 30, 30, 220); /* gris translúcido */
+}
+
+QWidget#converterView,
+QWidget#reviewView,
+QWidget#historyView,
+QWidget#settingsView,
+QWidget#exportView,
+QWidget#templateEditorView {
+    background-color: rgba(42, 42, 42, 180); /* más transparente */
+    border-radius: 10px;
+}
+
+
+QWidget#fileCard,
+QWidget#actionBar,
+QWidget#summaryPanel,
+QWidget#logPanel,
+QWidget#pdfViewer,
+QWidget#rightPanel {
+    background-color: rgba(42, 42, 42, 180); /* gris translúcido */
+    border-radius: 8px;
+}
+
+QLabel#conversionTitle {
+    font-size: 26px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+QLabel#conversionSubtitle {
+    font-size: 13px;
+    color: #CFCFCF;
+}
 
 

@@ -15,11 +15,13 @@ from app.exporters.xl_exporter import conversion_excel
 
 
 class MainController:
-
+    
     def __init__(self, window: MainWindow):
 
         self._window = window
         self._database = Database()
+
+        self._window._sidebar.set_export_enabled(False)
 
         # =====================================================
         # ACTIVE CONVERSION
@@ -29,7 +31,7 @@ class MainController:
         self._resultado = None
         self._conversion_id = None
         self._file_name = None
-
+        self._editing_template_id = None
         # =====================================================
         # WORKER
         # =====================================================
@@ -159,11 +161,13 @@ class MainController:
 
         template_id = self._window._export_view.get_selected_template()
 
+        self._editing_template_id = template_id
+
         if template_id == "default" or template_id is None:
             self._database.save_new_template(config)
         else:
             self._database.update_template(template_id, config)
-            self._load_templates()
+        self._load_templates()
 
         self._window.show_export_view()
 
@@ -306,21 +310,9 @@ class MainController:
     def _cancel_export(self):
 
         self._window.show_converter_view()
+        self._window._sidebar.set_export_enabled(False)
 
 
-
-    def _edit_template(self):
-
-        # -----------------------------------------------------
-        # TODO:
-        # Acá abriremos TemplateEditorView.
-        # -----------------------------------------------------
-
-        QMessageBox.information(
-            self._window,
-            "Editor de plantillas",
-            "El editor de plantillas todavía está en construcción."
-        )
 
   
 
@@ -382,6 +374,9 @@ class MainController:
             self._review_origin = "converter"
 
             self._open_review()
+
+        self._window._sidebar.set_export_enabled(True)
+
 
  
 

@@ -111,7 +111,7 @@ class PdfViewerWidget(QWidget):
             self._btn_next
         )
 
-        nav.addSpacing(20)
+        nav.addSpacing(10)
 
         nav.addWidget(
             self._btn_zoom_out

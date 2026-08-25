@@ -2,7 +2,8 @@ from PySide6.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QHBoxLayout,
-    QSplitter
+    QSplitter,
+    QLabel
 )
 
 from PySide6.QtCore import Qt
@@ -25,20 +26,39 @@ class ConverterView(QWidget):
     
     def _create_widgets(self):
 
+        self._title = QLabel("Conversión")
+        self._title.setObjectName("conversionTitle")
+        
+        self._subtitle = QLabel(
+            "Procesa tus extractos bancarios."
+                )
+        self._subtitle.setObjectName("conversionSubtitle")
+        
         self._file_card = FileCard()
         self._action_bar = ActionBar()
         self._summary_panel = SummaryPanel()
         self._log_panel = LogPanel()
         self._pdf_viewer = PdfViewerWidget()
         self._right_panel = QWidget()
+        self._file_card.setObjectName("fileCard")
+        self._action_bar.setObjectName("actionBar")
+        self._summary_panel.setObjectName("summaryPanel")
+        self._log_panel.setObjectName("logPanel")
+        self._pdf_viewer.setObjectName("pdfViewer")
+        self._right_panel.setObjectName("rightPanel")
+
+        
+
 
     def _create_layout(self):
 
         layout = QVBoxLayout()
 
         layout.setContentsMargins(20, 20, 20, 20)
-        layout.setSpacing(16)
-
+                    
+        layout.addWidget(self._title)
+        layout.addWidget(self._subtitle)
+        layout.setSpacing(14)
         layout.addWidget(self._file_card)
 
         self._splitter = QSplitter(Qt.Horizontal)
@@ -47,7 +67,7 @@ class ConverterView(QWidget):
 
         right_layout.setContentsMargins(0, 0, 0, 0)
 
-        right_layout.setSpacing(16)
+        right_layout.setSpacing(8)
 
         right_layout.addWidget(self._summary_panel)
 
@@ -90,6 +110,11 @@ class ConverterView(QWidget):
         )
 
         self.setLayout(layout)
+
+        self._splitter.setStyleSheet("background: transparent;")
+        self._right_panel.setStyleSheet("background: transparent;")
+
+
 
     # Creacion de FACHADA para reducir acoplamiento
 

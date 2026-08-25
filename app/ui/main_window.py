@@ -16,7 +16,7 @@ from app.ui.views.review_view import ReviewView
 from app.ui.views.export_view import ExportView
 from PySide6.QtGui import QIcon
 from app.ui.views.templates_view import TemplateEditorView
-
+from app.ui.widgets.background_widget import BackgroundWidget
 
 class MainWindow(QMainWindow):
 
@@ -46,20 +46,36 @@ class MainWindow(QMainWindow):
 
     def _create_widgets(self):
 
-        self._central_widget = QWidget()
+        self._central_widget = BackgroundWidget()  
         self._central_widget.setObjectName("mainContent")
 
         self._sidebar = Sidebar()
 
         self._stacked_widget = QStackedWidget()
 
+        self._sidebar = Sidebar()
+        self._sidebar.setObjectName("sidebar")
+
+        self._stacked_widget = QStackedWidget()
+        self._stacked_widget.setObjectName("stackArea")
 
         self._converter_view = ConverterView()
+        self._converter_view.setObjectName("converterView")
+
         self._review_view = ReviewView()
+        self._review_view.setObjectName("reviewView")
+
         self._history_view = HistoryView()
+        self._history_view.setObjectName("historyView")
+
         self._settings_view = SettingsView()
+        self._settings_view.setObjectName("settingsView")
+
         self._export_view = ExportView()
+        self._export_view.setObjectName("exportView")
+
         self._template_editor_view = TemplateEditorView()
+        self._template_editor_view.setObjectName("templateEditorView")
 
         self._stacked_widget.addWidget(self._converter_view)
         self._stacked_widget.addWidget(self._review_view)
@@ -67,6 +83,9 @@ class MainWindow(QMainWindow):
         self._stacked_widget.addWidget(self._export_view)
         self._stacked_widget.addWidget(self._settings_view)
         self._stacked_widget.addWidget(self._template_editor_view)
+
+        
+
         
 
     def _create_layout(self):

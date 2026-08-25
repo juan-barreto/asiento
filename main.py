@@ -21,12 +21,14 @@ def main():
 
    qss_path = resource_path("app/resources/qss/style.qss")
 
-   with open(qss_path, "r", encoding="utf-8") as f:
-      app.setStyleSheet(f.read())
+   
       
    window = MainWindow()
 
    controller = MainController(window)
+
+   with open(qss_path, "r", encoding="utf-8") as f:
+         app.setStyleSheet(f.read())
 
    window.show()
 

@@ -32,8 +32,8 @@ class FileCard(QWidget):
 
         layout = QVBoxLayout()
 
-        layout.setContentsMargins(16,16,16,16)
-        layout.setSpacing(8)
+        layout.setContentsMargins(12,12,12,12)
+        layout.setSpacing(5)
 
         layout.addWidget(self._lbl_file)
         layout.addWidget(self._lbl_bank)
