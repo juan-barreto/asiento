@@ -291,6 +291,8 @@ class MainController:
             self._window._export_view.get_selected_template()
         )
 
+        config = self._database.get_template_by_id(selected_template)
+
         ruta, _ = QFileDialog.getSaveFileName(
             self._window,
             "Guardar archivo",
@@ -303,9 +305,10 @@ class MainController:
         conversion_excel(
             self._resultado,
             ruta,
-            self._template_config,
+            config,
             callback= self._window._converter_view.append_log
         )
+        print("ecelente")
         
     def _cancel_export(self):
 
