@@ -72,6 +72,7 @@ class Database:
                         config.name,
                         config.model_dump_json()
                     ))
+            return cursor.lastrowid
 
     def get_templates(self):
         with self._connect() as connection:
@@ -152,7 +153,8 @@ class Database:
                 "No se puede guardar un resultado sin movimientos"
             )
 
-        fecha = datetime.datetime.now().isoformat()
+        fecha = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+
 
         with self._connect() as connection:
 
@@ -310,6 +312,8 @@ class Database:
                 (template_id,)
 
             )
+            connection.commit()
+            return cursor.rowcount
 
     def update_result(self, conversion_id: int, resultado):
 

@@ -1,14 +1,12 @@
 from pydantic import BaseModel
 
 AVAILABLE_COLUMNS = {
-    "id": "ID",
-    "fecha": "Fecha",
-    "descripcion": "Descripción",
-    "detalle": "Detalle",
-    "debito": "Débito",
-    "credito": "Crédito",
-    "saldo": "Saldo",
-    "confidence": "Confidence"
+    "Fecha": "Fecha",
+    "Descripcion": "Descripción",
+    "Detalle": "Detalle",
+    "Debito": "Débito",
+    "Credito": "Crédito",
+    "Saldo": "Saldo"
 }
 
 

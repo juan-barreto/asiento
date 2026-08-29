@@ -10,12 +10,16 @@ from app.ui.main_window import MainWindow
 from app.workers.extract_worker import ExtractWorker
 from app.services.database import Database
 from app.ui.dialogs.pdf_viewer_dialog import PdfViewerDialog
-from app.models.template import TemplateConfig, TemplateColumn, AVAILABLE_COLUMNS
+from app.models.template import (
+    TemplateConfig,
+    TemplateColumn,
+    AVAILABLE_COLUMNS
+)
 from app.exporters.xl_exporter import conversion_excel
 
 
 class MainController:
-    
+
     def __init__(self, window: MainWindow):
 
         self._window = window
@@ -23,47 +27,41 @@ class MainController:
 
         self._window._sidebar.set_export_enabled(False)
 
-        # =====================================================
-        # ACTIVE CONVERSION
-        # =====================================================
+       
 
         self._selected_pdf_path = None
         self._resultado = None
         self._conversion_id = None
         self._file_name = None
+
+        
+
+      
         self._editing_template_id = None
-        # =====================================================
-        # WORKER
-        # =====================================================
+
+        
 
         self._thread = None
         self._worker = None
 
-        # =====================================================
-        # OTHER STATE
-        # =====================================================
+        
 
         self._pdf_viewer = None
         self._review_origin = None
         self._template_config = None
 
-        # =====================================================
-        # INITIALIZATION
-        # =====================================================
+       
 
         self._connect_signals()
         self._load_history()
         self._load_templates()
 
-    # =========================================================
     # SIGNALS
-    # =========================================================
+    
 
     def _connect_signals(self):
 
-        # -----------------------------------------------------
-        # CONVERTER
-        # -----------------------------------------------------
+   
 
         self._window._converter_view._action_bar.select_pdf.connect(
             self._select_pdf
@@ -80,13 +78,40 @@ class MainController:
         self._window._converter_view._action_bar.review.connect(
             self._open_review
         )
+
+        
+
+        self._window._export_view.export_requested.connect(
+            self._export_conversion
+        )
+
+        self._window._export_view.cancel_requested.connect(
+            self._cancel_export
+        )
+
         self._window._export_view.edit_template_requested.connect(
             self._open_template_editor
         )
 
-        # -----------------------------------------------------
-        # HISTORY
-        # -----------------------------------------------------
+        self._window._export_view.template_delete_requested.connect(
+            self._delete_template
+        )
+
+        # NUEVO: crear plantilla
+        self._window._export_view.create_template_requested.connect(
+            self._create_template
+        )
+
+      
+
+        self._window._template_editor_view.save_requested.connect(
+            self._save_template
+        )
+
+        self._window._template_editor_view.cancel_requested.connect(
+            self._back_from_template
+        )
+
 
         self._window._history_view.open_pdf_requested.connect(
             self._open_pdf_from_history
@@ -100,9 +125,13 @@ class MainController:
             self._modify_from_history
         )
 
-        # -----------------------------------------------------
-        # REVIEW
-        # -----------------------------------------------------
+        self._window._history_view.export_requested.connect(
+            self._export_from_history
+        )
+
+        
+    
+        
 
         self._window._review_view.back.connect(
             self._back_from_review
@@ -116,73 +145,224 @@ class MainController:
             self._open_pdf_from_review
         )
 
-        # -----------------------------------------------------
-        # EXPORT
-        # -----------------------------------------------------
+  
+    # TEMPLATES
+    
 
-        self._window._export_view.export_requested.connect(
-            self._export_conversion
-        )
-
-        self._window._export_view.cancel_requested.connect(
-            self._cancel_export
-        )
-
-        self._window._template_editor_view.save_requested.connect(
-            self._save_template
-            )
-        self._window._template_editor_view.cancel_requested.connect(
-                    self._back_from_template
-                    )
-
-        self._window._export_view.template_delete_requested.connect(
-            self._delete_template
-        )
-
-      
-    def _delete_template(self, template_id: int):
-
-        filas = self._database.delete_template(template_id) or 0
+    def _load_templates(self, selected_id = None):
 
         templates = self._database.get_templates()
-        self._window._export_view.load_templates(templates)
+
+        self._window._export_view.load_templates(
+            templates,
+            selected_id
+        )
+
+    def _create_default_template(self):
+
+        if self._resultado is None:
+            return None
+
+        columns = [
+            TemplateColumn(
+                source=key,
+                title=AVAILABLE_COLUMNS.get(key, key)
+            )
+            for key in self._resultado.movimientos[0]
+                .model_dump()
+                .keys()
+            if key in AVAILABLE_COLUMNS
+        ]
+
+        return TemplateConfig(
+            name="Estándar",
+            format="xlsx",
+            columns=columns
+        )
+
+    def _create_template(self):
+
+        config = self._create_default_template()
+
+        if config is None:
+            return
+
         
-        if filas > 0:
-            
-            print(f"Plantilla {template_id} eliminada correctamente.")
-        else:
-            print(f"No se encontró la plantilla con id {template_id}.")
+        self._editing_template_id = None
+
+        
+        config.name = ""
+
+        self._window._template_editor_view.load_config(
+            config
+        )
+
+        self._window.show_template_editor_view()
+
+    def _open_template_editor(self, template_id):
+
+        self._editing_template_id = template_id
+
+        if not isinstance(template_id, int):
+            return
+
+        config = self._database.get_template_by_id(
+            template_id
+        )
+
+        if config is None:
+            return
+
+        # Estamos EDITANDO una existente
+        self._editing_template_id = template_id
+
+        self._window._template_editor_view.load_config(
+            config
+        )
+
+        self._window.show_template_editor_view()
 
     def _save_template(self):
 
         config = self._window._template_editor_view.get_config()
-
         self._template_config = config
 
-        template_id = self._window._export_view.get_selected_template()
+        template_id = self._editing_template_id
+        nombre_nuevo = config.name.strip().lower()
 
-        self._editing_template_id = template_id
+    
+        existing_templates = self._database.get_templates()
+        for tpl in existing_templates:
+            nombre_existente = tpl["config"].name.strip().lower()
+            if nombre_existente == nombre_nuevo:
+                if template_id is None or tpl["id"] != template_id:
+                    QMessageBox.warning(
+                        self._window,
+                        "Nombre duplicado",
+                        "Ya existe una plantilla con ese nombre."
+                    )
+                    return
+
 
         if template_id == "default" or template_id is None:
-            self._database.save_new_template(config)
+
+            new_id = self._database.save_new_template(config)
+
+            self._load_templates(
+                selected_id=new_id
+            )
+
         else:
-            self._database.update_template(template_id, config)
-        self._load_templates()
+
+            self._database.update_template(
+                template_id,
+                config
+            )
+
+            self._load_templates(
+                selected_id=template_id
+            )
 
         self._window.show_export_view()
 
-        print(f"Bien hecho , es esto: {self._database.get_templates()}")
-        #self._window.show_export_view()
+    def _delete_template(self, template_id: int):
 
-    def _load_templates(self):
+        filas = self._database.delete_template(
+            template_id
+        ) or 0
 
-        templates = self._database.get_templates()
+        if filas == 0:
+            return
 
-        self._window._export_view.load_templates(templates)
+        self._load_templates(template_id)
 
-    # =========================================================
-    # REVIEW
-    # =========================================================
+# EXPORTACION
+
+    def _open_export_view(self):
+
+        if self._resultado is None:
+            return
+
+        self._load_templates()
+
+        self._window._export_view.set_file_name(
+            self._file_name
+        )
+
+        self._window.show_export_view()
+
+    def _export_conversion(self):
+
+        if self._resultado is None:
+            return
+
+        file_name = (
+            self._window._export_view
+            .get_file_name()
+        )
+
+        if not file_name:
+            QMessageBox.warning(
+                self._window,
+                "Nombre requerido",
+                "Ingresá un nombre para el archivo."
+            )
+            return
+
+        selected_format = (
+            self._window._export_view
+            .get_selected_format()
+        )
+
+        selected_template = (
+            self._window._export_view
+            .get_selected_template()
+        )
+
+        # Por ahora la lógica de exportación queda
+        # separada de la creación/edición de plantillas.
+
+        ruta, _ = QFileDialog.getSaveFileName(
+            self._window,
+            "Guardar archivo",
+            f"{file_name}.{selected_format}",
+            "Excel (*.xlsx)"
+        )
+
+        if not ruta:
+            return
+
+        config = self._database.get_template_by_id(
+            selected_template
+        )
+
+        conversion_excel(
+            self._resultado,
+            ruta,
+            config,
+            callback=(
+                self._window
+                ._converter_view
+                .append_log
+            )
+        )
+
+    def _cancel_export(self):
+
+        self._window.show_converter_view()
+
+        self._window._sidebar.set_export_enabled(
+            False
+        )
+
+
+    def _back_from_template(self):
+
+        self._editing_template_id = None
+
+        self._window.show_export_view()
+
+    # REVIEW VIEW
 
     def _open_review(self):
 
@@ -202,9 +382,7 @@ class MainController:
 
         self._window.show_review_view()
 
-    # =========================================================
-    # PDF SELECTION
-    # =========================================================
+    # SELECCIONAR PDF
 
     def _select_pdf(self):
 
@@ -232,10 +410,7 @@ class MainController:
         self._window._converter_view.set_process_enabled(
             True
         )
-
-    # =========================================================
-    # PROCESS
-    # =========================================================
+# BOTON PROCESAR
 
     def _process_pdf(self):
 
@@ -249,75 +424,7 @@ class MainController:
 
         self._create_thread()
 
-    # =========================================================
-    # OPEN EXPORT VIEW
-    # =========================================================
-
-    def _open_export_view(self):
-
-        if self._resultado is None:
-            return
-
-        self._load_templates()
-        self._window._export_view.set_file_name(
-            self._file_name
-        )
-
-        self._window.show_export_view()
-
-
-    def _export_conversion(self):
-
-        if self._resultado is None:
-            return
-
-        file_name = (
-            self._window._export_view.get_file_name()
-        )
-
-        if not file_name:
-            QMessageBox.warning(
-                self._window,
-                "Nombre requerido",
-                "Ingresá un nombre para el archivo."
-            )
-            return
-
-        selected_format = (
-            self._window._export_view.get_selected_format()
-        )
-
-        selected_template = (
-            self._window._export_view.get_selected_template()
-        )
-
-        config = self._database.get_template_by_id(selected_template)
-
-        ruta, _ = QFileDialog.getSaveFileName(
-            self._window,
-            "Guardar archivo",
-            f"{file_name}.{selected_format}",
-            "Excel (*.xlsx)"
-            )
-        if not ruta:
-            return
-
-        conversion_excel(
-            self._resultado,
-            ruta,
-            config,
-            callback= self._window._converter_view.append_log
-        )
-        print("ecelente")
-        
-    def _cancel_export(self):
-
-        self._window.show_converter_view()
-        self._window._sidebar.set_export_enabled(False)
-
-
-
-  
+   # PROCESAMIENTO
 
     def _processing_finished(self, resultado):
 
@@ -357,7 +464,9 @@ class MainController:
         )
 
         self._window._converter_view.append_log(
-            resultado.model_dump_json(indent=2)
+            resultado.model_dump_json(
+                indent=2
+            )
         )
 
         self._window._converter_view.append_log(
@@ -372,16 +481,15 @@ class MainController:
             True
         )
 
+        self._window._sidebar.set_export_enabled(
+            True
+        )
+
         if resultado.revisar:
 
             self._review_origin = "converter"
 
             self._open_review()
-
-        self._window._sidebar.set_export_enabled(True)
-
-
- 
 
     def _show_error(self, error: str):
 
@@ -397,6 +505,7 @@ class MainController:
             True
         )
 
+    # THREAD
 
     def _create_thread(self):
 
@@ -440,9 +549,7 @@ class MainController:
 
         self._thread.start()
 
-    def _back_from_template(self):
-
-        self._window.show_export_view()
+   # GUARDADO DEL REVIEW
 
     def _back_from_review(self):
 
@@ -453,8 +560,6 @@ class MainController:
         else:
 
             self._window.show_converter_view()
-
-
 
     def _save_review(self, movimientos_editados):
 
@@ -514,7 +619,7 @@ class MainController:
 
         self._load_history()
 
-
+    # HISTORIAL
 
     def _load_history(self):
 
@@ -523,8 +628,6 @@ class MainController:
         self._window._history_view.load_results(
             resultados
         )
-
-
 
     def _open_pdf_from_history(self, conversion_id):
 
@@ -541,8 +644,6 @@ class MainController:
         )
 
         self._pdf_viewer.show()
-
-
 
     def _modify_from_history(self, conversion_id):
 
@@ -589,6 +690,28 @@ class MainController:
 
         self._window.show_review_view()
 
+    def _export_from_history(self, conversion_id: int):
+        
+        resultado_json = self._database.get_result_json(conversion_id)
+        if not resultado_json:
+            return
+
+        pdf_path = self._database.get_pdf_path(conversion_id)
+
+        from app.services.movimiento import ResultadoPipeline
+        resultado = ResultadoPipeline.model_validate_json(resultado_json)
+
+        
+        self._activate_conversion(
+            conversion_id,
+            resultado,
+            pdf_path,
+            Path(pdf_path).name
+        )
+
+        
+        self._open_export_view()
+
 
     def _delete_from_history(self, conversion_id):
 
@@ -633,14 +756,14 @@ class MainController:
 
         self._load_history()
 
-
     def _open_pdf_from_review(self):
 
         self._open_pdf_from_history(
             self._conversion_id
         )
 
-
+    # CONVERSION ACTIVA
+    
 
     def _sync_converter_with_active_conversion(self):
 
@@ -672,8 +795,6 @@ class MainController:
             True
         )
 
-
-
     def _activate_conversion(
         self,
         conversion_id,
@@ -686,26 +807,3 @@ class MainController:
         self._resultado = resultado
         self._selected_pdf_path = pdf_path
         self._file_name = file_name
-
-    def _open_template_editor(self, template_id):
-        
-        if template_id == "default":
-
-            if self._resultado is None:
-                return
-
-            columns = [
-                TemplateColumn(source=key, title=AVAILABLE_COLUMNS.get(key, key))
-                for key in self._resultado.movimientos[0].model_dump().keys()
-            ]
-            config = TemplateConfig(name="Plantilla automática", format="xlsx", columns=columns)
-
-            self._window._template_editor_view.load_config(config)
-            self._window.show_template_editor_view()
-
-        else:
-            config = self._database.get_template_by_id(template_id)
-            if config is None:
-                return
-        self._window._template_editor_view.load_config(config)
-        self._window.show_template_editor_view()

@@ -392,6 +392,68 @@ QLabel#historySubtitle {
 
     font-size: 13px;
 }
+QPushButton#backHistoryButton{
+
+    background-color: #3F4A5A;
+    color: white;
+}
+
+QPushButton#backHistoryButton:hover {
+
+    background-color: #4B586A;
+}
+
+QPushButton#backHistoryButton:pressed {
+
+    background-color: #36404F;
+}
+
+QPushButton#saveHistoryButton{
+
+    background-color: #2563EB;
+    color: white;
+}
+
+QPushButton#saveHistoryButton:hover {
+
+    background-color: #1D4ED8;
+}
+
+QPushButton#saveHistoryButton:pressed {
+
+    background-color: #1E40AF;
+}
+
+QPushButton#resetHistoryButton{
+    background-color: #3F4A5A;
+    color: white;
+    
+}
+
+QPushButton#processButton:hover {
+    background-color: #4B586A;
+    
+}
+
+QPushButton#processButton:pressed {
+    background-color: #36404F;
+    
+}
+
+QPushButton#pdfHistoryButton{
+    background-color: #ebc725;
+    color: white;
+}
+
+QPushButton#pdfHistoryButton:hover {
+
+    background-color: #ebc725f1;
+}
+
+QPushButton#backHistoryButton:pressed {
+    background-color: #ebc725c2;
+    
+}
 
 
 /* =========================================================

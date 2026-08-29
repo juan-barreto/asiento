@@ -85,19 +85,6 @@ class TemplateEditorView(QWidget):
         self._columns_list.setDragEnabled(True)
         self._columns_list.setAcceptDrops(True)
         self._columns_list.setStyleSheet("QListWidget::item:selected { outline: none; }")
-
-
-
-        # boton columnas
-
-        self._add_column_button = QPushButton(
-            "+ Agregar columna"
-        )
-        self._add_column_button.setObjectName(
-            "addTemplateColumnButton"
-        )
-
-
      
 
         self._cancel_button = QPushButton(
@@ -172,12 +159,6 @@ class TemplateEditorView(QWidget):
 
         card_layout.addWidget(
             self._columns_list
-        )
-
-        card_layout.addSpacing(8)
-
-        card_layout.addWidget(
-            self._add_column_button
         )
 
         card.setLayout(

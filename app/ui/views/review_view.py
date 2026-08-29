@@ -79,9 +79,16 @@ class ReviewView(QWidget):
         )
 
         self._btn_back = QPushButton("Volver")
+        self._btn_back.setObjectName("backHistoryButton")
+
         self._btn_save = QPushButton("Guardar")
+        self._btn_save.setObjectName("saveHistoryButton")
+
         self._btn_reset = QPushButton("Restaurar todos")
+        self._btn_reset.setObjectName("resetHistoryButton")
+
         self._btn_pdf = QPushButton("Abrir PDF")
+        self._btn_pdf.setObjectName("pdfHistoryButton")
 
     def _create_layout(self):
 

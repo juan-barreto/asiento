@@ -17,6 +17,7 @@ class HistoryView(QWidget):
     open_pdf_requested = Signal(int)
     delete_requested = Signal(int)
     modify_requested = Signal(int)
+    export_requested = Signal(int)
 
     def __init__(self):
         super().__init__()
@@ -230,13 +231,15 @@ class HistoryView(QWidget):
         open_action = menu.addAction(
             "Abrir PDF"
         )
-
-        delete_action = menu.addAction(
-            "Eliminar"
-        )
-
         modify_action = menu.addAction(
-                    "Editar movimientos"
+            "Editar"
+                )
+        export_action = menu.addAction(
+            "Exportar"
+                        )
+                
+        delete_action = menu.addAction(
+            "Borrar"
                 )
         action = menu.exec(
             self._table.viewport().mapToGlobal(position)
@@ -253,6 +256,12 @@ class HistoryView(QWidget):
             self.delete_requested.emit(
                 conversion_id
             )
+
+        elif action == export_action:
+        
+                    self.export_requested.emit(
+                        conversion_id
+                    )
 
         elif action == modify_action:
 

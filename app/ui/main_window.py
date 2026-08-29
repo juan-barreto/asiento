@@ -6,6 +6,7 @@ from PySide6.QtWidgets import (
 )
 
 from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import QMessageBox
 from app.utils.resource_path import resource_path
 
 from app.ui.widgets.sidebar import Sidebar
@@ -124,6 +125,13 @@ class MainWindow(QMainWindow):
 
         self._stacked_widget.setCurrentWidget(self._template_editor_view)
 
+    def show_error(self, message: str):
+        msg_box = QMessageBox(self)
+        msg_box.setWindowTitle("Error")
+        msg_box.setText(message)
+        msg_box.setIcon(QMessageBox.Critical)
+        msg_box.addButton("Aceptar", QMessageBox.AcceptRole)
+        msg_box.exec()
         
 if __name__ == "__main__":
 

@@ -19,6 +19,7 @@ class ExportView(QWidget):
 
     export_requested = Signal()
     cancel_requested = Signal()
+    create_template_requested = Signal()
     edit_template_requested = Signal(object)
     template_delete_requested = Signal(int)
 
@@ -95,7 +96,14 @@ class ExportView(QWidget):
             "Nombre del archivo"
         )
 
-    
+        self._create_button = QPushButton(
+            "+ Crear plantilla"
+        )
+
+        self._create_button.setObjectName(
+                    "createTemplateButton"
+                )
+
         self._edit_button = QPushButton(
             "Editar plantilla"
         )
@@ -246,8 +254,13 @@ class ExportView(QWidget):
         )
 
         button_layout.addWidget(
+            self._create_button
+        )
+
+        button_layout.addWidget(
             self._export_button
         )
+
 
         layout.addLayout(button_layout)
 
@@ -257,6 +270,10 @@ class ExportView(QWidget):
 
         self._export_button.clicked.connect(
             self.export_requested.emit
+        )
+
+        self._create_button.clicked.connect(
+            self.create_template_requested.emit
         )
 
         self._cancel_button.clicked.connect(
@@ -298,10 +315,10 @@ class ExportView(QWidget):
 
         return self._file_name_input.text().strip()
 
-    def load_templates(self, templates):
+    def load_templates(self, templates, selected_id=None):
 
         self._template_combo.clear()
-        
+
         self._template_combo.addItem(
             "Estándar",
             "default"
@@ -313,6 +330,17 @@ class ExportView(QWidget):
                 template["config"].name,
                 template["id"]
             )
+
+        if selected_id is not None:
+
+            index = self._template_combo.findData(
+                selected_id
+        )
+
+            if index != -1:
+                self._template_combo.setCurrentIndex(index)
+
+                
     def get_selected_template(self):
 
         return self._template_combo.currentData()
