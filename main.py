@@ -2,6 +2,7 @@ import sys
 from PySide6.QtWidgets import QApplication 
 from PySide6.QtGui import QIcon
 from app.utils.resource_path import resource_path
+from app.ui.widgets.splash_screen import SplashScreen
 
 from pathlib import Path
 
@@ -10,30 +11,50 @@ from app.controllers.main_controller import MainController
 
 # QApplication es el nucleo de mi app en Qt, maneja el loop de eventos (clicks, teclado ,etc
 def main():
-   app = QApplication(sys.argv)
-   app.setWindowIcon(
-    QIcon(
-        str(
-            resource_path("app/resources/icons/asiento.ico")
+    app = QApplication(sys.argv)
+
+    app.setWindowIcon(
+        QIcon(
+            str(
+                resource_path("resources/icons/asiento.ico")
+            )
         )
     )
-      )
 
-   qss_path = resource_path("app/resources/qss/style.qss")
+    splash = SplashScreen()
+    splash.show()
 
-   
-      
-   window = MainWindow()
+    app.processEvents()
 
-   controller = MainController(window)
+    splash.set_status("Cargando interfaz...")
+    splash.set_progress(30)
+    app.processEvents()
 
-   with open(qss_path, "r", encoding="utf-8") as f:
-         app.setStyleSheet(f.read())
+    qss_path = resource_path("resources/qss/style.qss")
 
-   window.show()
+    with open(qss_path, "r", encoding="utf-8") as f:
+        app.setStyleSheet(f.read())
 
-   # Este es el evento en prueba donde mantiene la app activa esperando los eventos, sino esta esto la ventana se abriria y cerraria instantaneamente 
-   sys.exit(app.exec())
+    splash.set_status("Inicializando ASIENTO...")
+    splash.set_progress(60)
+    app.processEvents()
+
+    window = MainWindow()
+
+    splash.set_status("Preparando aplicación...")
+    splash.set_progress(85)
+    app.processEvents()
+
+    controller = MainController(window)
+
+    splash.set_progress(100)
+    app.processEvents()
+
+    window.show()
+
+    splash.close()
+
+    sys.exit(app.exec())
 
 
 

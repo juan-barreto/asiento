@@ -73,10 +73,9 @@ class ExportView(QWidget):
             "exportCombo"
         )
 
-        self._format_combo.addItem(
-            "Excel (.xlsx)",
-            "xlsx"
-        )
+        self._format_combo.addItem("Excel (.xlsx)","xlsx")
+        self._format_combo.addItem("CSV (.csv)", "csv")
+        self._format_combo.addItem("Texto (.txt)", "txt")
 
       
 
@@ -130,8 +129,8 @@ class ExportView(QWidget):
         )
 
         self._delete_button = IconButton(
-        resource_path("app/resources/icons/tacho.png"),
-        resource_path("app/resources/icons/tacho_blanco.png")
+        resource_path("resources/icons/tacho.png"),
+        resource_path("resources/icons/tacho_blanco.png")
         )
         self._delete_button.setObjectName(
             "deleteTemplateButton"
@@ -348,7 +347,7 @@ class ExportView(QWidget):
     def get_selected_format(self):
 
         return self._format_combo.currentData()
-
+    
     def _delete_selected_template(self):
 
         template_id = self._template_combo.currentData()
@@ -356,17 +355,17 @@ class ExportView(QWidget):
         if not isinstance(template_id, int):
             return
 
-        reply = QMessageBox.question(
-            self,
-            "Eliminar plantilla",
-            "¿Estás seguro de que querés eliminar esta plantilla?",
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.No
-        )
+        message_box = QMessageBox(self)
+        message_box.setWindowTitle("Eliminar plantilla")
+        message_box.setText("¿Estás seguro de que querés eliminar esta plantilla?")
 
-        if reply != QMessageBox.Yes:
+        yes_button = message_box.addButton("Sí", QMessageBox.YesRole)
+        no_button = message_box.addButton("No", QMessageBox.NoRole)
+        message_box.setDefaultButton(no_button)
+
+        message_box.exec()
+
+        if message_box.clickedButton() != yes_button:
             return
 
-        self.template_delete_requested.emit(
-            template_id
-        )
+        self.template_delete_requested.emit(template_id)

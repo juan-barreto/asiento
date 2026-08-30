@@ -56,22 +56,6 @@ QPushButton {
     min-height: 32px;
 }
 
-/*QPushButton:hover {
-
-    background-color: #1D4ED8;
-}
-
-QPushButton:pressed {
-
-    background-color: #1E40AF;
-}
-
-QPushButton:disabled {
-
-    background-color: #505050;
-    color: #B0B0B0;
-}
-/*
 
 /* =========================================================
    SELECT BUTTON
@@ -392,66 +376,74 @@ QLabel#historySubtitle {
 
     font-size: 13px;
 }
-QPushButton#backHistoryButton{
+QPushButton#backReviewButton{
 
     background-color: #3F4A5A;
     color: white;
 }
 
-QPushButton#backHistoryButton:hover {
+QPushButton#backReviewButton:hover {
 
     background-color: #4B586A;
 }
 
-QPushButton#backHistoryButton:pressed {
+QPushButton#backReviewButton:pressed {
 
     background-color: #36404F;
 }
 
-QPushButton#saveHistoryButton{
+
+
+
+QPushButton#saveReviewButton{
 
     background-color: #2563EB;
     color: white;
 }
 
-QPushButton#saveHistoryButton:hover {
+QPushButton#saveReviewButton:hover {
 
     background-color: #1D4ED8;
 }
 
-QPushButton#saveHistoryButton:pressed {
+QPushButton#saveReviewButton:pressed {
 
     background-color: #1E40AF;
 }
 
-QPushButton#resetHistoryButton{
+
+
+
+QPushButton#resetReviewButton{
     background-color: #3F4A5A;
     color: white;
     
 }
 
-QPushButton#processButton:hover {
-    background-color: #4B586A;
-    
-}
+QPushButton#resetReviewButton:hover {
 
-QPushButton#processButton:pressed {
+    background-color:  #4B586A;
+}
+QPushButton#resetReviewButton:pressed {
+
     background-color: #36404F;
-    
 }
 
-QPushButton#pdfHistoryButton{
-    background-color: #ebc725;
+
+
+
+QPushButton#pdfReviewButton{
+    background-color: #c325eb;
     color: white;
 }
 
-QPushButton#pdfHistoryButton:hover {
+QPushButton#pdfReviewButton:hover{
 
-    background-color: #ebc725f1;
+    background-color: rgba(195, 37, 235, 0.93);
 }
 
-QPushButton#backHistoryButton:pressed {
-    background-color: #ebc725c2;
+QPushButton#pdfReviewButton:pressed{
+    background-color: rgba(195, 37, 235, 0.8);
     
 }
 
@@ -481,7 +473,7 @@ QTableWidget#reviewTable {
    ========================================================= */
 
 QWidget#sidebar {
-    background-image: url("app/resources/icons/background.png");
+    background-image: url("icons/background.png");
     background-repeat: no-repeat;
     background-position: center;
     background-origin: content;
@@ -695,6 +687,21 @@ QLineEdit#exportFileName:hover {
 
 QLineEdit#exportFileName:focus {
     border: 1px solid #2563EB;
+}
+
+QPushButton#createTemplateButton{
+    background-color: #2563EB;
+    color: white;
+
+}
+
+QPushButton#createTemplateButton:hover{
+    background-color: #1D4ED8;
+    
+}
+
+QPushButton#createTemplateButton:pressed{
+    background-color: #1E40AF;
 }
 
 /* ---------------------------------------------------------

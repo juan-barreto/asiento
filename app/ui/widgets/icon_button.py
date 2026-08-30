@@ -7,6 +7,7 @@ class IconButton(QPushButton):
         super().__init__(parent)
         self.normal_icon = QIcon(str(normal_icon))
         self.hover_icon = QIcon(str(hover_icon))
+        
         self.setIcon(self.normal_icon)
         self.setIconSize(QtCore.QSize(22, 22))
 

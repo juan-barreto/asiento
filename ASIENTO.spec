@@ -5,7 +5,10 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('app/resources', 'app/resources'),],
+    datas=[
+    ('app/resources/icons', 'resources/icons'),
+    ('app/resources/qss', 'resources/qss'),
+		],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -22,6 +25,7 @@ exe = EXE(
     [],
     exclude_binaries=True,
     name='ASIENTO',
+    icon='app/resources/icons/asiento.ico',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -32,7 +36,6 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['app\\resources\\icons\\asiento.ico'],
 )
 coll = COLLECT(
     exe,

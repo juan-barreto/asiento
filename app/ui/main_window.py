@@ -36,7 +36,7 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(
                     QIcon(
                         str(
-                            resource_path("app/resources/icons/asiento.ico")
+                            resource_path("resources/icons/asiento.ico")
                         )
                     )
                 )

@@ -16,6 +16,8 @@ from app.models.template import (
     AVAILABLE_COLUMNS
 )
 from app.exporters.xl_exporter import conversion_excel
+from app.exporters.csv_exporter import conversion_csv
+from app.exporters.txt_exporter import conversion_txt
 
 
 class MainController:
@@ -79,6 +81,9 @@ class MainController:
             self._open_review
         )
 
+        self._window._sidebar.export_requested.connect(
+            self._open_export_view
+            )
         
 
         self._window._export_view.export_requested.connect(
@@ -173,7 +178,7 @@ class MainController:
                 .keys()
             if key in AVAILABLE_COLUMNS
         ]
-
+        
         return TemplateConfig(
             name="Estándar",
             format="xlsx",
@@ -318,34 +323,48 @@ class MainController:
             self._window._export_view
             .get_selected_template()
         )
+        if selected_template in ("default", None):
+            config = self._create_default_template()
+        else:
+            config = self._database.get_template_by_id(selected_template)
 
-        # Por ahora la lógica de exportación queda
-        # separada de la creación/edición de plantillas.
+        if config is None:
+            QMessageBox.warning(
+                self._window,
+                "Plantilla requerida",
+                "Seleccioná una plantilla válida antes de exportar."
+            )
+            return
+
+
+        if selected_format == "xlsx":
+            file_filter = "Excel (*.xlsx)"
+        elif selected_format == "csv":
+            file_filter = "CSV (*.csv)"
+        elif selected_format == "txt":
+            file_filter = "Texto (*.txt)"
+        else:
+            file_filter = "Todos los archivos (*.*)"
 
         ruta, _ = QFileDialog.getSaveFileName(
             self._window,
             "Guardar archivo",
             f"{file_name}.{selected_format}",
-            "Excel (*.xlsx)"
+            file_filter
         )
 
         if not ruta:
             return
 
-        config = self._database.get_template_by_id(
-            selected_template
-        )
 
-        conversion_excel(
-            self._resultado,
-            ruta,
-            config,
-            callback=(
-                self._window
-                ._converter_view
-                .append_log
-            )
-        )
+        if selected_format == "xlsx":
+            conversion_excel(self._resultado, ruta, config, callback=self._window._converter_view.append_log)
+
+        elif selected_format == "csv":
+            conversion_csv(self._resultado, ruta, config, callback=self._window._converter_view.append_log)
+
+        elif selected_format == "txt":
+            conversion_txt(self._resultado, ruta, config, callback=self._window._converter_view.append_log)
 
     def _cancel_export(self):
 

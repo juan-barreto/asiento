@@ -7,6 +7,7 @@ from app.ui.widgets.animated_sidebar_btn import AnimatedSidebarButton
 class Sidebar(QWidget):
 
     navigate = Signal(int)
+    export_requested = Signal()
 
     def __init__(self):
         super().__init__()
@@ -36,7 +37,7 @@ class Sidebar(QWidget):
 
         self._btn_export.setObjectName("sidebarButton")
 
-        self._version = QLabel("v0.1.1")
+        self._version = QLabel("v0.2.1")
         self._version.setObjectName("sidebarVersion")
 
     def set_export_enabled(self, enabled: bool):
@@ -76,6 +77,6 @@ class Sidebar(QWidget):
 
         self._btn_converter.clicked.connect(lambda: self.navigate.emit(0))
         self._btn_history.clicked.connect(lambda: self.navigate.emit(2))
-        self._btn_export.clicked.connect(lambda: self.navigate.emit(3))
+        self._btn_export.clicked.connect(self.export_requested.emit)
         self._btn_settings.clicked.connect(lambda: self.navigate.emit(4))
         
