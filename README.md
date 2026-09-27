@@ -78,3 +78,7 @@ Juan Manuel Barreto
 Desarrollo de software | Python
 
 Portfolio: https://juan-barreto-portfolio.vercel.app/
+
+## Licencia
+
+Proyecto privado. Todos los derechos reservados. El código se publica con fines demostrativos y de portfolio.
