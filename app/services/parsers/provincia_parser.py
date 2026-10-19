@@ -151,5 +151,5 @@ if __name__ == "__main__":
     texto = extraccion_texto_por_pagina(pdf_path)
    
     for t in texto:
-        limpio = extraer_bloques_movimientos(t["text"])
+        limpio = extraer_bloques_provincia(t["text"])
         print(limpio)

@@ -32,3 +32,8 @@ dist/
 *.log
 .DS_Store
 Thumbs.db
+
+#prueba findtable
+
+/prueba/
+/app/services/5010613125_20260601_extractos.pdf
