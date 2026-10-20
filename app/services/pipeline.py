@@ -75,79 +75,10 @@ def procesar_extracto(pdf_path, callback=None):
  
                     
   
-        
-    """     
- 
-    
-    # PASO 4: Separar por confidence
-    seguros = [m for m in movimientos_limpios if m.get("confidence", 0) >= 0.7]
-    revisar = [m for m in movimientos_limpios if m.get("confidence", 0) < 0.7]
-    
-    # Mostrar resumen
-    log("\n" + "="*50)
-    log("RESUMEN FINAL")
-    log("="*50)
-    log(f"Movimientos confiables (≥70%): {len(seguros)}")
-    log(f"Requieren revisión (<70%):   {len(revisar)}")
-    log(f"Descartados:                   {len(movimientos_crudos) - len(movimientos_limpios)}")
-    log("="*50 + "\n")
-    
-    return {
-        "todos": movimientos_limpios,
-        "seguros": seguros,
-        "revisar": revisar,
-        "stats": {
-            "total_crudos": len(movimientos_crudos),
-            "total_validos": len(movimientos_limpios),
-            "total_seguros": len(seguros),
-            "total_revisar": len(revisar),
-            "tasa_exito": len(movimientos_limpios) / len(movimientos_crudos) if movimientos_crudos else 0
-        }
-    }
-
-
-def guardar_resultados(resultado, output_dir=".",callback=None):
    
-    def log(mensaje):
-        if callback:
-            callback(mensaje)
-        else:
-            print(mensaje)
-
-    import os
-    
-    # Crear directorio si no existe
-    os.makedirs(output_dir, exist_ok=True)
-    
-    # Guardar todos
-    with open(f"{output_dir}/movimientos_todos.json", "w", encoding="utf-8") as f:
-        json.dump(resultado["todos"], f, indent=2, ensure_ascii=False)
-    
-    # Guardar seguros
-    with open(f"{output_dir}/movimientos_seguros.json", "w", encoding="utf-8") as f:
-        json.dump(resultado["seguros"], f, indent=2, ensure_ascii=False)
-    
-    # Guardar para revisar
-    with open(f"{output_dir}/movimientos_revisar.json", "w", encoding="utf-8") as f:
-        json.dump(resultado["revisar"], f, indent=2, ensure_ascii=False)
-    
-    # Guardar stats
-    with open(f"{output_dir}/stats.json", "w", encoding="utf-8") as f:
-        json.dump(resultado["stats"], f, indent=2, ensure_ascii=False)
-    
-    log("Archivos guardados:")
-    log(f"  - {output_dir}/movimientos_todos.json")
-    log(f"  - {output_dir}/movimientos_seguros.json")
-    log(f"  - {output_dir}/movimientos_revisar.json")
-    log(f"  - {output_dir}/stats.json")
-
-"""
-# ==============================
-# MAIN
-# ==============================
 if __name__ == "__main__":
     # Ruta al PDF
-    pdf_path = r"C:\Users\Juan\Desktop\ASIENTO\app\services\Extracto_Cuentas_Galicia_2026_01_30.pdf"
+    pdf_path = r"C:\Users\Juan\Desktop\ASIENTO\app\services\5010613125_20260601_extractos.pdf"
     
     # Procesar
     resultado = procesar_extracto(pdf_path)

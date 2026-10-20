@@ -20,18 +20,16 @@ class Movimiento(BaseModel):
     saldo: float
     confidence: float = 0.0
 
-    @field_validator("saldo")
+"""   @field_validator("saldo")
     @classmethod
     def validar_saldo(cls, v):
 
         if v < 0:
             raise ValueError("Saldo inválido")
 
-        return v
+        return v"""
     
-        # v = valor del campo actual (ej: 100.0)
-        # values = otros campos ya validados (ej: {"debito": 100.0, "saldo": 500.0})
-        # field = info del campo actual (ej: "debito" o "credito")
+        
 class StatsPipeline(BaseModel):
 
     total_movimientos : int
