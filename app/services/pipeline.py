@@ -78,8 +78,8 @@ def procesar_extracto(pdf_path, callback=None):
    
 if __name__ == "__main__":
     # Ruta al PDF
-    pdf_path = r"C:\Users\Juan\Desktop\ASIENTO\app\services\5010613125_20260601_extractos.pdf"
-    
+    #pdf_path = r"C:\Users\Juan\Desktop\ASIENTO\app\services\5010613125_20260601_extractos.pdf"
+    pdf_path = r"C:\Users\Juan\Desktop\ASIENTO\app\services\2026-08-20_00720048002000598381.pdf"
     # Procesar
     resultado = procesar_extracto(pdf_path)
     print()

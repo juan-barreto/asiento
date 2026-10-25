@@ -24,7 +24,7 @@ class BaseBank:
 class Galicia(BaseBank):
       nombre = "Galicia"
 
-      keywords = ["RESUMEN DE CUENTA CORRIENTE EN PESOS","MOVIMIENTOS"]   
+      keywords = ["RESUMEN DE CUENTA CORRIENTE EN PESOS","CONSOLIDADO DE RETENCIÓN DE IMPUESTOS"]   
 
       parser = extraer_bloques_galicia
 
@@ -39,7 +39,9 @@ class Provincia(BaseBank):
 
 if __name__ == "__main__":
       
-    pdf_path = r"C:\Users\Juan\Desktop\ASIENTO\app\services\Extracto_Cuentas_Galicia_2026_01_30.pdf"
+    #pdf_path = r"C:\Users\Juan\Desktop\ASIENTO\app\services\Extracto_Cuentas_Galicia_2026_01_30.pdf"
+    pdf_path = r"C:\Users\Juan\Desktop\ASIENTO\app\services\2026-08-20_00720048002000598381.pdf"
+    #pdf_path = r"C:\Users\Juan\Desktop\ASIENTO\app\services\5010613125_20260601_extractos.pdf"
     textos = extraccion_texto_por_pagina(pdf_path)
     
     BANCOS = [

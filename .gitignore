@@ -36,4 +36,7 @@ Thumbs.db
 #prueba findtable
 
 /prueba/
-/app/services/5010613125_20260601_extractos.pdf
+
+#extractos de prueba
+
+/app/services/*.pdf
