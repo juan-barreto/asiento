@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from PySide6.QtCore import QThread
+from PySide6.QtCore import QThread,QObject
 from PySide6.QtWidgets import (
     QFileDialog,
     QMessageBox,
@@ -20,10 +20,10 @@ from app.exporters.csv_exporter import conversion_csv
 from app.exporters.txt_exporter import conversion_txt
 
 
-class MainController:
+class MainController(QObject):
 
     def __init__(self, window: MainWindow):
-
+        super().__init__()
         self._window = window
         self._database = Database()
 
@@ -102,7 +102,7 @@ class MainController:
             self._delete_template
         )
 
-        # NUEVO: crear plantilla
+       
         self._window._export_view.create_template_requested.connect(
             self._create_template
         )
@@ -134,8 +134,6 @@ class MainController:
             self._export_from_history
         )
 
-        
-    
         
 
         self._window._review_view.back.connect(
@@ -557,6 +555,8 @@ class MainController:
         self._worker.finished.connect(
             self._thread.quit
         )
+
+        self._worker.error.connect(self._thread.quit)
 
         self._thread.finished.connect(
             self._thread.deleteLater

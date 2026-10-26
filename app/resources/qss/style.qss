@@ -473,10 +473,6 @@ QTableWidget#reviewTable {
    ========================================================= */
 
 QWidget#sidebar {
-    background-image: url("icons/background.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-origin: content;
     background-color: #1E1E1E;
     border-right: 1px solid #303030;
 }
@@ -508,12 +504,6 @@ QPushButton#sidebarButton {
 
     font-weight: 700;
 
-}
-
-QPushButton#sidebarButton:disabled {
-    opacity: 0.45;
-    color: #777777;
-    cursor: default;
 }
 
 /* =========================================================

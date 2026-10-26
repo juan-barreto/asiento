@@ -201,7 +201,7 @@ class PdfViewerWidget(QWidget):
 
             image_format
 
-        )
+        ).copy()
 
         pixmap = QPixmap.fromImage(image)
 

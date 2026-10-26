@@ -51,10 +51,6 @@ class MainWindow(QMainWindow):
         self._central_widget.setObjectName("mainContent")
 
         self._sidebar = Sidebar()
-
-        self._stacked_widget = QStackedWidget()
-
-        self._sidebar = Sidebar()
         self._sidebar.setObjectName("sidebar")
 
         self._stacked_widget = QStackedWidget()
@@ -84,8 +80,6 @@ class MainWindow(QMainWindow):
         self._stacked_widget.addWidget(self._export_view)
         self._stacked_widget.addWidget(self._settings_view)
         self._stacked_widget.addWidget(self._template_editor_view)
-
-        
 
         
 
