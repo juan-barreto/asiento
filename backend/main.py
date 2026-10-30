@@ -1,42 +1,69 @@
-from fastapi import FastAPI, Query, File, UploadFile, HTTPException
+import os
+from tempfile import NamedTemporaryFile
+
+from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi.responses import FileResponse
+from starlette.background import BackgroundTask
+
 from backend.services.temp_files import temporal_file
+from backend.services.exporters.excel import exportar_excel
 from app.services.pipeline import procesar_extracto
+
 
 app = FastAPI(title="ASIENTO API")
 
-@app.get("/")
-def inicio():
-    return {"mensaje": "ASIENTO API funcionando"}
-
-
-@app.get("/extractos/{extracto_id}")
-def obtener_extracto(extracto_id: int):
-    return {
-        "extracto_id": extracto_id,
-        "mensaje": "Solicitud recibida correctamente"
-    }
-
-@app.get("/extractos")
-def lista_extractos(limite: int = Query(default=10, ge=1, le=100)):
-    return {"limite": limite}
-
-@app.post("/extractos")
-async def recibir_archivo(archivo: UploadFile = File(...)):
-
-    contenido = await archivo.read()
+async def _process_uploaded_statement(file: UploadFile):
+    contenido = await file.read()
 
     if not contenido.startswith(b"%PDF-"):
         raise HTTPException(
             status_code=400,
             detail="El archivo no parece ser un PDF válido"
         )
-    with temporal_file(contenido) as ruta:
-        resultado = procesar_extracto(ruta)
-        
+
+    try:
+        with temporal_file(contenido) as ruta:
+            resultado = procesar_extracto(ruta)
+
+    except ValueError as error:
+        raise HTTPException(
+            status_code=422,
+            detail=str(error)
+        ) from error
+
     return resultado
 
-"""{
-        "nombre": archivo.filename,
-        "tipo": archivo.content_type,
-        "tamaño" : len(contenido)
-    }"""
+@app.post("/statements")
+async def process_statement(file: UploadFile = File(...)):
+    resultado = await _process_uploaded_statement(file)
+    return resultado
+
+
+@app.post("/statements/export/excel")
+async def export_statement_excel(file: UploadFile = File(...)):
+    resultado = await _process_uploaded_statement(file)
+
+    temporal = NamedTemporaryFile(
+        suffix=".xlsx",
+        delete=False
+    )
+
+    ruta_excel = temporal.name
+    temporal.close()
+
+    try:
+        exportar_excel(resultado, ruta_excel)
+
+    except Exception:
+        os.unlink(ruta_excel)
+        raise
+
+    return FileResponse(
+        path=ruta_excel,
+        filename="asiento_movimientos.xlsx",
+        media_type=(
+            "application/vnd.openxmlformats-officedocument."
+            "spreadsheetml.sheet"
+        ),
+        background=BackgroundTask(os.unlink, ruta_excel),
+    )

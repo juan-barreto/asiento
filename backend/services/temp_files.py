@@ -21,7 +21,3 @@ def temporal_file(contenido: bytes):
 
 
 
-if __name__ is "__main__":
-
-    temp = temporal_file()
-

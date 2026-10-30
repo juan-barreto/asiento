@@ -28,7 +28,7 @@ class ActionBar(QWidget):
         self._btn_select_pdf = QPushButton("Seleccionar PDF")
         self._btn_process = QPushButton("Procesar")
         self._btn_review = QPushButton("Editar movimientos")
-        self._btn_export = QPushButton("Exportar Excel")
+        self._btn_export = QPushButton("Exportar")
 
         # QSS
         # ----------------------------------------------------
