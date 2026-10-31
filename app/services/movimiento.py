@@ -1,6 +1,6 @@
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field
 
 
 class MovimientoRaw(BaseModel):
@@ -20,14 +20,6 @@ class Movimiento(BaseModel):
     saldo: float
     confidence: float = 0.0
 
-"""   @field_validator("saldo")
-    @classmethod
-    def validar_saldo(cls, v):
-
-        if v < 0:
-            raise ValueError("Saldo inválido")
-
-        return v"""
     
         
 class StatsPipeline(BaseModel):

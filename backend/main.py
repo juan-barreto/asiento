@@ -9,10 +9,35 @@ from backend.services.temp_files import temporal_file
 from backend.services.exporters.excel import exportar_excel
 from backend.services.exporters.csv import exportar_csv
 from backend.services.exporters.txt import exportar_txt
+from backend.models.statements import StatementResponse, TransactionResponse, StatsResponse
 from app.services.pipeline import procesar_extracto
 
 
 app = FastAPI(title="ASIENTO API")
+
+def to_transaction_response(movimiento):
+    return TransactionResponse(
+            id= movimiento.id,
+            date= movimiento.fecha,
+            description= movimiento.descripcion,
+            detail= movimiento.detalle,
+            debit= movimiento.debito,
+            credit= movimiento.credito,
+            balance= movimiento.saldo,
+            confidence= movimiento.confidence
+            )
+def to_statement_response(resultado):
+    return StatementResponse(
+        bank=resultado.banco,
+        transactions=[to_transaction_response(movimiento) for movimiento in resultado.movimientos],
+        validated_transactions=[to_transaction_response(movimiento) for movimiento in resultado.seguros],
+        pending_review=[to_transaction_response(movimiento) for movimiento in resultado.revisar],
+        stats= StatsResponse(
+            total_movements= resultado.stats.total_movimientos,
+            total_validated_movements= resultado.stats.total_seguros,
+            total_pending_movements= resultado.stats.total_revisar
+        )
+    )
 
 async def _process_uploaded_statement(file: UploadFile):
     contenido = await file.read()
@@ -25,7 +50,8 @@ async def _process_uploaded_statement(file: UploadFile):
 
     try:
         with temporal_file(contenido) as ruta:
-            resultado = procesar_extracto(ruta)
+            resultado_pipeline= procesar_extracto(ruta)
+            
 
     except ValueError as error:
         raise HTTPException(
@@ -33,12 +59,12 @@ async def _process_uploaded_statement(file: UploadFile):
             detail=str(error)
         ) from error
 
-    return resultado
+    return resultado_pipeline
 
 @app.post("/statements")
 async def process_statement(file: UploadFile = File(...)):
     resultado = await _process_uploaded_statement(file)
-    return resultado
+    return to_statement_response(resultado)
 
 
 @app.post("/statements/export/excel")
