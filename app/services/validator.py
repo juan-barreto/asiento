@@ -16,21 +16,20 @@ def validar_movimientos(movimientos):
 
     for m in movimientos:
 
-    # 1. Validacion de estructura basica
 
         if not validar_estructura(m):
             continue
         
-    # 2. Normalizamos los datos
+   
 
         m = normalizar_movimiento(m)
 
-    # 3. Calcular el confidence
 
         m.confidence = calcular_confidence(m)
 
+        m.status = "validate" if m.confidence >= 0.7 else "pending_view"
 
-    # 4. Agregamos a la lista
+
         resultado.append(m)
 
 
@@ -99,10 +98,7 @@ def normalizar_fecha(fecha_str):
 
 
 def calcular_confidence(m):
-    """
-    Esta funcion nos da un indice de exito en la validacion de datos
-    
-    """
+  
     score = 1.0
 
     if not m.descripcion:

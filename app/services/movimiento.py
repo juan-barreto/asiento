@@ -19,6 +19,7 @@ class Movimiento(BaseModel):
     credito: float
     saldo: float
     confidence: float = 0.0
+    status: str = "pending_review"
 
     
         
