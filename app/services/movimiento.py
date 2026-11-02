@@ -30,6 +30,7 @@ class StatsPipeline(BaseModel):
     
 class ResultadoPipeline(BaseModel):
 
+    id: UUID = Field(default_factory=uuid4)
     banco : str
     movimientos: list[Movimiento]
     seguros : list[Movimiento]
